@@ -35,7 +35,7 @@ int main (int argc, char *argv[]) {
           {"report",  no_argument,       0, 'r'},
           {"file",    required_argument, 0, 'f'},
           {"percent", required_argument, 0, 'p'},
-          {"methods", required_argument, 0, 'm'},    
+          {"methods", required_argument, 0, 'm'},
           {"output",  required_argument, 0, 'o'},
           {0, 0, 0, 0}
         };
@@ -105,10 +105,9 @@ int main (int argc, char *argv[]) {
     }
 percentile = percentile ? percentile : 0.1;
 methods = methods ? methods : "d";
-printf("MODELS: %s", (filepath ? "assets/miserables.graphml" : strcat(ASSETS_PATH, filepath)));
+
 load_graph((filepath ? "assets/miserables.graphml" : strcat(ASSETS_PATH, filepath)));
 
 filter_graph(percentile, methods, (filepath ? "assets/miserables.graphml" : strcat(ASSETS_PATH, filepath)));
-printf("GRAPH FILTERED");
   return 0;
 }

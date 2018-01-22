@@ -10,5 +10,6 @@ install: borgreducer
 
 debug: borgreducer
 	gcc borg-reducer.c -g -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o borgreducer
-	
+
+.PHONY : clean
 clean:	rm -f borgreducer

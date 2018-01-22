@@ -7,6 +7,19 @@ when entering large files into gephi.
 
 ## Installation
 
+This library requires the [C Igraph Library](http://igraph.org/c/) and
+a c compiler [gcc](https://gcc.gnu.org/).
+
+You may want to check if the path you see in
+
+```brew info igraph
+```
+
+matches the value for IGRAPH_PATH in the Makefile
+(`/usr/local/Cellar/igraph/0.7.1_6/`).
+
+Then.
+
 ```git clone https://github.com/archivesunleashed/borg-reducer
 cd borg-reducer
 make
