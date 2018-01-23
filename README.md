@@ -10,6 +10,14 @@ when entering large files into gephi.
 This library requires the [C Igraph Library](http://igraph.org/c/) and
 a c compiler [gcc](https://gcc.gnu.org/).
 
+For Mac users,
+
+```brew install gcc
+brew install igraph
+```
+
+Should do the trick.
+
 You may want to check if the path you see in
 
 ```brew info igraph
