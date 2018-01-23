@@ -10,7 +10,7 @@
 igraph_t g;
 igraph_attribute_table_t att;
 
-int print_graph_attrs () {
+int print_graph_attrs (igraph_t *graph) {
   igraph_vector_t gtypes, vtypes, etypes;
   igraph_strvector_t gnames, vnames, enames;
   igraph_vector_init(&gtypes, 0);
@@ -19,7 +19,7 @@ int print_graph_attrs () {
   igraph_strvector_init(&gnames, 0);
   igraph_strvector_init(&vnames, 0);
   igraph_strvector_init(&enames, 0);
-  igraph_cattribute_list(&g, &gnames, &gtypes, &vnames, &vtypes,
+  igraph_cattribute_list(graph, &gnames, &gtypes, &vnames, &vtypes,
 			 &enames, &etypes);
   printf("Graph attributes: ");
     for (int i=0; i<igraph_strvector_size(&gnames); i++) {
@@ -36,6 +36,12 @@ int print_graph_attrs () {
     printf("%s (%i) ", STR(enames, i), (int)VECTOR(etypes)[i]);
     }
   printf("\n");
+  igraph_strvector_destroy(&enames);
+  igraph_strvector_destroy(&vnames);
+  igraph_strvector_destroy(&gnames);
+  igraph_vector_destroy(&etypes);
+  igraph_vector_destroy(&vtypes);
+  igraph_vector_destroy(&gtypes);
   return 0;
 }
 
@@ -58,32 +64,48 @@ double fix_percentile(double percentile) {
   return perc;
 }
 
-extern int filter_betweenness(int expectedsize){
+extern int calc_betweenness(igraph_t *graph){
+  printf("BETWEENNESS");
+  char *attr = "Betweenness";
+  int graphsize;
+  graphsize = igraph_vcount(graph);
+  printf("%i", graphsize);
+  igraph_vector_t v;
+  igraph_vector_init(&v, graphsize);
+  igraph_betweenness(graph, &v, igraph_vss_all(), 1, 0, 1);
+  SETVANV(graph, attr, &v);
+  print_graph_attrs(graph);
+  for (long i=0; i<graphsize; i++) {
+    printf("Vertex %li: ", i);
+    igraph_real_printf(VAN(graph, attr, i));
+    putchar(' ');
+    printf("\n");
+  }
   return 0;
 }
 
-extern int filter_pagerank(int expectedsize){
+extern int calc_pagerank(igraph_t *graph){
   return 0;
 }
 
-extern int filter_eigenvector(int expectedsize){
+extern int calc_eigenvector(igraph_t *graph){
   return 0;
 }
 
-extern int filter_clustering(int expectedsize){
+extern int calc_clustering(igraph_t *graph){
   return 0;
 }
 
-extern int filter_random(int expectedsize) {
+extern int calc_random(igraph_t *graph) {
   return 0;
 }
 
-extern int filter_degree(int expectedsize, char type) {
+extern int calc_degree(igraph_t *graph, char type) {
   char filtertype;
   char inorout;
   char *attr;
   int graphsize;
-
+  graphsize = igraph_vcount(graph);
   switch (type) {
     case 'i' :
       filtertype = IGRAPH_IN;
@@ -98,35 +120,24 @@ extern int filter_degree(int expectedsize, char type) {
       attr = "Degree";
   }
 
+  printf ("%c ", filtertype);
+
   /* new graph */
-  igraph_t graph;
-  igraph_copy(&graph, &g);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
 
   /* calculate degree */
-  igraph_degree(&g, &v, igraph_vss_all(), filtertype, IGRAPH_NO_LOOPS);
-  SETVANV(&g, attr, &v);
-  print_graph_attrs();
+  igraph_degree(graph, &v, igraph_vss_all(), filtertype, IGRAPH_NO_LOOPS);
+  SETVANV(graph, attr, &v);
+  print_graph_attrs(graph);
 
-  /* create igraph iterator */
-  igraph_vit_t vit;
-  igraph_vs_t vs;
-  igraph_vs_all(&vs);
-  igraph_vit_create(&graph, vs, &vit);
-
-  for (long i=0; i<igraph_vcount(&g); i++) {
+  for (long i=0; i<graphsize; i++) {
     printf("Vertex %li: ", i);
-	  igraph_real_printf(VAN(&g, attr, i));
+	  igraph_real_printf(VAN(graph, attr, i));
 	  putchar(' ');
     printf("\n");
   }
-
-  while (!IGRAPH_VIT_END(vit)) {
-    printf("GRAPH ITERATOR: %li", (long int) IGRAPH_VIT_GET(vit));
-  IGRAPH_VIT_NEXT(vit);
-  }
-  igraph_destroy(&graph);
+  igraph_vector_destroy(&v);
   return (0);
 }
 
@@ -171,21 +182,20 @@ extern int filter_graph(double percentile,
   int flag = 0;
   while (flag > -1) {
     switch (method[flag]) {
-      case 'b' : filter_betweenness(expectedsize);
+      case 'b' : calc_betweenness(&g);
       printf("BETWEENNESS \n");
       break;
-      case 'c' : filter_clustering(expectedsize);
+      case 'c' : calc_clustering(&g);
       printf("CLUSTERING \n");
       break;
-      case 'd' : printf("DEGREE \n");
-      case 'i' : printf("IN-DEGREE \n");
-      case 'o' : filter_degree(expectedsize, method[flag]);
-        printf("OUT-DEGREE \n");
+      case 'd' :
+      case 'i' :
+      case 'o' : calc_degree(&g, method[flag]);
       break;
-      case 'e' : filter_eigenvector(expectedsize);
+      case 'e' : calc_eigenvector(&g);
       printf("EIGENVECTOR \n");
       break;
-      case 'p' : filter_pagerank (expectedsize);
+      case 'p' : calc_pagerank (&g);
       printf("PAGE RANK \n");
       break;
       case '\0' :
@@ -199,4 +209,5 @@ extern int filter_graph(double percentile,
   igraph_destroy(&g);
   return 0;
 }
+
 #endif
