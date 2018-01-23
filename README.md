@@ -39,10 +39,12 @@ Once compiled use:
 `borgreducer --file {FILENAME} --percent {PERCENTAGE TO FILTER} --method {METHODS (see below)} --output {OUTPUT DIRECTORY}`
 --method is a string of characters representing the algorithms to apply to the filtering.
 
+a : authority
 b : betweenness
 c : clustering
 d : simple degree
 e : eigenvector
+h : hub
 i : in-degree
 o : out-degree
 p : pagerank

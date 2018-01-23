@@ -5,7 +5,8 @@
 #define BORG_REDUCER
 #define MAX_PERCENTILES 3
 #define MAX_METHODS 9
-#define ALL_METHODS 'bcdeioprw'
+#define ALL_METHODS 'abcdehioprw'
+#define PAGERANK_DAMPING 0.85
 
 igraph_t g;
 igraph_attribute_table_t att;
@@ -21,6 +22,7 @@ int print_graph_attrs (igraph_t *graph) {
   igraph_strvector_init(&enames, 0);
   igraph_cattribute_list(graph, &gnames, &gtypes, &vnames, &vtypes,
 			 &enames, &etypes);
+  /* vvvvv print graph attributes -- REMOVE LATER vvvvvvv */
   printf("Graph attributes: ");
     for (int i=0; i<igraph_strvector_size(&gnames); i++) {
       printf("%s (%i) ", STR(gnames, i), (int)VECTOR(gtypes)[i]);
@@ -36,6 +38,7 @@ int print_graph_attrs (igraph_t *graph) {
     printf("%s (%i) ", STR(enames, i), (int)VECTOR(etypes)[i]);
     }
   printf("\n");
+  /* ^^^^print graph attributes -- REMOVE LATER ^^^^^*/
   igraph_strvector_destroy(&enames);
   igraph_strvector_destroy(&vnames);
   igraph_strvector_destroy(&gnames);
@@ -81,14 +84,53 @@ extern int calc_betweenness(igraph_t *graph){
     putchar(' ');
     printf("\n");
   }
+  igraph_vector_destroy(&v);
   return 0;
 }
 
 extern int calc_pagerank(igraph_t *graph){
+  printf("Page Rank");
+  char *attr = "PageRank";
+  int graphsize;
+  graphsize = igraph_vcount(graph);
+  printf("%i", graphsize);
+  igraph_vector_t v;
+  igraph_vector_init(&v, graphsize);
+  igraph_pagerank(graph, IGRAPH_PAGERANK_ALGO_PRPACK, &v, 0,
+    igraph_vss_all(), 1, 0.85, 0, 0);
+  SETVANV(graph, attr, &v);
+  print_graph_attrs(graph);
+  for (long i=0; i<graphsize; i++) {
+    printf("Vertex %li: ", i);
+    igraph_real_printf(VAN(graph, attr, i));
+    putchar(' ');
+    printf("\n");
+  }
+  igraph_vector_destroy(&v);
   return 0;
 }
 
 extern int calc_eigenvector(igraph_t *graph){
+  printf("EIGENVECTOR");
+  char *attr = "PageRank";
+  igraph_arpack_options_t options;
+  igraph_arpack_options_init(&options);
+  int graphsize;
+  graphsize = igraph_vcount(graph);
+  printf("%i", graphsize);
+  igraph_vector_t v;
+  igraph_vector_init(&v, graphsize);
+  igraph_eigenvector_centrality(graph, &v, 0,
+    1, 1, 0, &options);
+  SETVANV(graph, attr, &v);
+  print_graph_attrs(graph);
+  for (long i=0; i<graphsize; i++) {
+    printf("Vertex %li: ", i);
+    igraph_real_printf(VAN(graph, attr, i));
+    putchar(' ');
+    printf("\n");
+  }
+  igraph_vector_destroy(&v);
   return 0;
 }
 
@@ -120,9 +162,6 @@ extern int calc_degree(igraph_t *graph, char type) {
       attr = "Degree";
   }
 
-  printf ("%c ", filtertype);
-
-  /* new graph */
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
 
@@ -144,6 +183,30 @@ extern int calc_degree(igraph_t *graph, char type) {
 extern int output_to_gexf (igraph_t *graph, FILE *outstream) {
   return (0);
 }
+
+extern int shrink (igraph_t *graph, int cutsize, char* attr) {
+  int graphsize;
+  graphsize = igraph_vcount(graph);
+  igraph_vector_t v;
+  igraph_vector_init(&v, graphsize);
+  for (long i=0; i<graphsize; i++) {
+    VECTOR(v)[i] = VAN(graph, attr, i);
+  }
+  igraph_vector_sort(&v);
+  for (long i=0; i<graphsize; i++) {
+    if (strcmp(attr, "Betweenness") || strcmp(attr, "PageRank") || strcmp(attr, "Eigenvector")) {
+      printf("VECTOR %f", (double)VECTOR(v)[i]);
+    }
+    else {
+      printf ("VECTOR %li", (long int)VECTOR(v)[i]);
+    }
+  }
+  printf( "CUT FROM %f", (double)VECTOR(v)[cutsize]);
+  igraph_vector_destroy(&v);
+  return 0;
+}
+
+
 
 /**
  * @brief Filters an igraph using one or more methods, and outputs graphs
@@ -169,34 +232,36 @@ extern int output_to_gexf (igraph_t *graph, FILE *outstream) {
  *
  * @return 0 unless an error is discovered
  */
+
 extern int filter_graph(double percentile,
     char *method, char *filename) {
   printf("FILTER %s", filename);
   int p;
-  int expectedsize;
+  int cutsize;
   double graphsize;
   graphsize = (double)igraph_vcount(&g);
   percentile = (percentile > 0.99) ? fix_percentile(percentile) : percentile;
-  expectedsize = round((double)graphsize * (1.0 - percentile));
+  cutsize = round((double)graphsize * percentile);
   /* Methods are */
+  /* TODO:  MOVE THIS TO A THE ALGORITHM FUNCTION */
   int flag = 0;
   while (flag > -1) {
     switch (method[flag]) {
       case 'b' : calc_betweenness(&g);
-      printf("BETWEENNESS \n");
+      shrink(&g, cutsize, "Betweenness");
       break;
       case 'c' : calc_clustering(&g);
-      printf("CLUSTERING \n");
       break;
       case 'd' :
       case 'i' :
       case 'o' : calc_degree(&g, method[flag]);
+      shrink(&g, cutsize, "Degree");
       break;
       case 'e' : calc_eigenvector(&g);
-      printf("EIGENVECTOR \n");
+      shrink(&g, cutsize, "Eigenvector");
       break;
       case 'p' : calc_pagerank (&g);
-      printf("PAGE RANK \n");
+      shrink(&g, cutsize, "PageRank");
       break;
       case '\0' :
       flag = -2;
