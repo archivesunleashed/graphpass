@@ -27,7 +27,7 @@ int write_graph(igraph_t *graph, char* output, char* method, char* filename) {
   }
   char path[150];
   char perc_as_string[3];
-  int perc = 77;
+  int perc = (int)percent;
   snprintf(perc_as_string, 3, "%d", perc);
   strcpy(path, output);
   strcat(path, filename);
@@ -367,12 +367,18 @@ extern int shrink (igraph_t *graph, int cutsize, char* attr) {
 
 extern int filter_graph(double percentile,
     char *method, char *filename) {
+
   printf("FILTER");
   int p;
   int cutsize;
   double graphsize;
   graphsize = (double)igraph_vcount(&g);
   percentile = (percentile > 0.99) ? fix_percentile(percentile) : percentile;
+  if ((percentile *100)> graphsize) {
+    printf ("The percentage you provided (%f) is greater than the number \n\
+    of nodes (%f) in the graph.  Select another percentage.", percentile, graphsize);
+    return 0;
+  }
   percent = percentile;
   cutsize = round((double)graphsize * percentile);
   /* Methods are */
