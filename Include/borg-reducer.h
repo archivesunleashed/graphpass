@@ -1,6 +1,12 @@
 #include "igraph.h"
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #ifndef BORG_REDUCER
 #define BORG_REDUCER
 #define MAX_PERCENTILES 3
@@ -10,6 +16,26 @@
 
 igraph_t g;
 igraph_attribute_table_t att;
+
+int write_graph(igraph_t *graph, char* output, double percent, char* method, char* filename) {
+  FILE *fp;
+  struct stat st = {0};
+  if (stat(output, &st) == -1) {
+    mkdir(output, 0700);
+  }
+  char path[150];
+  char perc_as_string[2];
+  int perc = (int)percent;
+  snprintf(perc_as_string, 2, "%d", perc);
+  strcpy(path, output);
+  strcat(path, filename);
+  strcat(path, perc_as_string);
+  strcat(path, method);
+  fp = fopen(path, "w");
+  igraph_write_graph_graphml(graph, fp, 1);
+  fclose(fp);
+  return 0;
+}
 
 int print_graph_attrs (igraph_t *graph) {
   igraph_vector_t gtypes, vtypes, etypes;
@@ -48,6 +74,26 @@ int print_graph_attrs (igraph_t *graph) {
   return 0;
 }
 
+static int rand_int(int n) {
+  int limit = RAND_MAX - RAND_MAX % n;
+  int rnd;
+  do {
+      rnd = rand();
+  }
+  while (rnd >= limit);
+  return rnd % n;
+}
+
+void shuffle(int *array, int n) {
+  int i, j, tmp;
+  for (i = n - 1; i > 0; i--) {
+      j = rand_int(i + 1);
+      tmp = array[j];
+      array[j] = array[i];
+      array[i] = tmp;
+   }
+}
+
 extern int load_graph (char* filename) {
   printf("%s", filename);
   igraph_i_set_attribute_table(&igraph_cattribute_table);
@@ -77,13 +123,14 @@ extern int calc_betweenness(igraph_t *graph){
   igraph_vector_init(&v, graphsize);
   igraph_betweenness(graph, &v, igraph_vss_all(), 1, 0, 1);
   SETVANV(graph, attr, &v);
+  /*
   print_graph_attrs(graph);
   for (long i=0; i<graphsize; i++) {
     printf("Vertex %li: ", i);
     igraph_real_printf(VAN(graph, attr, i));
     putchar(' ');
     printf("\n");
-  }
+  } */
   igraph_vector_destroy(&v);
   return 0;
 }
@@ -99,37 +146,37 @@ extern int calc_pagerank(igraph_t *graph){
   igraph_pagerank(graph, IGRAPH_PAGERANK_ALGO_PRPACK, &v, 0,
     igraph_vss_all(), 1, 0.85, 0, 0);
   SETVANV(graph, attr, &v);
+  /*
   print_graph_attrs(graph);
   for (long i=0; i<graphsize; i++) {
     printf("Vertex %li: ", i);
     igraph_real_printf(VAN(graph, attr, i));
     putchar(' ');
     printf("\n");
-  }
+  } */
   igraph_vector_destroy(&v);
   return 0;
 }
 
 extern int calc_eigenvector(igraph_t *graph){
-  printf("EIGENVECTOR");
-  char *attr = "PageRank";
+  char *attr = "Eigenvector";
   igraph_arpack_options_t options;
   igraph_arpack_options_init(&options);
   int graphsize;
   graphsize = igraph_vcount(graph);
-  printf("%i", graphsize);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
   igraph_eigenvector_centrality(graph, &v, 0,
     1, 1, 0, &options);
   SETVANV(graph, attr, &v);
   print_graph_attrs(graph);
+  /*
   for (long i=0; i<graphsize; i++) {
     printf("Vertex %li: ", i);
     igraph_real_printf(VAN(graph, attr, i));
     putchar(' ');
     printf("\n");
-  }
+  } */
   igraph_vector_destroy(&v);
   return 0;
 }
@@ -168,6 +215,7 @@ extern int calc_degree(igraph_t *graph, char type) {
   /* calculate degree */
   igraph_degree(graph, &v, igraph_vss_all(), filtertype, IGRAPH_NO_LOOPS);
   SETVANV(graph, attr, &v);
+  /*
   print_graph_attrs(graph);
 
   for (long i=0; i<graphsize; i++) {
@@ -175,7 +223,7 @@ extern int calc_degree(igraph_t *graph, char type) {
 	  igraph_real_printf(VAN(graph, attr, i));
 	  putchar(' ');
     printf("\n");
-  }
+  } */
   igraph_vector_destroy(&v);
   return (0);
 }
@@ -184,24 +232,96 @@ extern int output_to_gexf (igraph_t *graph, FILE *outstream) {
   return (0);
 }
 
+int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
+  char* output, char* attr) {
+  srand(time(NULL));
+  int graphsize = igraph_vcount(graph);
+  printf("CUTSIZE: %i", cutsize);
+  int check = 0;
+  int check2 = 0;
+  igraph_vector_t grands;
+  igraph_vs_t selector;
+  for (int i=0; i<graphsize; i++) {
+    if (VAN(graph, attr, i) < cutoff) {
+      ++check;
+    } else if (VAN(graph, attr, i) == cutoff){
+      ++check2;
+    }
+  }
+  double* cut;
+  for (int i=0; i<cutsize; i++) {
+    cut[i] = (double)cutsize+100;
+  }
+  int equal[check2];
+  igraph_t g2;
+  igraph_copy(graph, &g2);
+  /* if number of equals and less thans are all needed then just do the filter */
+  if ((check + check2) == cutsize) {
+    int index = 0;
+    for (long i=0; i<graphsize; i++) {
+      if (VAN(graph, attr, i) < cutoff) {
+        cut[index] = (double)i;
+      }
+      ++index;
+    }
+  } else {
+   /* means we have to randomize selection for val == cutoff */
+    int randoms = (cutsize - check);
+    printf ("WARNING :  Percentage resulted in ambiguous filtering.\n This means \
+      that %i values at cutoff point will be selected randomly.", randoms);
+    int index = 0;
+    int rands = 0;
+    for (long i=0; i<graphsize; i++) {
+      if (VAN(graph, attr, i) < cutoff) {
+        cut[index] = (double)i;
+        ++index;
+      } else if (VAN(graph, attr, i) == cutoff) {
+        equal[rands] = (double)i;
+        ++rands;
+        ++index;
+      }
+    }
+    /* second pass add items that equal the cutoff */
+    int ind = 0;
+    int randind = 0;
+    shuffle(equal, rands);
+    for (long i=0; i<cutsize; i++) {
+      if (cut[ind] == (double)(cutsize + 100)) {
+        cut[ind] = (double)equal[randind];
+        ++randind;
+      } else {
+        ++ind;
+      }
+    }
+  }
+  igraph_vector_view(&grands, cut, cutsize);
+  igraph_vs_vector(&selector, &grands);
+  igraph_delete_vertices(&g2, selector);
+  write_graph(&g2, "OUT/", 60.0, attr, "miserables");
+  igraph_vs_destroy(&selector);
+  igraph_destroy(&g2);
+  return 0;
+}
+
 extern int shrink (igraph_t *graph, int cutsize, char* attr) {
-  int graphsize;
-  graphsize = igraph_vcount(graph);
+  int graphsize = igraph_vcount(graph);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
+  long int cut;
   for (long i=0; i<graphsize; i++) {
     VECTOR(v)[i] = VAN(graph, attr, i);
   }
   igraph_vector_sort(&v);
   for (long i=0; i<graphsize; i++) {
     if (strcmp(attr, "Betweenness") || strcmp(attr, "PageRank") || strcmp(attr, "Eigenvector")) {
-      printf("VECTOR %f", (double)VECTOR(v)[i]);
+      cut =(double)VECTOR(v)[i];
     }
     else {
-      printf ("VECTOR %li", (long int)VECTOR(v)[i]);
+      cut = (long int)VECTOR(v)[i];
     }
   }
   printf( "CUT FROM %f", (double)VECTOR(v)[cutsize]);
+  create_filtered_graph(graph, VECTOR(v)[cutsize], cutsize, "OUT/", attr);
   igraph_vector_destroy(&v);
   return 0;
 }
@@ -235,7 +355,6 @@ extern int shrink (igraph_t *graph, int cutsize, char* attr) {
 
 extern int filter_graph(double percentile,
     char *method, char *filename) {
-  printf("FILTER %s", filename);
   int p;
   int cutsize;
   double graphsize;

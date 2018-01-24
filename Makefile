@@ -5,10 +5,10 @@ IGRAPH_LIB = $(IGRAPH_PATH)lib
 INCLUDE = ./Include/*.h
 DEPS = INCLUDE IGRAPH_INCLUDE
 
-install: borgreducer
+install: borg-reducer.c
 	gcc borg-reducer.c -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o borgreducer
 
-debug: borgreducer
+debug: borg-reducer.c
 	gcc borg-reducer.c -g -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o borgreducer
 
 .PHONY : clean
