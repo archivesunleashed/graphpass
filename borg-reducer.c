@@ -16,6 +16,7 @@ bool save;
 bool report;
 char* methods;
 char* filepath;
+char* pathfile;
 double percentile;
 char* output;
 
@@ -73,6 +74,7 @@ int main (int argc, char *argv[]) {
           break;
 
         case 'f':
+          printf("OPTARGE: %s", optarg);
           filepath = optarg ? optarg : "miserables.graphml";
           break;
 
@@ -107,11 +109,18 @@ percentile = percentile ? percentile : 0.1;
 methods = methods ? methods : "d";
 
 printf ("LOAD GRAPH");
+printf ("FILEPATH: %s", filepath);
+if (filepath) {
+  asprintf(&pathfile, "%s%s", ASSETS_PATH, filepath);
+}
+else {
+  pathfile = "assets/miserables.graphml";
+}
 
-load_graph(filepath ? strcat(ASSETS_PATH, filepath) : "assets/miserables.graphml");
+load_graph(pathfile);
 
 printf("FILTER GRAPH");
 
-filter_graph(percentile, methods, (filepath ? strcat(ASSETS_PATH, filepath) : "assets/miserables.graphml"));
+filter_graph(percentile, methods, pathfile);
   return 0;
 }

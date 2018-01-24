@@ -16,21 +16,24 @@
 
 igraph_t g;
 igraph_attribute_table_t att;
+int graphsize;
+double percent;
 
-int write_graph(igraph_t *graph, char* output, double percent, char* method, char* filename) {
+int write_graph(igraph_t *graph, char* output, char* method, char* filename) {
   FILE *fp;
   struct stat st = {0};
   if (stat(output, &st) == -1) {
     mkdir(output, 0700);
   }
   char path[150];
-  char perc_as_string[2];
-  int perc = (int)percent;
-  snprintf(perc_as_string, 2, "%d", perc);
+  char perc_as_string[3];
+  int perc = 77;
+  snprintf(perc_as_string, 3, "%d", perc);
   strcpy(path, output);
   strcat(path, filename);
   strcat(path, perc_as_string);
   strcat(path, method);
+  strcat(path, ".graphml");
   fp = fopen(path, "w");
   igraph_write_graph_graphml(graph, fp, 1);
   fclose(fp);
@@ -193,7 +196,7 @@ extern int calc_degree(igraph_t *graph, char type) {
   char filtertype;
   char inorout;
   char *attr;
-  int graphsize;
+
   graphsize = igraph_vcount(graph);
   switch (type) {
     case 'i' :
@@ -258,9 +261,9 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
   igraph_t g2;
   igraph_copy(&g2, graph);
   if (check == 0) {
-    printf ("WARNING :  Percentage resulted in ambiguous filtering. \
-      because no values were lower to cutoff point (only equal)\n This means \
-      that all values at cutoff point will be selected randomly.");
+    printf ("WARNING :  Percentage resulted in ambiguous filtering\n \
+because no values were lower than cutoff point %f (only equal to) This means\n \
+that all values at cutoff point will be selected randomly.\n", cutoff);
     int rands = 0;
     for (long i=0; i<graphsize; i++) {
       if (VAN(graph, attr, i) == cutoff) {
@@ -285,7 +288,7 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
    /* means we have to randomize selection for val == cutoff */
     int randoms = (cutsize - check);
     printf ("WARNING :  Percentage resulted in ambiguous filtering.\n This means \
-      that %i values at cutoff point will be selected randomly.", randoms);
+      that %i values at cutoff point will be selected randomly.\n", randoms);
     int index = 0;
     int rands = 0;
     for (long i=0; i<graphsize; i++) {
@@ -314,7 +317,7 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
   igraph_vector_view(&grands, cut, cutsize);
   igraph_vs_vector(&selector, &grands);
   igraph_delete_vertices(&g2, selector);
-  write_graph(&g2, "OUT/", 60.0, attr, "miserables");
+  write_graph(&g2, "OUT/", attr, "miserables");
   igraph_vs_destroy(&selector);
   igraph_destroy(&g2);
   return 0;
@@ -370,6 +373,7 @@ extern int filter_graph(double percentile,
   double graphsize;
   graphsize = (double)igraph_vcount(&g);
   percentile = (percentile > 0.99) ? fix_percentile(percentile) : percentile;
+  percent = percentile;
   cutsize = round((double)graphsize * percentile);
   /* Methods are */
   /* TODO:  MOVE THIS TO A THE ALGORITHM FUNCTION */
