@@ -248,15 +248,32 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
       ++check2;
     }
   }
-  double* cut;
+  printf("CHECK: %i", check);
+  printf("CHECK2: %i", check2);
+  double cut[cutsize];
   for (int i=0; i<cutsize; i++) {
     cut[i] = (double)cutsize+100;
   }
   int equal[check2];
   igraph_t g2;
-  igraph_copy(graph, &g2);
+  igraph_copy(&g2, graph);
+  if (check == 0) {
+    printf ("WARNING :  Percentage resulted in ambiguous filtering. \
+      because no values were lower to cutoff point (only equal)\n This means \
+      that all values at cutoff point will be selected randomly.");
+    int rands = 0;
+    for (long i=0; i<graphsize; i++) {
+      if (VAN(graph, attr, i) == cutoff) {
+        equal[rands] = i;
+        ++rands;
+      }
+    }
+    shuffle(equal, rands);
+    for (long i=0; i<cutsize; i++) {
+      cut[i] = equal[i];
+    }
+  } else if ((check + check2) == cutsize) {
   /* if number of equals and less thans are all needed then just do the filter */
-  if ((check + check2) == cutsize) {
     int index = 0;
     for (long i=0; i<graphsize; i++) {
       if (VAN(graph, attr, i) < cutoff) {
@@ -304,23 +321,15 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
 }
 
 extern int shrink (igraph_t *graph, int cutsize, char* attr) {
+  printf("SHRINK");
   int graphsize = igraph_vcount(graph);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
-  long int cut;
+  double cut;
   for (long i=0; i<graphsize; i++) {
     VECTOR(v)[i] = VAN(graph, attr, i);
   }
   igraph_vector_sort(&v);
-  for (long i=0; i<graphsize; i++) {
-    if (strcmp(attr, "Betweenness") || strcmp(attr, "PageRank") || strcmp(attr, "Eigenvector")) {
-      cut =(double)VECTOR(v)[i];
-    }
-    else {
-      cut = (long int)VECTOR(v)[i];
-    }
-  }
-  printf( "CUT FROM %f", (double)VECTOR(v)[cutsize]);
   create_filtered_graph(graph, VECTOR(v)[cutsize], cutsize, "OUT/", attr);
   igraph_vector_destroy(&v);
   return 0;
@@ -355,6 +364,7 @@ extern int shrink (igraph_t *graph, int cutsize, char* attr) {
 
 extern int filter_graph(double percentile,
     char *method, char *filename) {
+  printf("FILTER");
   int p;
   int cutsize;
   double graphsize;
@@ -367,6 +377,7 @@ extern int filter_graph(double percentile,
   while (flag > -1) {
     switch (method[flag]) {
       case 'b' : calc_betweenness(&g);
+      printf("BETWEENNESS");
       shrink(&g, cutsize, "Betweenness");
       break;
       case 'c' : calc_clustering(&g);
@@ -374,13 +385,10 @@ extern int filter_graph(double percentile,
       case 'd' :
       case 'i' :
       case 'o' : calc_degree(&g, method[flag]);
-      shrink(&g, cutsize, "Degree");
       break;
       case 'e' : calc_eigenvector(&g);
-      shrink(&g, cutsize, "Eigenvector");
       break;
       case 'p' : calc_pagerank (&g);
-      shrink(&g, cutsize, "PageRank");
       break;
       case '\0' :
       flag = -2;

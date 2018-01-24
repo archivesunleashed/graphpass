@@ -106,8 +106,12 @@ int main (int argc, char *argv[]) {
 percentile = percentile ? percentile : 0.1;
 methods = methods ? methods : "d";
 
-load_graph((filepath ? "assets/miserables.graphml" : strcat(ASSETS_PATH, filepath)));
+printf ("LOAD GRAPH");
 
-filter_graph(percentile, methods, (filepath ? "assets/miserables.graphml" : strcat(ASSETS_PATH, filepath)));
+load_graph(filepath ? strcat(ASSETS_PATH, filepath) : "assets/miserables.graphml");
+
+printf("FILTER GRAPH");
+
+filter_graph(percentile, methods, (filepath ? strcat(ASSETS_PATH, filepath) : "assets/miserables.graphml"));
   return 0;
 }
