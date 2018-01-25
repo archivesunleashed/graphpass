@@ -1,62 +1,87 @@
-# Borg::Reducer
+# Borg Reducer
 
-The Borg reducer is a helper library to filter networks and provide a default
-visualization output for Gephi.  It prevents the infamous "borg cube" result
-when entering large files into gephi.
+![borg reducer in action](https://user-images.githubusercontent.com/3834704/35356808-87152cf0-011f-11e8-9264-9c411ca16b3e.png)
 
+Borg Reducer is a helper library to filter networks and provide a default
+visualization output for [Gephi](https://gephi.org/). It prevents the infamous "borg cube" result
+when entering large files into Gephi, allowing you to work with ready-made
+network layouts.
 
 ## Installation
 
+### Dependencies 
+
 This library requires the [C Igraph Library](http://igraph.org/c/) and
-a c compiler [gcc](https://gcc.gnu.org/).
+a C compiler, such as [gcc](https://gcc.gnu.org/).
 
-For Mac users,
+For MacOS:
 
-```brew install gcc
+Using [brew](https://brew.sh/), the following commands will install dependencies:
+
+```
+brew install gcc
 brew install igraph
 ```
 
-Should do the trick.
+### Building
 
-You may want to check if the path you see in
+Clone the repository with:
 
-```brew info igraph
+```
+git clone https://github.com/archivesunleashed/borg-reducer
 ```
 
-matches the value for IGRAPH_PATH in the Makefile
-(`/usr/local/Cellar/igraph/0.7.1_6/`).
+Type 
 
-Then.
+```
+brew info igraph
+```
 
-```git clone https://github.com/archivesunleashed/borg-reducer
+and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is `/usr/local/Cellar/igraph/0.7.1_6/`.
+
+Then
+
+```
 cd borg-reducer
 make
 ```
 
 ## Usage
 
-Once compiled use:
-`borgreducer --file {FILENAME} --percent {PERCENTAGE TO FILTER} --method {METHODS (see below)} --output {OUTPUT DIRECTORY}`
---method is a string of characters representing the algorithms to apply to the filtering.
+Once compiled use the following command:
 
-a : authority
-b : betweenness
-c : clustering
-d : simple degree
-e : eigenvector
-h : hub
-i : in-degree
-o : out-degree
-p : pagerank
-r : random
-w : weighted degree
+```
+./borgreducer --file {FILENAME} --percent {PERCENTAGE TO FILTER} --method {METHODS (see below)} --output {OUTPUT DIRECTORY}`
+```
 
-In future, a feature to create a validity report will be produced for each method applied.
+You will pass options using the `--method` flag. The options can be seen below:
 
-## License
+* `a` : authority
+* `b` : betweenness
+* `c` : clustering
+* `d` : simple degree
+* `e` : eigenvector
+* `h` : hub
+* `i` : in-degree
+* `o` : out-degree
+* `p` : pagerank
+* `r` : random
+* `w` : weighted degree
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+For example: 
 
-## Code of Conduct
+```
+./borgreducer --percent 10 --methods "b"
+```
 
-Everyone interacting in the Borg::Reducer project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/archivesunleashed/borg-reducer/blob/master/CODE_OF_CONDUCT.md).
+Will filter the graph down by 10% and lay the network out using the betweenness function. It will find a `.graphml` file in `/assets` and output a new one to `/OUT`.
+
+In the future, a feature to create a validity report will be produced for each method applied.
+
+# License
+
+Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+# Acknowledgments
+
+This work is primarily supported by the [Andrew W. Mellon Foundation](https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock). Additional funding for the Toolkit has come from the U.S. National Science Foundation, Columbia University Library's Mellon-funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation's Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors.
