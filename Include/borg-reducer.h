@@ -16,7 +16,7 @@
 
 igraph_t g;
 igraph_attribute_table_t att;
-int graphsize;
+long int graphsize;
 double percent;
 
 int write_graph(igraph_t *graph, char* output, char* method, char* filename) {
@@ -98,7 +98,6 @@ void shuffle(int *array, int n) {
 }
 
 extern int load_graph (char* filename) {
-  printf("%s", filename);
   igraph_i_set_attribute_table(&igraph_cattribute_table);
   FILE *fp;
   fp = fopen(filename, "r");
@@ -117,11 +116,8 @@ double fix_percentile(double percentile) {
 }
 
 extern int calc_betweenness(igraph_t *graph){
-  printf("BETWEENNESS");
   char *attr = "Betweenness";
-  int graphsize;
-  graphsize = igraph_vcount(graph);
-  printf("%i", graphsize);
+  printf("%li", graphsize);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
   igraph_betweenness(graph, &v, igraph_vss_all(), 1, 0, 1);
@@ -139,11 +135,8 @@ extern int calc_betweenness(igraph_t *graph){
 }
 
 extern int calc_pagerank(igraph_t *graph){
-  printf("Page Rank");
   char *attr = "PageRank";
-  int graphsize;
-  graphsize = igraph_vcount(graph);
-  printf("%i", graphsize);
+  printf("%li", graphsize);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
   igraph_pagerank(graph, IGRAPH_PAGERANK_ALGO_PRPACK, &v, 0,
@@ -165,15 +158,15 @@ extern int calc_eigenvector(igraph_t *graph){
   char *attr = "Eigenvector";
   igraph_arpack_options_t options;
   igraph_arpack_options_init(&options);
-  int graphsize;
-  graphsize = igraph_vcount(graph);
+  printf("INITIALIZE");
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
+  printf("CALCULATE");
   igraph_eigenvector_centrality(graph, &v, 0,
     1, 1, 0, &options);
   SETVANV(graph, attr, &v);
-  print_graph_attrs(graph);
-  /*
+  /* print_graph_attrs(graph);
+
   for (long i=0; i<graphsize; i++) {
     printf("Vertex %li: ", i);
     igraph_real_printf(VAN(graph, attr, i));
@@ -196,8 +189,6 @@ extern int calc_degree(igraph_t *graph, char type) {
   char filtertype;
   char inorout;
   char *attr;
-
-  graphsize = igraph_vcount(graph);
   switch (type) {
     case 'i' :
       filtertype = IGRAPH_IN;
@@ -238,7 +229,6 @@ extern int output_to_gexf (igraph_t *graph, FILE *outstream) {
 int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
   char* output, char* attr) {
   srand(time(NULL));
-  int graphsize = igraph_vcount(graph);
   printf("CUTSIZE: %i", cutsize);
   int check = 0;
   int check2 = 0;
@@ -271,18 +261,20 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
         ++rands;
       }
     }
+    printf("SHUFFLE");
     shuffle(equal, rands);
     for (long i=0; i<cutsize; i++) {
       cut[i] = equal[i];
     }
-  } else if ((check + check2) == cutsize) {
+    printf("ASSIGN TO CUT");
+  } else if (check == cutsize) {
   /* if number of equals and less thans are all needed then just do the filter */
     int index = 0;
     for (long i=0; i<graphsize; i++) {
       if (VAN(graph, attr, i) < cutoff) {
         cut[index] = (double)i;
-      }
-      ++index;
+        ++index;
+      }  
     }
   } else {
    /* means we have to randomize selection for val == cutoff */
@@ -314,6 +306,7 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
       }
     }
   }
+
   igraph_vector_view(&grands, cut, cutsize);
   igraph_vs_vector(&selector, &grands);
   igraph_delete_vertices(&g2, selector);
@@ -324,8 +317,6 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
 }
 
 extern int shrink (igraph_t *graph, int cutsize, char* attr) {
-  printf("SHRINK");
-  int graphsize = igraph_vcount(graph);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
   double cut;
@@ -367,19 +358,18 @@ extern int shrink (igraph_t *graph, int cutsize, char* attr) {
 
 extern int filter_graph(double percentile,
     char *method, char *filename) {
-
-  printf("FILTER");
   int p;
   int cutsize;
-  double graphsize;
-  graphsize = (double)igraph_vcount(&g);
+  graphsize = (long int)igraph_vcount(&g);
   percentile = (percentile > 0.99) ? fix_percentile(percentile) : percentile;
-  if ((percentile *100)> graphsize) {
+  percent = percentile *100;
+  if (percent > graphsize) {
     printf ("The percentage you provided (%f) is greater than the number \n\
-    of nodes (%f) in the graph.  Select another percentage.", percentile, graphsize);
+    of nodes (%li) in the graph.  Select another percentage.", percent, graphsize);
     return 0;
   }
-  percent = percentile;
+  printf("PERCENTILE :  %f, PERCENT : %f", percentile, percent);
+
   cutsize = round((double)graphsize * percentile);
   /* Methods are */
   /* TODO:  MOVE THIS TO A THE ALGORITHM FUNCTION */
@@ -387,18 +377,24 @@ extern int filter_graph(double percentile,
   while (flag > -1) {
     switch (method[flag]) {
       case 'b' : calc_betweenness(&g);
-      printf("BETWEENNESS");
       shrink(&g, cutsize, "Betweenness");
       break;
       case 'c' : calc_clustering(&g);
       break;
-      case 'd' :
-      case 'i' :
-      case 'o' : calc_degree(&g, method[flag]);
+      case 'd' : calc_degree(&g, 'd');
+      shrink(&g, cutsize, "Degree");
+      break;
+      case 'i' : calc_degree(&g, 'i');
+      shrink(&g, cutsize, "Indegree");
+      break;
+      case 'o' : calc_degree(&g, 'o');
+      shrink(&g, cutsize, "Outdegree");
       break;
       case 'e' : calc_eigenvector(&g);
+      shrink(&g, cutsize, "Eigenvector");
       break;
       case 'p' : calc_pagerank (&g);
+      shrink(&g, cutsize, "PageRank");
       break;
       case '\0' :
       flag = -2;
