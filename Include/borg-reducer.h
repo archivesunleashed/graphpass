@@ -253,7 +253,7 @@ int layout_graph(igraph_t *graph, char layout) {
            &min, &max, &min, &max);
     break;
     default: igraph_layout_lgl(graph, &matrix,
-    150, gsize, gsize^2, 1.5, gsize^3, sqrt(gsize), -1);
+    150, gsize, gsize, 1.5, gsize^3, sqrt(gsize), -1);
            }
   igraph_matrix_get_col(&matrix, &x, 0);
   igraph_matrix_get_col(&matrix, &y, 1);
@@ -277,7 +277,7 @@ int set_size(igraph_t *graph, igraph_vector_t *v, int max) {
   igraph_vector_init(&min, gsize);
   igraph_vector_fill(&min, igraph_vector_min(&v2));
   igraph_vector_sub(&v2, &min);
-  scale = 100 / (igraph_vector_max(&v2) - igraph_vector_min(&v2));
+  scale = gsize / (igraph_vector_max(&v2) - igraph_vector_min(&v2));
   igraph_vector_scale(&v2, scale);
   SETVANV(graph, "size", &v2);
   return 0;
@@ -365,7 +365,7 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
   igraph_vector_view(&grands, cut, cutsize);
   igraph_vs_vector(&selector, &grands);
   igraph_delete_vertices(&g2, selector);
-  layout_graph(&g2, 'k');
+  layout_graph(&g2, 'l');
   calc_degree(&g2, 'd');
   calc_degree(&g2, 'i');
   calc_degree(&g2, 'o');
