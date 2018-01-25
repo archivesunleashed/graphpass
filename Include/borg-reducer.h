@@ -222,6 +222,67 @@ extern int calc_degree(igraph_t *graph, char type) {
   return (0);
 }
 
+int layout_graph(igraph_t *graph, char layout) {
+  igraph_matrix_t matrix;
+  long int gsize = (long int)igraph_vcount(graph);
+  igraph_vector_t x, y, min, max;
+  igraph_vector_init(&x, 0);
+  igraph_vector_init(&y, 0);
+  igraph_vector_init(&min, gsize);
+  igraph_vector_init(&max, gsize);
+  igraph_vector_fill(&min, -1000);
+  igraph_vector_fill(&max, 1000);
+  igraph_matrix_init(&matrix, gsize, 2);
+  switch (layout) {
+    case 'k' : igraph_layout_kamada_kawai(graph, &matrix,
+			       1000, gsize/0.5,
+			       10, 0.98,
+			       gsize, 0,
+			       &min,
+			       &max,
+			       &min,
+			       &max);
+    break;
+    case 'f' : igraph_layout_fruchterman_reingold(graph, &matrix,
+             500, gsize,
+             gsize^2,
+             1.5,
+             gsize^3,
+             0,
+             NULL,
+           &min, &max, &min, &max);
+    break;
+    default: igraph_layout_lgl(graph, &matrix,
+    150, gsize, gsize^2, 1.5, gsize^3, sqrt(gsize), -1);
+           }
+  igraph_matrix_get_col(&matrix, &x, 0);
+  igraph_matrix_get_col(&matrix, &y, 1);
+  igraph_vector_scale(&x, 100);
+  igraph_vector_scale(&y, 100);
+  SETVANV(graph, "x", &x);
+  SETVANV(graph, "y", &y);
+  igraph_vector_destroy(&x);
+  igraph_vector_destroy(&y);
+  igraph_matrix_destroy(&matrix);
+  return 0;
+}
+
+int set_size(igraph_t *graph, igraph_vector_t *v, int max) {
+  long int gsize = (long int)igraph_vcount(graph);
+  igraph_vector_t v2;
+  igraph_vector_t min;
+
+  double scale;
+  igraph_vector_copy(&v2, v);
+  igraph_vector_init(&min, gsize);
+  igraph_vector_fill(&min, igraph_vector_min(&v2));
+  igraph_vector_sub(&v2, &min);
+  scale = 100 / (igraph_vector_max(&v2) - igraph_vector_min(&v2));
+  igraph_vector_scale(&v2, scale);
+  SETVANV(graph, "size", &v2);
+  return 0;
+}
+
 extern int output_to_gexf (igraph_t *graph, FILE *outstream) {
   return (0);
 }
@@ -229,7 +290,6 @@ extern int output_to_gexf (igraph_t *graph, FILE *outstream) {
 int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
   char* output, char* attr) {
   srand(time(NULL));
-  printf("CUTSIZE: %i", cutsize);
   int check = 0;
   int check2 = 0;
   igraph_vector_t grands;
@@ -241,8 +301,6 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
       ++check2;
     }
   }
-  printf("CHECK: %i", check);
-  printf("CHECK2: %i", check2);
   double cut[cutsize];
   for (int i=0; i<cutsize; i++) {
     cut[i] = (double)cutsize+100;
@@ -261,12 +319,10 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
         ++rands;
       }
     }
-    printf("SHUFFLE");
     shuffle(equal, rands);
     for (long i=0; i<cutsize; i++) {
       cut[i] = equal[i];
     }
-    printf("ASSIGN TO CUT");
   } else if (check == cutsize) {
   /* if number of equals and less thans are all needed then just do the filter */
     int index = 0;
@@ -274,7 +330,7 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
       if (VAN(graph, attr, i) < cutoff) {
         cut[index] = (double)i;
         ++index;
-      }  
+      }
     }
   } else {
    /* means we have to randomize selection for val == cutoff */
@@ -306,17 +362,30 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
       }
     }
   }
-
   igraph_vector_view(&grands, cut, cutsize);
   igraph_vs_vector(&selector, &grands);
   igraph_delete_vertices(&g2, selector);
+  layout_graph(&g2, 'k');
+  calc_degree(&g2, 'd');
+  calc_degree(&g2, 'i');
+  calc_degree(&g2, 'o');
+  calc_betweenness (&g2);
+  calc_eigenvector (&g2);
+  calc_pagerank (&g2);
+
+  igraph_vector_t size;
+  igraph_vector_init(&size, cutsize);
+  VANV(&g2, "Degree", &size);
+  set_size(&g2, &size, 100);
+
   write_graph(&g2, "OUT/", attr, "miserables");
+  igraph_vector_destroy(&size);
   igraph_vs_destroy(&selector);
   igraph_destroy(&g2);
   return 0;
 }
 
-extern int shrink (igraph_t *graph, int cutsize, char* attr) {
+int shrink (igraph_t *graph, int cutsize, char* attr) {
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
   double cut;
