@@ -12,4 +12,5 @@ debug: borg-reducer.c
 	gcc borg-reducer.c -g -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o borgreducer
 
 .PHONY : clean
-clean:	rm -f borgreducer
+clean:
+	rm -f borgreducer
