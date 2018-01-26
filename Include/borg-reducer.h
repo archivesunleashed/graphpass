@@ -194,7 +194,7 @@ extern int calc_degree(igraph_t *graph, char type) {
 }
 
 int calc_modularity(igraph_t *graph) {
-  char* attr = "SpinGlassModularity";
+  char* attr = "WalkTrapModularity";
   igraph_vector_t v;
   igraph_vector_t classes;
   igraph_matrix_t merges;
