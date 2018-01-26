@@ -74,7 +74,6 @@ int main (int argc, char *argv[]) {
           break;
 
         case 'f':
-          printf("OPTARGE: %s", optarg);
           filepath = optarg ? optarg : "miserables.graphml";
           break;
 
@@ -116,6 +115,7 @@ if (filepath) {
 else {
   pathfile = "assets/miserables.graphml";
 }
+init(filepath, methods, output);
 
 load_graph(pathfile);
 

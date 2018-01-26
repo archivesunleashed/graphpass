@@ -16,8 +16,18 @@
 
 igraph_t g;
 igraph_attribute_table_t att;
+char* filename;
+char* method;
+char* output;
 long int graphsize;
 double percent;
+
+extern int init(char* file, char* meth, char* out) {
+  filename = file;
+  method = meth;
+  output = out;
+  return 0;
+}
 
 int write_graph(igraph_t *graph, char* output, char* method, char* filename) {
   FILE *fp;
@@ -122,14 +132,6 @@ extern int calc_betweenness(igraph_t *graph){
   igraph_vector_init(&v, graphsize);
   igraph_betweenness(graph, &v, igraph_vss_all(), 1, 0, 1);
   SETVANV(graph, attr, &v);
-  /*
-  print_graph_attrs(graph);
-  for (long i=0; i<graphsize; i++) {
-    printf("Vertex %li: ", i);
-    igraph_real_printf(VAN(graph, attr, i));
-    putchar(' ');
-    printf("\n");
-  } */
   igraph_vector_destroy(&v);
   return 0;
 }
@@ -142,14 +144,6 @@ extern int calc_pagerank(igraph_t *graph){
   igraph_pagerank(graph, IGRAPH_PAGERANK_ALGO_PRPACK, &v, 0,
     igraph_vss_all(), 1, 0.85, 0, 0);
   SETVANV(graph, attr, &v);
-  /*
-  print_graph_attrs(graph);
-  for (long i=0; i<graphsize; i++) {
-    printf("Vertex %li: ", i);
-    igraph_real_printf(VAN(graph, attr, i));
-    putchar(' ');
-    printf("\n");
-  } */
   igraph_vector_destroy(&v);
   return 0;
 }
@@ -158,21 +152,11 @@ extern int calc_eigenvector(igraph_t *graph){
   char *attr = "Eigenvector";
   igraph_arpack_options_t options;
   igraph_arpack_options_init(&options);
-  printf("INITIALIZE");
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
-  printf("CALCULATE");
   igraph_eigenvector_centrality(graph, &v, 0,
     1, 1, 0, &options);
   SETVANV(graph, attr, &v);
-  /* print_graph_attrs(graph);
-
-  for (long i=0; i<graphsize; i++) {
-    printf("Vertex %li: ", i);
-    igraph_real_printf(VAN(graph, attr, i));
-    putchar(' ');
-    printf("\n");
-  } */
   igraph_vector_destroy(&v);
   return 0;
 }
@@ -187,7 +171,6 @@ extern int calc_random(igraph_t *graph) {
 
 extern int calc_degree(igraph_t *graph, char type) {
   char filtertype;
-  char inorout;
   char *attr;
   switch (type) {
     case 'i' :
@@ -202,24 +185,29 @@ extern int calc_degree(igraph_t *graph, char type) {
       filtertype = IGRAPH_ALL;
       attr = "Degree";
   }
-
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
-
-  /* calculate degree */
   igraph_degree(graph, &v, igraph_vss_all(), filtertype, IGRAPH_NO_LOOPS);
   SETVANV(graph, attr, &v);
-  /*
-  print_graph_attrs(graph);
-
-  for (long i=0; i<graphsize; i++) {
-    printf("Vertex %li: ", i);
-	  igraph_real_printf(VAN(graph, attr, i));
-	  putchar(' ');
-    printf("\n");
-  } */
   igraph_vector_destroy(&v);
   return (0);
+}
+
+int calc_modularity(igraph_t *graph) {
+  char* attr = "SpinGlassModularity";
+  igraph_vector_t v;
+  igraph_vector_t classes;
+  igraph_matrix_t merges;
+  igraph_vector_init(&classes, 0);
+  igraph_vector_init(&v, 0);
+  igraph_matrix_init(&merges, 0, 0);
+  igraph_community_walktrap(graph, 0 /* no weights */, 4 /* steps */, &merges,
+      &v, &classes);
+  SETVANV(graph, attr, &classes);
+  igraph_vector_destroy(&v);
+  igraph_matrix_destroy(&merges);
+  igraph_vector_destroy(&classes);
+  return 0;
 }
 
 int layout_graph(igraph_t *graph, char layout) {
@@ -294,15 +282,16 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
   int check2 = 0;
   igraph_vector_t grands;
   igraph_vs_t selector;
-  for (int i=0; i<graphsize; i++) {
+  for (long int i=0; i<graphsize; i++) {
     if (VAN(graph, attr, i) < cutoff) {
       ++check;
     } else if (VAN(graph, attr, i) == cutoff){
       ++check2;
     }
   }
+  printf("CHECK %d -- CHECK2 %d", check, check2);
   double cut[cutsize];
-  for (int i=0; i<cutsize; i++) {
+  for (long int i=0; i<cutsize; i++) {
     cut[i] = (double)cutsize+100;
   }
   int equal[check2];
@@ -313,20 +302,20 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
 because no values were lower than cutoff point %f (only equal to) This means\n \
 that all values at cutoff point will be selected randomly.\n", cutoff);
     int rands = 0;
-    for (long i=0; i<graphsize; i++) {
+    for (long int i=0; i<graphsize; i++) {
       if (VAN(graph, attr, i) == cutoff) {
         equal[rands] = i;
         ++rands;
       }
     }
     shuffle(equal, rands);
-    for (long i=0; i<cutsize; i++) {
+    for (long int i=0; i<cutsize; i++) {
       cut[i] = equal[i];
     }
   } else if (check == cutsize) {
   /* if number of equals and less thans are all needed then just do the filter */
     int index = 0;
-    for (long i=0; i<graphsize; i++) {
+    for (long int i=0; i<graphsize; i++) {
       if (VAN(graph, attr, i) < cutoff) {
         cut[index] = (double)i;
         ++index;
@@ -336,27 +325,27 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
    /* means we have to randomize selection for val == cutoff */
     int randoms = (cutsize - check);
     printf ("WARNING :  Percentage resulted in ambiguous filtering.\n This means \
-      that %i values at cutoff point will be selected randomly.\n", randoms);
+      that %i values at cutoff point %f will be selected randomly.\n", randoms, cutoff);
     int index = 0;
     int rands = 0;
-    for (long i=0; i<graphsize; i++) {
+    for (long int i=0; i<graphsize; i++) {
       if (VAN(graph, attr, i) < cutoff) {
         cut[index] = (double)i;
         ++index;
       } else if (VAN(graph, attr, i) == cutoff) {
         equal[rands] = (double)i;
         ++rands;
-        ++index;
       }
     }
     /* second pass add items that equal the cutoff */
     int ind = 0;
     int randind = 0;
     shuffle(equal, rands);
-    for (long i=0; i<cutsize; i++) {
+    for (long int i=0; i<cutsize; i++) {
       if (cut[ind] == (double)(cutsize + 100)) {
         cut[ind] = (double)equal[randind];
         ++randind;
+        ++ind;
       } else {
         ++ind;
       }
@@ -365,20 +354,21 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
   igraph_vector_view(&grands, cut, cutsize);
   igraph_vs_vector(&selector, &grands);
   igraph_delete_vertices(&g2, selector);
-  layout_graph(&g2, 'l');
+  layout_graph(&g2, 'f');
   calc_degree(&g2, 'd');
   calc_degree(&g2, 'i');
   calc_degree(&g2, 'o');
   calc_betweenness (&g2);
   calc_eigenvector (&g2);
   calc_pagerank (&g2);
+  calc_modularity(&g2);
 
   igraph_vector_t size;
   igraph_vector_init(&size, cutsize);
   VANV(&g2, "Degree", &size);
   set_size(&g2, &size, 100);
 
-  write_graph(&g2, "OUT/", attr, "miserables");
+  write_graph(&g2, output, attr, filename);
   igraph_vector_destroy(&size);
   igraph_vs_destroy(&selector);
   igraph_destroy(&g2);
