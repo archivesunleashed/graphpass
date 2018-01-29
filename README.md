@@ -71,10 +71,10 @@ You will pass options using the `--method` flag. The options can be seen below:
 For example: 
 
 ```
-./borgreducer --percent 10 --methods "b"
+./borgreducer --percent 10 --methods "b" --file links-for-gephi.graphml
 ```
 
-Will filter the graph down by 10% and lay the network out using the betweenness function. It will find a `.graphml` file in `/assets` and output a new one to `/OUT`.
+Will filter the graph down by 10% and lay the network out using the betweenness function. It will find `links-for-gephi.graphml` file in `/assets` and output a new one to `/OUT` (titled `links-for-gephi.graphml10Betweenness.graphml`).
 
 In the future, a feature to create a validity report will be produced for each method applied.
 
