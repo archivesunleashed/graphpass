@@ -259,13 +259,12 @@ int set_size(igraph_t *graph, igraph_vector_t *v, int max) {
   long int gsize = (long int)igraph_vcount(graph);
   igraph_vector_t v2;
   igraph_vector_t min;
-
   double scale;
   igraph_vector_copy(&v2, v);
   igraph_vector_init(&min, gsize);
   igraph_vector_fill(&min, igraph_vector_min(&v2));
   igraph_vector_sub(&v2, &min);
-  scale = gsize / (igraph_vector_max(&v2) - igraph_vector_min(&v2));
+  scale = log10(gsize / (igraph_vector_max(&v2) - igraph_vector_min(&v2)));
   igraph_vector_scale(&v2, scale);
   SETVANV(graph, "size", &v2);
   return 0;
