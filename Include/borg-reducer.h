@@ -22,11 +22,107 @@ char* output;
 long int graphsize;
 double percent;
 
+
 extern int init(char* file, char* meth, char* out) {
   filename = file;
   method = meth;
   output = out;
   return 0;
+}
+
+int colours (igraph_t *graph) {
+  /* Has modularity been set? */
+  char* attr = "WalkTrapModularity";
+  igraph_vector_t r, g, b;
+  int gsize = (long int)igraph_vcount(graph);
+  igraph_vector_init(&r, gsize);
+  igraph_vector_init(&g, gsize);
+  igraph_vector_init(&b, gsize);
+  /* Set RGB values based on WalkTrapModularity membership */
+  for (long int i=0; i<gsize; i++) {
+    switch ((int)VAN(graph, attr, i)) {
+      case 0 :
+        VECTOR(r)[i] = 35;
+        VECTOR(g)[i] = 217;
+        VECTOR(b)[i] = 211;
+      break;
+      case 1 :
+        VECTOR(r)[i] = 217;
+        VECTOR(g)[i] = 80;
+        VECTOR(b)[i] = 35;
+      break;
+      case 2 :
+        VECTOR(r)[i] = 35;
+        VECTOR(g)[i] = 217;
+        VECTOR(b)[i] = 211;
+      break;
+      case 3 :
+        VECTOR(r)[i] = 123;
+        VECTOR(g)[i] = 35;
+        VECTOR(b)[i] = 217;
+      break;
+      case 4 :
+        VECTOR(r)[i] = 219;
+        VECTOR(g)[i] = 59;
+        VECTOR(b)[i] = 147;
+      break;
+      case 5 :
+        VECTOR(r)[i] = 59;
+        VECTOR(g)[i] = 217;
+        VECTOR(b)[i] = 209;
+      break;
+      case 6 :
+        VECTOR(r)[i] = 67;
+        VECTOR(g)[i] = 217;
+        VECTOR(b)[i] = 59;
+      break;
+      case 7 :
+        VECTOR(r)[i] = 217;
+        VECTOR(g)[i] = 120;
+        VECTOR(b)[i] = 189;
+      break;
+      case 8 :
+        VECTOR(r)[i] = 120;
+        VECTOR(g)[i] = 219;
+        VECTOR(b)[i] = 180;
+      break;
+      case 9 :
+        VECTOR(r)[i] = 120;
+        VECTOR(g)[i] = 189;
+        VECTOR(b)[i] = 219;
+      break;
+      case 10 :
+        VECTOR(r)[i] = 217;
+        VECTOR(g)[i] = 150;
+        VECTOR(b)[i] = 120;
+      break;
+      /* Can add more here if desired, but assume that the first 10 collected
+         membership groups will be the biggest */
+      default:
+        VECTOR(r)[i] = 217;
+        VECTOR(g)[i] = 219;
+        VECTOR(b)[i] = 219;
+    }
+  }
+  SETVANV(graph, "r", &r);
+  SETVANV(graph, "g", &g);
+  SETVANV(graph, "b", &b);
+  igraph_vector_destroy(&r);
+  igraph_vector_destroy(&g);
+  igraph_vector_destroy(&b);
+  return 0;
+}
+
+int strip_ext(char *fname)
+{
+    char *end = fname + strlen(fname);
+    while (end > fname && *end != '.' && *end != '\\' && *end != '/') {
+        --end;
+    }
+    if (end > fname && *end == '.') {
+        *end = '\0';
+    }
+    return 0;
 }
 
 int write_graph(igraph_t *graph, char* output, char* method, char* filename) {
@@ -38,6 +134,7 @@ int write_graph(igraph_t *graph, char* output, char* method, char* filename) {
   char path[150];
   char perc_as_string[3];
   int perc = (int)percent;
+  strip_ext(filename);
   snprintf(perc_as_string, 3, "%d", perc);
   strcpy(path, output);
   strcat(path, filename);
@@ -361,6 +458,7 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
   calc_eigenvector (&g2);
   calc_pagerank (&g2);
   calc_modularity(&g2);
+  colours(&g2);
 
   igraph_vector_t size;
   igraph_vector_init(&size, cutsize);
