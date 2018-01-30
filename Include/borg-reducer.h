@@ -330,9 +330,9 @@ int layout_graph(igraph_t *graph, char layout) {
     break;
     case 'f' : igraph_layout_fruchterman_reingold(graph, &matrix,
              500, gsize,
-             gsize^2,
+             30 * gsize^2,
              1.5,
-             gsize^3,
+             30 * gsize^3,
              0,
              NULL,
            &min, &max, &min, &max);
