@@ -233,6 +233,32 @@ extern int calc_betweenness(igraph_t *graph){
   return 0;
 }
 
+extern int calc_authority(igraph_t *graph){
+  char *attr = "Authority";
+  printf("%li", graphsize);
+  igraph_arpack_options_t options;
+  igraph_arpack_options_init(&options);
+  igraph_vector_t v;
+  igraph_vector_init(&v, graphsize);
+  igraph_authority_score(graph, &v, NULL, 1, 0, &options);
+  SETVANV(graph, attr, &v);
+  igraph_vector_destroy(&v);
+  return 0;
+}
+
+extern int calc_hub(igraph_t *graph){
+  char *attr = "Hub";
+  printf("%li", graphsize);
+  igraph_arpack_options_t options;
+  igraph_arpack_options_init(&options);
+  igraph_vector_t v;
+  igraph_vector_init(&v, graphsize);
+  igraph_hub_score(graph, &v, NULL, 1, 0, &options);
+  SETVANV(graph, attr, &v);
+  igraph_vector_destroy(&v);
+  return 0;
+}
+
 extern int calc_pagerank(igraph_t *graph){
   char *attr = "PageRank";
   printf("%li", graphsize);
@@ -304,6 +330,22 @@ int calc_modularity(igraph_t *graph) {
   igraph_vector_destroy(&v);
   igraph_matrix_destroy(&merges);
   igraph_vector_destroy(&classes);
+  return 0;
+}
+
+int centralization(igraph_t *graph, char* attr) {
+  long int gsize = (long int)igraph_vcount(graph);
+  int maximum = (int) (gsize * (gsize -1))/2;
+  igraph_vector_t scores;
+  char gattr[150];
+  strcpy(gattr, "centralization");
+  strcat(gattr, attr);
+  igraph_vector_init (&scores, graphsize);
+  VANV(graph, attr, &scores);
+  igraph_real_t results = 0.0;
+  results = igraph_centralization(&scores, maximum, 1);
+  SETGAN(graph, gattr, results);
+  igraph_vector_destroy(&scores);
   return 0;
 }
 
@@ -459,29 +501,125 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
   calc_pagerank (&g2);
   calc_modularity(&g2);
   colours(&g2);
-
   igraph_vector_t size;
   igraph_vector_init(&size, cutsize);
+  igraph_vector_t ideg;
+  igraph_vector_t odeg;
+  igraph_vector_init(&ideg, cutsize);
+  igraph_vector_init(&odeg, cutsize);
   VANV(&g2, "Degree", &size);
+  VANV(&g2, "Indegree", &ideg);
+  VANV(&g2, "Outdegree", &odeg);
   set_size(&g2, &size, 100);
+  centralization(&g2, "Betweenness");
+  centralization(&g2, "PageRank");
+  centralization(&g2, "Degree");
+  centralization(&g2, "Eigenvector");
+  igraph_real_t pathl, cluster, assort, dens, recip;
+  igraph_integer_t dia;
+  igraph_average_path_length(graph, &pathl, 1, 1);
+  igraph_diameter(&g2, &dia, NULL, NULL, NULL ,1, 1);
 
+  igraph_transitivity_undirected(&g, &cluster, IGRAPH_TRANSITIVITY_ZERO);
+  igraph_assortativity(&g2, &ideg, &odeg, &assort, 1);
+  igraph_density(&g2, &dens, 0);
+  igraph_reciprocity(&g2, &recip, 1, IGRAPH_RECIPROCITY_DEFAULT);
+  SETGAN(&g2, "AVG_PATH_LENGTH", pathl);
+  SETGAN(&g2, "DIAMETER", dia);
+  SETGAN(&g2, "OVERALL_CLUSTERING", cluster);
+  SETGAN(&g2, "ASSORTATIVITY", assort);
+  SETGAN(&g2, "DENSITY", dens);
+  SETGAN(&g2, "RECIPROCITY", recip);
   write_graph(&g2, output, attr, filename);
   igraph_vector_destroy(&size);
+  igraph_vector_destroy(&ideg);
+  igraph_vector_destroy(&odeg);
   igraph_vs_destroy(&selector);
   igraph_destroy(&g2);
   return 0;
 }
 
+
+
 int shrink (igraph_t *graph, int cutsize, char* attr) {
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
-  double cut;
   for (long i=0; i<graphsize; i++) {
     VECTOR(v)[i] = VAN(graph, attr, i);
   }
   igraph_vector_sort(&v);
   create_filtered_graph(graph, VECTOR(v)[cutsize], cutsize, "OUT/", attr);
   igraph_vector_destroy(&v);
+  return 0;
+}
+
+int centralities (igraph_t *graph, char* method, int cutsize) {
+  calc_authority(graph);
+  calc_betweenness(graph);
+  calc_degree(graph, 'd');
+  calc_hub(graph);
+  calc_degree(graph, 'i');
+  calc_degree(graph, 'o');
+  calc_eigenvector(graph);
+  calc_pagerank (graph);
+  igraph_real_t pathl, cluster, assort, dens, recip;
+  igraph_integer_t dia;
+  igraph_vector_t mod;
+  igraph_vector_init (&mod, graphsize);
+  igraph_average_path_length(graph, &pathl, 1, 1);
+  igraph_diameter(graph, &dia, NULL, NULL, NULL ,1, 1);
+  igraph_transitivity_undirected(graph, &cluster, IGRAPH_TRANSITIVITY_ZERO);
+  calc_modularity(graph);
+  VANV(graph, "WalkTrapModularity", &mod);
+  igraph_assortativity_nominal(graph, &mod, &assort, 1);
+  igraph_density(graph, &dens, 0);
+  igraph_reciprocity(graph, &recip, 1, IGRAPH_RECIPROCITY_DEFAULT);
+  SETGAN(graph, "AVG_PATH_LENGTH", pathl);
+  SETGAN(graph, "DIAMETER", dia);
+  SETGAN(graph, "OVERALL_CLUSTERING", cluster);
+  SETGAN(graph, "ASSORTATIVITY", assort);
+  SETGAN(graph, "DENSITY", dens);
+  SETGAN(graph, "RECIPROCITY", recip);
+  centralization(graph, "Authority");
+  centralization(graph, "Betweenness");
+  centralization(graph, "Degree");
+  centralization(graph, "Hub");
+  centralization(graph, "Indegree");
+  centralization(graph, "Outdegree");
+  centralization(graph, "Eigenvector");
+  centralization(graph, "PageRank");
+  igraph_vector_destroy(&mod);
+
+  int flag = 0;
+  while (flag > -1) {
+    switch (method[flag]) {
+      case 'a' : shrink(graph, cutsize, "Authority");
+      break;
+      case 'b' : shrink(graph, cutsize, "Betweenness");
+      break;
+      case 'c' : shrink(graph, cutsize, "Clustering");
+      break;
+      case 'd' : shrink(graph, cutsize, "Degree");
+      break;
+      case 'h' : shrink(graph, cutsize, "Hub");
+      break;
+      case 'i' : shrink(graph, cutsize, "Indegree");
+      break;
+      case 'o' : shrink(graph, cutsize, "Outdegree");
+      break;
+      case 'e' : shrink(graph, cutsize, "Eigenvector");
+      break;
+      case 'p' : shrink(graph, cutsize, "PageRank");
+      break;
+      case '\0' :
+      flag = -2;
+      break;
+      default: printf("WARNING: Invalid parameter for method sent, ignoring.\n \
+        This may affect your outputs.");
+    }
+    ++flag;
+  }
+  igraph_vector_destroy(&mod);
   return 0;
 }
 
@@ -525,41 +663,8 @@ extern int filter_graph(double percentile,
     return 0;
   }
   printf("PERCENTILE :  %f, PERCENT : %f", percentile, percent);
-
   cutsize = round((double)graphsize * percentile);
-  /* Methods are */
-  /* TODO:  MOVE THIS TO A THE ALGORITHM FUNCTION */
-  int flag = 0;
-  while (flag > -1) {
-    switch (method[flag]) {
-      case 'b' : calc_betweenness(&g);
-      shrink(&g, cutsize, "Betweenness");
-      break;
-      case 'c' : calc_clustering(&g);
-      break;
-      case 'd' : calc_degree(&g, 'd');
-      shrink(&g, cutsize, "Degree");
-      break;
-      case 'i' : calc_degree(&g, 'i');
-      shrink(&g, cutsize, "Indegree");
-      break;
-      case 'o' : calc_degree(&g, 'o');
-      shrink(&g, cutsize, "Outdegree");
-      break;
-      case 'e' : calc_eigenvector(&g);
-      shrink(&g, cutsize, "Eigenvector");
-      break;
-      case 'p' : calc_pagerank (&g);
-      shrink(&g, cutsize, "PageRank");
-      break;
-      case '\0' :
-      flag = -2;
-      break;
-      default: printf("WARNING: Invalid parameter for method sent, ignoring.\n \
-        This may affect your outputs.");
-    }
-    ++flag;
-  }
+  centralities (&g, method, cutsize);
   igraph_destroy(&g);
   return 0;
 }
