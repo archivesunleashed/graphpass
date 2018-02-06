@@ -51,8 +51,8 @@ int write_report(igraph_t *graph) {
   fs = fopen(filepath, "a");
   t = time(NULL);
   fprintf( fs, "REPORT: %s \n", ctime(&t));
-  fprintf( fs, "-------------------- \n");
-  fprintf( fs, "ORIGINAL GRAPH %s \n", filename);
+  fprintf( fs, "-------------------- \n\n");
+  fprintf( fs, "ORIGINAL GRAPH %s \n\n", filename);
   for (int i=0; i<igraph_strvector_size(&gnames); i++) {
     fprintf(fs, "%s : %f \n", STR(gnames, i), GAN(&g, STR(gnames, i)));
   }
@@ -558,6 +558,8 @@ that all values at cutoff point will be selected randomly.\n\n", cutoff);
   igraph_assortativity(&g2, &ideg, &odeg, &assort, 1);
   igraph_density(&g2, &dens, 0);
   igraph_reciprocity(&g2, &recip, 1, IGRAPH_RECIPROCITY_DEFAULT);
+  SETGAN(&g2, "NODES", igraph_vcount(&g2));
+  SETGAN(&g2, "EDGES", igraph_ecount(&g2));
   SETGAN(&g2, "AVG_PATH_LENGTH", pathl);
   SETGAN(&g2, "DIAMETER", dia);
   SETGAN(&g2, "OVERALL_CLUSTERING", cluster);
@@ -608,6 +610,8 @@ int centralities (igraph_t *graph, char* method, int cutsize) {
   igraph_assortativity_nominal(graph, &mod, &assort, 1);
   igraph_density(graph, &dens, 0);
   igraph_reciprocity(graph, &recip, 1, IGRAPH_RECIPROCITY_DEFAULT);
+  SETGAN(graph, "NODES", igraph_vcount(graph));
+  SETGAN(graph, "EDGES", igraph_ecount(graph));
   SETGAN(graph, "AVG_PATH_LENGTH", pathl);
   SETGAN(graph, "DIAMETER", dia);
   SETGAN(graph, "OVERALL_CLUSTERING", cluster);
