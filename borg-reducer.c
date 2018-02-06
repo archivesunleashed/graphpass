@@ -1,15 +1,13 @@
 #define ASSETS_PATH "assets/"
 #define MAX_METHODS 9
 #define MAX_FILESIZE 100
+typedef enum { false, true } bool;
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
 #include "Include/borg-reducer.h"
-
-
-typedef enum { false, true } bool;
 
 int verbose_flag;
 bool save;
@@ -21,7 +19,6 @@ double percentile;
 char* output;
 
 int main (int argc, char *argv[]) {
-
   int c;
   while (1)
     {
@@ -42,49 +39,39 @@ int main (int argc, char *argv[]) {
         };
       /* getopt_long stores the option index here. */
       int option_index = 0;
-
       c = getopt_long (argc, argv, "nrf:p:m:o:",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
       if (c == -1)
         break;
-
       switch (c)
         {
         case 0:
           /* If this option set a flag, do nothing else now. */
           if (long_options[option_index].flag != 0)
             break;
-
         case 'n':
           save = false;
           break;
-
         case 'r':
           report = true;
           break;
-
         case 'p':
           percentile = optarg ? atof(optarg) : 0.1;
           break;
-
         case 'm':
           methods = optarg ? optarg : "d";
           break;
-
         case 'f':
           filepath = optarg ? optarg : "miserables.graphml";
           break;
-
         case 'o':
           output = optarg ? optarg : "OUT/";
           break;
-
         case '?':
           /* getopt_long already printed an error message. */
           break;
-
         default:
           abort ();
         }
@@ -104,23 +91,22 @@ int main (int argc, char *argv[]) {
         printf ("%s ", argv[optind++]);
       putchar ('\n');
     }
-percentile = percentile ? percentile : 0.1;
-methods = methods ? methods : "d";
+  percentile = percentile ? percentile : 0.1;
+  methods = methods ? methods : "d";
+  if (filepath) {
+    asprintf(&pathfile, "%s%s", ASSETS_PATH, filepath);
+  }
+  else {
+    pathfile = "assets/miserables.graphml";
+  }
+  if (output) {
 
-printf ("LOAD GRAPH");
-printf ("FILEPATH: %s", filepath);
-if (filepath) {
-  asprintf(&pathfile, "%s%s", ASSETS_PATH, filepath);
-}
-else {
-  pathfile = "assets/miserables.graphml";
-}
-init(filepath, methods, output);
-
-load_graph(pathfile);
-
-printf("FILTER GRAPH");
-
-filter_graph(percentile, methods, pathfile);
+  }
+  else {
+    output = "OUT/";
+  }
+  init(filepath, methods, output, report);
+  load_graph(pathfile);
+  filter_graph(percentile, methods, pathfile);
   return 0;
 }

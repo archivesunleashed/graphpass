@@ -21,9 +21,48 @@ char* method;
 char* output;
 long int graphsize;
 double percent;
+bool report = false;
+
+int write_report(igraph_t *graph) {
+  printf("Write report ... \n");
+  char dir[150];
+  struct stat st = {0};
+  strcpy(dir, output);
+  strcat(dir, "REPORT/");
+  char filepath[150];
+  strcpy(filepath, dir);
+  strcat(filepath, "report.txt");
+  printf("%s ", filepath);
+  if (stat(dir, &st) == -1) {
+    mkdir(dir, 0700);
+  }
+  FILE *fs;
+  time_t t;
+  igraph_vector_t gtypes, vtypes, etypes;
+  igraph_strvector_t gnames, vnames, enames;
+  igraph_vector_init(&gtypes, 0);
+  igraph_vector_init(&vtypes, 0);
+  igraph_vector_init(&etypes, 0);
+  igraph_strvector_init(&gnames, 0);
+  igraph_strvector_init(&vnames, 0);
+  igraph_strvector_init(&enames, 0);
+  igraph_cattribute_list(&g, &gnames, &gtypes, &vnames, &vtypes,
+			 &enames, &etypes);
+  fs = fopen(filepath, "a");
+  t = time(NULL);
+  fprintf( fs, "REPORT: %s \n", ctime(&t));
+  fprintf( fs, "-------------------- \n");
+  fprintf( fs, "ORIGINAL GRAPH %s \n", filename);
+  for (int i=0; i<igraph_strvector_size(&gnames); i++) {
+    fprintf(fs, "%s : %f \n", STR(gnames, i), GAN(&g, STR(gnames, i)));
+  }
+  fclose(fs);
+  return 0;
+}
 
 
-extern int init(char* file, char* meth, char* out) {
+extern int init(char* file, char* meth, char* out, int rep) {
+  report = rep;
   filename = file;
   method = meth;
   output = out;
@@ -224,7 +263,6 @@ double fix_percentile(double percentile) {
 
 extern int calc_betweenness(igraph_t *graph){
   char *attr = "Betweenness";
-  printf("%li", graphsize);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
   igraph_betweenness(graph, &v, igraph_vss_all(), 1, 0, 1);
@@ -235,7 +273,6 @@ extern int calc_betweenness(igraph_t *graph){
 
 extern int calc_authority(igraph_t *graph){
   char *attr = "Authority";
-  printf("%li", graphsize);
   igraph_arpack_options_t options;
   igraph_arpack_options_init(&options);
   igraph_vector_t v;
@@ -248,7 +285,6 @@ extern int calc_authority(igraph_t *graph){
 
 extern int calc_hub(igraph_t *graph){
   char *attr = "Hub";
-  printf("%li", graphsize);
   igraph_arpack_options_t options;
   igraph_arpack_options_init(&options);
   igraph_vector_t v;
@@ -261,7 +297,6 @@ extern int calc_hub(igraph_t *graph){
 
 extern int calc_pagerank(igraph_t *graph){
   char *attr = "PageRank";
-  printf("%li", graphsize);
   igraph_vector_t v;
   igraph_vector_init(&v, graphsize);
   igraph_pagerank(graph, IGRAPH_PAGERANK_ALGO_PRPACK, &v, 0,
@@ -427,7 +462,6 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
       ++check2;
     }
   }
-  printf("CHECK %d -- CHECK2 %d", check, check2);
   double cut[cutsize];
   for (long int i=0; i<cutsize; i++) {
     cut[i] = (double)cutsize+100;
@@ -436,9 +470,9 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
   igraph_t g2;
   igraph_copy(&g2, graph);
   if (check == 0) {
-    printf ("WARNING :  Percentage resulted in ambiguous filtering\n \
-because no values were lower than cutoff point %f (only equal to) This means\n \
-that all values at cutoff point will be selected randomly.\n", cutoff);
+    printf ("---WARNING--- :  Percentage resulted in ambiguous filtering\n \
+because no values were lower than cutoff point %f \n (only equal to) This means\n \
+that all values at cutoff point will be selected randomly.\n\n", cutoff);
     int rands = 0;
     for (long int i=0; i<graphsize; i++) {
       if (VAN(graph, attr, i) == cutoff) {
@@ -462,8 +496,8 @@ that all values at cutoff point will be selected randomly.\n", cutoff);
   } else {
    /* means we have to randomize selection for val == cutoff */
     int randoms = (cutsize - check);
-    printf ("WARNING :  Percentage resulted in ambiguous filtering.\n This means \
-      that %i values at cutoff point %f will be selected randomly.\n", randoms, cutoff);
+    printf ("---WARNING--- :  Percentage resulted in ambiguous filtering.\n This means \
+      that %i values at cutoff point %f \n will be selected randomly.\n\n", randoms, cutoff);
     int index = 0;
     int rands = 0;
     for (long int i=0; i<graphsize; i++) {
@@ -548,7 +582,7 @@ int shrink (igraph_t *graph, int cutsize, char* attr) {
     VECTOR(v)[i] = VAN(graph, attr, i);
   }
   igraph_vector_sort(&v);
-  create_filtered_graph(graph, VECTOR(v)[cutsize], cutsize, "OUT/", attr);
+  create_filtered_graph(graph, VECTOR(v)[cutsize], cutsize, output, attr);
   igraph_vector_destroy(&v);
   return 0;
 }
@@ -614,8 +648,8 @@ int centralities (igraph_t *graph, char* method, int cutsize) {
       case '\0' :
       flag = -2;
       break;
-      default: printf("WARNING: Invalid parameter for method sent, ignoring.\n \
-        This may affect your outputs.");
+      default: printf("---WARNING--- : Invalid parameter for method sent, ignoring.\n \
+        This may affect your outputs.\n\n");
     }
     ++flag;
   }
@@ -659,12 +693,14 @@ extern int filter_graph(double percentile,
   percent = percentile *100;
   if (percent > graphsize) {
     printf ("The percentage you provided (%f) is greater than the number \n\
-    of nodes (%li) in the graph.  Select another percentage.", percent, graphsize);
+    of nodes (%li) in the graph.  Select another percentage.\n", percent, graphsize);
     return 0;
   }
-  printf("PERCENTILE :  %f, PERCENT : %f", percentile, percent);
   cutsize = round((double)graphsize * percentile);
   centralities (&g, method, cutsize);
+  if (report == true) {
+    write_report(&g);
+  }
   igraph_destroy(&g);
   return 0;
 }
