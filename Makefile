@@ -1,5 +1,14 @@
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+  IGRAPH_PATH = /usr/include/igraph/0.7.1_6/
+endif
+ifeq ($(UNAME), Darwin)
+  IGRAPH_PATH = /usr/local/Cellar/igraph/0.7.1_6/
+endif
+
 CC = gcc
-IGRAPH_PATH = /usr/local/Cellar/igraph/0.7.1_6/
+
 IGRAPH_INCLUDE = $(IGRAPH_PATH)include/igraph
 IGRAPH_LIB = $(IGRAPH_PATH)lib
 INCLUDE = ./Include/*.h
