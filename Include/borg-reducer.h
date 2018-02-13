@@ -13,7 +13,26 @@
 #define MAX_METHODS 9
 #define ALL_METHODS 'abcdehioprw'
 #define PAGERANK_DAMPING 0.85
+#define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
+struct Node {
+  char* abbrev;
+  igraph_real_t val;
+  struct Node *next;
+};
+
+struct RankNode {
+  int rankids[20];
+  struct RankNode *next;
+};
+
+struct Node* asshead = NULL;
+struct Node* edges = NULL;
+struct Node* density = NULL;
+struct Node* betcent = NULL;
+struct Node* reciprocity = NULL;
+struct Node* degcent = NULL;
+struct RankNode* ranks = NULL;
 igraph_t g;
 igraph_attribute_table_t att;
 char* filename;
@@ -50,13 +69,60 @@ int write_report(igraph_t *graph) {
 			 &enames, &etypes);
   fs = fopen(filepath, "a");
   t = time(NULL);
-  fprintf( fs, "REPORT: %s \n", ctime(&t));
+  fprintf( fs, "REPORT: %s ", ctime(&t));
   fprintf( fs, "-------------------- \n\n");
-  fprintf( fs, "ORIGINAL GRAPH %s \n\n", filename);
+  fprintf( fs, "ORIGINAL GRAPH: *%s.graphml*\n\n", filename);
   for (int i=0; i<igraph_strvector_size(&gnames); i++) {
     fprintf(fs, "%s : %f \n", STR(gnames, i), GAN(&g, STR(gnames, i)));
   }
+  /* print names (use asshead) */
+  fprintf(fs, "TRAIT COMPARISON BY FILTERING METHOD \n");
+  fprintf(fs, "------------------------------------ \n");
+  fprintf(fs, "\n| Method          | Δ Edges   | Δ Assort | Δ Dens.  | Δ Recipr | Δ C(Deg.)|\n");
+  fprintf(fs, "|-----------------|-----------|----------|----------|----------|----------|\n");
+  while (asshead != NULL) {
+    fprintf(fs,
+      "| %-16s| %-10f|%-10f|%-10f|%-10f|%-10f|\n",
+      asshead->abbrev, (GAN(&g, "EDGES") - edges->val), (GAN(&g, "ASSORTATIVITY") - asshead->val),
+      (GAN(&g, "DENSITY") - density->val) , (GAN(&g, "RECIPROCITY") - reciprocity->val),
+      (GAN(&g, "centralizationDegree") - degcent->val)
+      );
+    asshead = asshead->next;
+    density = density->next;
+    edges = edges->next;
+    reciprocity = reciprocity->next;
+    betcent = betcent->next;
+  }
+  fprintf (fs, "|                 |           |          |          |          |          |\n");
   fclose(fs);
+  igraph_vector_destroy(&gtypes);
+  igraph_vector_destroy(&vtypes);
+  igraph_vector_destroy(&etypes);
+  igraph_strvector_destroy(&gnames);
+  igraph_strvector_destroy(&vnames);
+  igraph_strvector_destroy(&enames);
+  return 0;
+}
+
+/* Given a reference (pointer to pointer) to the head of a list
+   and an int,  inserts a new node on the front of the list. */
+int push(struct Node** head_ref, igraph_real_t value, char* attr)
+{
+  struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+  new_node->val  = value;
+  new_node->abbrev = attr;
+  new_node->next = (*head_ref);
+  (*head_ref) = new_node;
+  return 0;
+}
+
+int pushRank (struct RankNode** head_ref, int rankids[20]) {
+  struct RankNode* new_node = (struct RankNode*) malloc(sizeof(struct RankNode));
+  for (int i=0; i<20; i++) {
+    new_node->rankids[i] = rankids[i];
+  }
+  new_node->next = (*head_ref);
+  (*head_ref) = new_node;
   return 0;
 }
 
@@ -407,9 +473,9 @@ int layout_graph(igraph_t *graph, char layout) {
     break;
     case 'f' : igraph_layout_fruchterman_reingold(graph, &matrix,
              500, gsize,
-             30 * gsize^2,
+             10 * gsize^2,
              1.5,
-             30 * gsize^3,
+             10 * gsize^3,
              0,
              NULL,
            &min, &max, &min, &max);
@@ -553,6 +619,17 @@ that all values at cutoff point will be selected randomly.\n\n", cutoff);
   igraph_integer_t dia;
   igraph_average_path_length(graph, &pathl, 1, 1);
   igraph_diameter(&g2, &dia, NULL, NULL, NULL ,1, 1);
+  /* get Rankings
+  int ranks[20];
+  igraph_vector_t eids, sorted;
+  igraph_vector_init(&eids, 0);
+  igraph_vector_init(&sorted, 0);
+  VANV(&g2, "id", &eids);
+  check = -1;
+    Need to develop sort id function here
+  while (check <0) {
+    ++check;
+  } */
 
   igraph_transitivity_undirected(&g, &cluster, IGRAPH_TRANSITIVITY_ZERO);
   igraph_assortativity(&g2, &ideg, &odeg, &assort, 1);
@@ -567,6 +644,12 @@ that all values at cutoff point will be selected randomly.\n\n", cutoff);
   SETGAN(&g2, "DENSITY", dens);
   SETGAN(&g2, "RECIPROCITY", recip);
   write_graph(&g2, output, attr, filename);
+  push(&asshead, assort, attr);
+  push(&edges, GAN(&g2, "EDGES"), attr);
+  push(&density, dens, attr);
+  push(&betcent, GAN(&g2, "centralizationBetweenness"), attr);
+  push(&degcent, GAN(&g2, "centralizationDegree"), attr);
+  push(&reciprocity, recip, attr);
   igraph_vector_destroy(&size);
   igraph_vector_destroy(&ideg);
   igraph_vector_destroy(&odeg);
@@ -574,8 +657,6 @@ that all values at cutoff point will be selected randomly.\n\n", cutoff);
   igraph_destroy(&g2);
   return 0;
 }
-
-
 
 int shrink (igraph_t *graph, int cutsize, char* attr) {
   igraph_vector_t v;
