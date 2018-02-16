@@ -14,6 +14,7 @@ bool save;
 bool report;
 char* methods;
 char* filepath;
+char* directory;
 char* pathfile;
 double percentile;
 char* output;
@@ -31,15 +32,17 @@ int main (int argc, char *argv[]) {
              We distinguish them by their indices. */
           {"no-save", no_argument,       0, 'n'},
           {"report",  no_argument,       0, 'r'},
+          {"format",  no_argument,       0, 'g'},
           {"file",    required_argument, 0, 'f'},
           {"percent", required_argument, 0, 'p'},
           {"methods", required_argument, 0, 'm'},
           {"output",  required_argument, 0, 'o'},
+          {"dir",     required_argument, 0, 'd'},
           {0, 0, 0, 0}
         };
       /* getopt_long stores the option index here. */
       int option_index = 0;
-      c = getopt_long (argc, argv, "nrf:p:m:o:",
+      c = getopt_long (argc, argv, "nrgf:p:m:o:",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
@@ -53,6 +56,12 @@ int main (int argc, char *argv[]) {
             break;
         case 'n':
           save = false;
+          break;
+        case 'g':
+          gformat = !gformat;
+          break;
+        case 'd':
+          directory = optarg ? optarg : "assets/";
           break;
         case 'r':
           report = true;
@@ -105,7 +114,7 @@ int main (int argc, char *argv[]) {
   else {
     output = "OUT/";
   }
-  init(filepath, methods, output, report);
+  init(filepath, methods, output, report, gformat);
   load_graph(pathfile);
   filter_graph(percentile, methods, pathfile);
   return 0;

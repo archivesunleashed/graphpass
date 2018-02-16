@@ -9,7 +9,7 @@ network layouts.
 
 ## Installation
 
-### Dependencies 
+### Dependencies
 
 This library requires the [C Igraph Library](http://igraph.org/c/) and
 a C compiler, such as [gcc](https://gcc.gnu.org/).
@@ -31,7 +31,7 @@ Clone the repository with:
 git clone https://github.com/archivesunleashed/borg-reducer
 ```
 
-Type 
+Type
 
 ```
 brew info igraph
@@ -68,7 +68,7 @@ You will pass options using the `--method` flag. The options can be seen below:
 * `r` : random
 * `w` : weighted degree
 
-For example: 
+For example:
 
 ```
 ./borgreducer --percent 10 --methods "b" --file links-for-gephi.graphml
@@ -76,7 +76,20 @@ For example:
 
 Will filter the graph down by 10% and lay the network out using the betweenness function. It will find `links-for-gephi.graphml` file in `/assets` and output a new one to `/OUT` (titled `links-for-gephi.graphml10Betweenness.graphml`).
 
-In the future, a feature to create a validity report will be produced for each method applied.
+# Optional arguments
+
+* `-r` : create an output report showing the impact of filtering on graph features.
+* `-g` : output as a .gexf (for SigmaJS) instead of .graphml.
+
+# GexF converter
+
+Included in the package is a Graphml to Gexf converter (to support sigma.js outputs for instance).  
+
+Use:
+
+`python python/toGexf.py {path to graphmls} {path for Gexfs}`
+
+The code will convert all the graphmls in the folder to gexf.
 
 # License
 

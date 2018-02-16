@@ -1,3 +1,4 @@
+#include "gexf.h"
 #include "igraph.h"
 #include <stdio.h>
 #include <math.h>
@@ -41,6 +42,7 @@ char* output;
 long int graphsize;
 double percent;
 bool report = false;
+bool gformat = false;
 
 int write_report(igraph_t *graph) {
   printf("Write report ... \n");
@@ -71,7 +73,7 @@ int write_report(igraph_t *graph) {
   t = time(NULL);
   fprintf( fs, "REPORT: %s ", ctime(&t));
   fprintf( fs, "-------------------- \n\n");
-  fprintf( fs, "ORIGINAL GRAPH: *%s.graphml*\n\n", filename);
+  fprintf( fs, "ORIGINAL GRAPH: *%s.gexf*\n\n", filename);
   for (int i=0; i<igraph_strvector_size(&gnames); i++) {
     fprintf(fs, "%s : %f \n", STR(gnames, i), GAN(&g, STR(gnames, i)));
   }
@@ -127,11 +129,13 @@ int pushRank (struct RankNode** head_ref, int rankids[20]) {
 }
 
 
-extern int init(char* file, char* meth, char* out, int rep) {
+extern int init(char* file, char* meth, char* out, int rep, bool gformat) {
   report = rep;
   filename = file;
   method = meth;
   output = out;
+  gformat = gformat;
+  printf("%u", gformat);
   return 0;
 }
 
@@ -245,9 +249,17 @@ int write_graph(igraph_t *graph, char* output, char* method, char* filename) {
   strcat(path, filename);
   strcat(path, perc_as_string);
   strcat(path, method);
-  strcat(path, ".graphml");
+  if (gformat){
+    strcat(path, ".gexf");
+  } else {
+    strcat(path, ".graphml");
+  }
   fp = fopen(path, "w");
-  igraph_write_graph_graphml(graph, fp, 1);
+  if (gformat) {
+    igraph_write_graph_gexf(graph, fp, 1);
+  } else {
+    igraph_write_graph_graphml(graph, fp, 1);
+  }
   fclose(fp);
   return 0;
 }
