@@ -335,7 +335,7 @@ extern int load_graph (char* filename) {
 
 double fix_percentile(double percentile) {
   double perc;
-  perc = (percentile > 99.0 || (percentile <= 1.0 && percentile > 0.99)) ? 0.99 : (percentile / 100.0);
+  perc = (percentile > 99.0 || (percentile < 1.0 && percentile > 0.99)) ? 0.99 : (percentile / 100.0);
   return perc;
 }
 

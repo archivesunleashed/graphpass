@@ -67,7 +67,7 @@ int main (int argc, char *argv[]) {
           report = true;
           break;
         case 'p':
-          percentile = optarg ? atof(optarg) : 0.1;
+          percentile = optarg ? atof(optarg) : 0.01;
           break;
         case 'm':
           methods = optarg ? optarg : "d";
@@ -100,7 +100,7 @@ int main (int argc, char *argv[]) {
         printf ("%s ", argv[optind++]);
       putchar ('\n');
     }
-  percentile = percentile ? percentile : 0.1;
+  percentile = percentile ? percentile : 0.01;
   methods = methods ? methods : "d";
   if (filepath) {
     asprintf(&pathfile, "%s%s", ASSETS_PATH, filepath);
