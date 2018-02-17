@@ -33,6 +33,13 @@ struct Node* density = NULL;
 struct Node* betcent = NULL;
 struct Node* reciprocity = NULL;
 struct Node* degcent = NULL;
+struct Node* idegcent = NULL;
+struct Node* odegcent = NULL;
+struct Node* eigcent = NULL;
+struct Node* pagecent = NULL;
+struct Node* diameter = NULL;
+struct Node* pathlength = NULL;
+struct Node* clustering = NULL;
 struct RankNode* ranks = NULL;
 igraph_t g;
 igraph_attribute_table_t att;
@@ -80,6 +87,7 @@ int write_report(igraph_t *graph) {
   /* print names (use asshead) */
   fprintf(fs, "TRAIT COMPARISON BY FILTERING METHOD \n");
   fprintf(fs, "------------------------------------ \n");
+  fprintf(fs, "Percent Filtered: %-2f\n", percent);
   fprintf(fs, "\n| Method          | Δ Edges   | Δ Assort | Δ Dens.  | Δ Recipr | Δ C(Deg.)|\n");
   fprintf(fs, "|-----------------|-----------|----------|----------|----------|----------|\n");
   while (asshead != NULL) {
@@ -93,9 +101,26 @@ int write_report(igraph_t *graph) {
     density = density->next;
     edges = edges->next;
     reciprocity = reciprocity->next;
-    betcent = betcent->next;
+    degcent = degcent->next;
   }
-  fprintf (fs, "|                 |           |          |          |          |          |\n");
+  fprintf (fs, "|                 |           |          |          |          |          |\n\n");
+
+  fprintf(fs, "\n| Method          | Δ Diameter| Δ Pathlen| Δ Cluster| Δ C(Betw)| Δ C(Page)|\n");
+  fprintf(fs, "|-----------------|-----------|----------|----------|----------|----------|\n");
+  while (clustering != NULL) {
+    fprintf(fs,
+      "| %-16s| %-10f|%-10f|%-10f|%-10f|%-10f|\n",
+      clustering->abbrev, (GAN(&g, "DIAMETER") - diameter->val), (GAN(&g, "AVG_PATH_LENGTH") - pathlength->val),
+      (GAN(&g, "OVERALL_CLUSTERING") - clustering->val) , (GAN(&g, "centralizationBetweenness") - betcent->val),
+      (GAN(&g, "centralizationPageRank") - pagecent->val)
+      );
+    clustering = clustering->next;
+    diameter = diameter->next;
+    pathlength = pathlength->next;
+    betcent = betcent->next;
+    pagecent = pagecent->next;
+  }
+  fprintf (fs, "|                 |           |          |          |          |          |\n\n");
   fclose(fs);
   igraph_vector_destroy(&gtypes);
   igraph_vector_destroy(&vtypes);
@@ -659,8 +684,15 @@ that all values at cutoff point will be selected randomly.\n\n", cutoff);
   push(&asshead, assort, attr);
   push(&edges, GAN(&g2, "EDGES"), attr);
   push(&density, dens, attr);
+  push(&diameter, dia, attr);
+  push(&pathlength, pathl, attr);
+  push(&clustering, cluster, attr);
   push(&betcent, GAN(&g2, "centralizationBetweenness"), attr);
   push(&degcent, GAN(&g2, "centralizationDegree"), attr);
+  push(&idegcent, GAN(&g2, "centralizationIndegree"), attr);
+  push(&odegcent, GAN(&g2, "centralizationOutdegree"), attr);
+  push(&eigcent, GAN(&g2, "centralizationEigenvector"), attr);
+  push(&pagecent, GAN(&g2, "centralizationPageRank"), attr);
   push(&reciprocity, recip, attr);
   igraph_vector_destroy(&size);
   igraph_vector_destroy(&ideg);
