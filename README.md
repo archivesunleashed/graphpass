@@ -81,15 +81,9 @@ Will filter the graph down by 10% and lay the network out using the betweenness 
 * `-r` : create an output report showing the impact of filtering on graph features.
 * `-g` : output as a .gexf (for SigmaJS) instead of .graphml.
 
-# GexF converter
+# Troubleshooting
 
-Included in the package is a Graphml to Gexf converter (to support sigma.js outputs for instance).  
-
-Use:
-
-`python python/toGexf.py {path to graphmls} {path for Gexfs}`
-
-The code will convert all the graphmls in the folder to gexf.
+It is possible that you can get a "error while loading shared libraries" error in lynix.  If so, try running `sudo ldconfig` to set the libraries path for your local installation of igraph.
 
 # License
 

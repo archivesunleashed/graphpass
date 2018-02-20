@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #define ASSETS_PATH "assets/"
 #define MAX_METHODS 9
 #define MAX_FILESIZE 100
