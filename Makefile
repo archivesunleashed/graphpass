@@ -1,7 +1,7 @@
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-  IGRAPH_PATH = /usr/include/igraph/0.7.1_6/
+  IGRAPH_PATH = /usr/include/igraph/
 endif
 ifeq ($(UNAME), Darwin)
   IGRAPH_PATH = /usr/local/Cellar/igraph/0.7.1_6/
