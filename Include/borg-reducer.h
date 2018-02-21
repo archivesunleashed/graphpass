@@ -160,7 +160,6 @@ extern int init(char* file, char* meth, char* out, int rep, bool gformat) {
   method = meth;
   output = out;
   gformat = gformat;
-  printf("%u", gformat);
   return 0;
 }
 
@@ -247,8 +246,7 @@ int colours (igraph_t *graph) {
   return 0;
 }
 
-int strip_ext(char *fname)
-{
+int strip_ext(char *fname) {
     char *end = fname + strlen(fname);
     while (end > fname && *end != '.' && *end != '\\' && *end != '/') {
         --end;
@@ -556,73 +554,89 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize,
   srand(time(NULL));
   int check = 0;
   int check2 = 0;
+  /* a View containing the ids to keep */
   igraph_vector_t grands;
   igraph_vs_t selector;
-  for (long int i=0; i<graphsize; i++) {
-    if (VAN(graph, attr, i) < cutoff) {
-      ++check;
-    } else if (VAN(graph, attr, i) == cutoff){
-      ++check2;
-    }
-  }
-  double cut[cutsize];
-  for (long int i=0; i<cutsize; i++) {
-    cut[i] = (double)cutsize+100;
-  }
-  int equal[check2];
   igraph_t g2;
   igraph_copy(&g2, graph);
-  if (check == 0) {
-    printf ("---WARNING--- :  Percentage resulted in ambiguous filtering\n \
-because no values were lower than cutoff point %f \n (only equal to) This means\n \
-that all values at cutoff point will be selected randomly.\n\n", cutoff);
-    int rands = 0;
+  /* the ids to cut */
+  double cut[cutsize];
+  if (strcmp(attr, "Random")==0) {
+    printf ("we are random");
+    int precut[graphsize];
+    /* remove cutsize based on shuffle */
     for (long int i=0; i<graphsize; i++) {
-      if (VAN(graph, attr, i) == cutoff) {
-        equal[rands] = i;
-        ++rands;
-      }
+      precut[i] = i;
     }
-    shuffle(equal, rands);
-    for (long int i=0; i<cutsize; i++) {
-      cut[i] = equal[i];
-    }
-  } else if (check == cutsize) {
-  /* if number of equals and less thans are all needed then just do the filter */
-    int index = 0;
-    for (long int i=0; i<graphsize; i++) {
-      if (VAN(graph, attr, i) < cutoff) {
-        cut[index] = (double)i;
-        ++index;
-      }
+    shuffle(precut, graphsize);
+    for (long int j=0; j<cutsize; j++) {
+      cut[j] = precut[j];
     }
   } else {
-   /* means we have to randomize selection for val == cutoff */
-    int randoms = (cutsize - check);
-    printf ("---WARNING--- :  Percentage resulted in ambiguous filtering.\n This means \
-      that %i values at cutoff point %f \n will be selected randomly.\n\n", randoms, cutoff);
-    int index = 0;
-    int rands = 0;
+    printf("we are not random");
     for (long int i=0; i<graphsize; i++) {
       if (VAN(graph, attr, i) < cutoff) {
-        cut[index] = (double)i;
-        ++index;
-      } else if (VAN(graph, attr, i) == cutoff) {
-        equal[rands] = (double)i;
-        ++rands;
+        ++check;
+      } else if (VAN(graph, attr, i) == cutoff){
+        ++check2;
       }
     }
-    /* second pass add items that equal the cutoff */
-    int ind = 0;
-    int randind = 0;
-    shuffle(equal, rands);
     for (long int i=0; i<cutsize; i++) {
-      if (cut[ind] == (double)(cutsize + 100)) {
-        cut[ind] = (double)equal[randind];
-        ++randind;
-        ++ind;
-      } else {
-        ++ind;
+      cut[i] = (double)cutsize+100;
+    }
+    int equal[check2];
+    if (check == 0) {
+      printf ("---WARNING--- :  Percentage resulted in ambiguous filtering\n \
+  because no values were lower than cutoff point %f \n (only equal to) This means\n \
+  that all values at cutoff point will be selected randomly.\n\n", cutoff);
+      int rands = 0;
+      for (long int i=0; i<graphsize; i++) {
+        if (VAN(graph, attr, i) == cutoff) {
+          equal[rands] = i;
+          ++rands;
+        }
+      }
+      shuffle(equal, rands);
+      for (long int i=0; i<cutsize; i++) {
+        cut[i] = equal[i];
+      }
+    } else if (check == cutsize) {
+  /* if number of equals and less thans are all needed then just do the filter */
+      int index = 0;
+      for (long int i=0; i<graphsize; i++) {
+        if (VAN(graph, attr, i) < cutoff) {
+          cut[index] = (double)i;
+          ++index;
+        }
+      }
+    } else {
+   /* means we have to randomize selection for val == cutoff */
+      int randoms = (cutsize - check);
+      printf ("---WARNING--- :  Percentage resulted in ambiguous filtering.\n This means \
+that %i values at cutoff point %f \n will be selected randomly.\n\n", randoms, cutoff);
+      int index = 0;
+      int rands = 0;
+      for (long int i=0; i<graphsize; i++) {
+        if (VAN(graph, attr, i) < cutoff) {
+          cut[index] = (double)i;
+          ++index;
+        } else if (VAN(graph, attr, i) == cutoff) {
+          equal[rands] = (double)i;
+          ++rands;
+        }
+      }
+    /* second pass add items that equal the cutoff */
+      int ind = 0;
+      int randind = 0;
+      shuffle(equal, rands);
+      for (long int i=0; i<cutsize; i++) {
+        if (cut[ind] == (double)(cutsize + 100)) {
+          cut[ind] = (double)equal[randind];
+          ++randind;
+          ++ind;
+        } else {
+          ++ind;
+        }
       }
     }
   }
@@ -704,12 +718,16 @@ that all values at cutoff point will be selected randomly.\n\n", cutoff);
 
 int shrink (igraph_t *graph, int cutsize, char* attr) {
   igraph_vector_t v;
-  igraph_vector_init(&v, graphsize);
-  for (long i=0; i<graphsize; i++) {
-    VECTOR(v)[i] = VAN(graph, attr, i);
+  if (strcmp(attr, "Random")==0) {
+    create_filtered_graph(graph, 0.0, cutsize, output, attr);
+  } else {
+    igraph_vector_init(&v, graphsize);
+    for (long i=0; i<graphsize; i++) {
+      VECTOR(v)[i] = VAN(graph, attr, i);
+    }
+    igraph_vector_sort(&v);
+    create_filtered_graph(graph, VECTOR(v)[cutsize], cutsize, output, attr);
   }
-  igraph_vector_sort(&v);
-  create_filtered_graph(graph, VECTOR(v)[cutsize], cutsize, output, attr);
   igraph_vector_destroy(&v);
   return 0;
 }
@@ -752,7 +770,6 @@ int centralities (igraph_t *graph, char* method, int cutsize) {
   centralization(graph, "Eigenvector");
   centralization(graph, "PageRank");
   igraph_vector_destroy(&mod);
-
   int flag = 0;
   while (flag > -1) {
     switch (method[flag]) {
@@ -773,6 +790,8 @@ int centralities (igraph_t *graph, char* method, int cutsize) {
       case 'e' : shrink(graph, cutsize, "Eigenvector");
       break;
       case 'p' : shrink(graph, cutsize, "PageRank");
+      break;
+      case 'r' : shrink(graph, cutsize, "Random");
       break;
       case '\0' :
       flag = -2;

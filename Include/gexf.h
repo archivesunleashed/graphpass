@@ -1,5 +1,8 @@
 #include "igraph.h"
 #include <time.h>
+#include <errno.h>
+
+extern int errno;
 
 int igraph_i_xml_escape(char* src, char** dest) {
   long int destlen=0;
@@ -35,6 +38,7 @@ int igraph_i_xml_escape(char* src, char** dest) {
 
 int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
 			       igraph_bool_t prefixattr) {
+  printf("Writing GEXF");
   int ret;
   igraph_integer_t l, vc, ec;
   igraph_eit_t it;
@@ -49,6 +53,8 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   const char *gprefix= prefixattr ? "g_" : "";
   const char *vprefix= prefixattr ? "v_" : "";
   const char *eprefix= prefixattr ? "e_" : "";
+
+  printf("headers");
 
   ret=fprintf(outstream, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
@@ -217,8 +223,26 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   igraph_vector_init(&y, vc);
   igraph_vector_init(&x, vc);
   igraph_vector_init(&size, vc);
-  EANV(graph, "weight", &weight);
-  VASV(graph, "label", &label);
+
+  if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_EDGE, "weight") == true) {
+    EANV(graph, "weight", &weight);
+  }
+  if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "label") == true) {
+    VASV(graph, "label", &label);
+  }
+  else if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "name") == true){
+    VASV(graph, "name", &label);
+  } else {
+    printf ("No label information available on this graph.");
+  }
+
+  /*if ( VASV(graph, "label", &label) == 0 ){
+    VASV(graph, "label", &label);
+  } else if (VASV(graph, "name", &label) == 0) {
+    VASV(graph, "name", &label);
+  } else {
+    printf("label was null trying name");
+  }*/
   VANV(graph, "r", &r);
   VANV(graph, "g", &g);
   VANV(graph, "b", &b);
@@ -227,7 +251,7 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   VANV(graph, "y", &y);
   for (l=0; l<vc; l++) {
     char *name, *name_escaped;
-    ret=fprintf(outstream, "    <node id=\"n%ld\" label=\"%s\">\n", (long)l, STR(label, l) ? STR(label,l) : "x");
+    ret=fprintf(outstream, "    <node id=\"n%ld\" label=\"%s\">\n", (long)l, STR(label, l) ? STR(label, l) : "x");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     ret=fprintf(outstream, "    <attvalues>\n");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
@@ -293,7 +317,7 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
     long int edge=IGRAPH_EIT_GET(it);
     igraph_edge(graph, (igraph_integer_t) edge, &from, &to);
     ret=fprintf(outstream, "    <edge id=\"%ld\" source=\"n%ld\" target=\"n%ld\" weight=\"%f\">\n",
-		(long int)l, (long int)from, (long int)to, VECTOR(weight)[l]);
+		(long int)l, (long int)from, (long int)to, VECTOR(weight)[l] ? VECTOR(weight)[l] : 0.0);
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     ret=fprintf(outstream, "      <attvalues>\n");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
