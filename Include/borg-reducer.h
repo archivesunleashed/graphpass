@@ -53,11 +53,11 @@ bool gformat = false;
 
 int write_report(igraph_t *graph) {
   printf("Write report ... \n");
-  char dir[150];
+  char* dir;
   struct stat st = {0};
   strcpy(dir, output);
   strcat(dir, "REPORT/");
-  char filepath[150];
+  char* filepath;
   strcpy(filepath, dir);
   strcat(filepath, "report.txt");
   printf("%s ", filepath);
