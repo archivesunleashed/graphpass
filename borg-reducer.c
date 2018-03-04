@@ -77,6 +77,7 @@ int main (int argc, char *argv[]) {
           filepath = optarg ? optarg : "miserables.graphml";
           break;
         case 'o':
+          /*check size of output text */
           output = optarg ? optarg : "OUT/";
           break;
         case '?':
