@@ -83,7 +83,7 @@ Will filter the graph down by 10% and lay the network out using the betweenness 
 
 # Troubleshooting
 
-It is possible that you can get a "error while loading shared libraries" error in lynix.  If so, try running `sudo ldconfig` to set the libraries path for your local installation of igraph.
+It is possible that you can get a "error while loading shared libraries" error in Linux.  If so, try running `sudo ldconfig` to set the libraries path for your local installation of igraph.
 
 # License
 
