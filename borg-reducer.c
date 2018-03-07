@@ -44,7 +44,7 @@ int main (int argc, char *argv[]) {
         };
       /* getopt_long stores the option index here. */
       int option_index = 0;
-      c = getopt_long (argc, argv, "nrgfq:p:m:o:d",
+      c = getopt_long (argc, argv, "nrgqf:p:m:o:d",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
@@ -108,8 +108,9 @@ int main (int argc, char *argv[]) {
     }
   percentile = percentile ? percentile : 0.01;
   methods = methods ? methods : "d";
+  directory = directory ? directory : "assets/";
   if (filepath) {
-    asprintf(&pathfile, "%s%s", ASSETS_PATH, filepath);
+    asprintf(&pathfile, "%s%s", directory, filepath);
   }
   else {
     pathfile = "assets/miserables.graphml";

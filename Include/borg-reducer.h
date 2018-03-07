@@ -159,12 +159,13 @@ int pushRank (struct RankNode** head_ref, int rankids[20]) {
 }
 
 
-extern int init(char* file, char* meth, char* out, int rep, bool gformat, bool quickrun) {
+extern int init(char* file, char* meth, char* out, int rep, bool gform, bool quick) {
   report = rep;
   filename = file;
   method = meth;
   output = out;
-  gformat = gformat;
+  gformat = gform;
+  quickrun = quick;
   return 0;
 }
 
