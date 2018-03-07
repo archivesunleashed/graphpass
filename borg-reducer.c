@@ -34,6 +34,7 @@ int main (int argc, char *argv[]) {
           {"no-save", no_argument,       0, 'n'},
           {"report",  no_argument,       0, 'r'},
           {"format",  no_argument,       0, 'g'},
+          {"quick",   no_argument,       0, 'q'},
           {"file",    required_argument, 0, 'f'},
           {"percent", required_argument, 0, 'p'},
           {"methods", required_argument, 0, 'm'},
@@ -43,7 +44,7 @@ int main (int argc, char *argv[]) {
         };
       /* getopt_long stores the option index here. */
       int option_index = 0;
-      c = getopt_long (argc, argv, "nrgf:p:m:o:",
+      c = getopt_long (argc, argv, "nrgfq:p:m:o:",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
@@ -68,13 +69,16 @@ int main (int argc, char *argv[]) {
           report = true;
           break;
         case 'p':
-          percentile = optarg ? atof(optarg) : 0.01;
+          percentile = optarg ? atof(optarg) : 0.0;
           break;
         case 'm':
           methods = optarg ? optarg : "d";
           break;
         case 'f':
           filepath = optarg ? optarg : "miserables.graphml";
+          break;
+        case 'q':
+          quickrun = !quickrun;
           break;
         case 'o':
           /*check size of output text */
@@ -116,7 +120,7 @@ int main (int argc, char *argv[]) {
   else {
     output = "OUT/";
   }
-  init(filepath, methods, output, report, gformat);
+  init(filepath, methods, output, report, gformat, quickrun);
   load_graph(pathfile);
   filter_graph(percentile, methods, pathfile);
   return 0;

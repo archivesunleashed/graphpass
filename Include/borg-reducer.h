@@ -50,8 +50,13 @@ long int graphsize;
 double percent;
 bool report = false;
 bool gformat = false;
+bool quickrun = false;
 
 int write_report(igraph_t *graph) {
+  if (quickrun == true) {
+    printf("No reports available for quickrun");
+    exit(0);
+  }
   printf("Write report ... \n");
   char dir[150];
   struct stat st = {0};
@@ -154,7 +159,7 @@ int pushRank (struct RankNode** head_ref, int rankids[20]) {
 }
 
 
-extern int init(char* file, char* meth, char* out, int rep, bool gformat) {
+extern int init(char* file, char* meth, char* out, int rep, bool gformat, bool quickrun) {
   report = rep;
   filename = file;
   method = meth;
@@ -270,8 +275,10 @@ int write_graph(igraph_t *graph, char* output, char* method, char* filename) {
   snprintf(perc_as_string, 3, "%d", perc);
   strcpy(path, output);
   strcat(path, filename);
-  strcat(path, perc_as_string);
-  strcat(path, method);
+  if (quickrun == false) {
+    strcat(path, perc_as_string);
+    strcat(path, method);
+  }
   if (gformat){
     strcat(path, ".gexf");
   } else {
@@ -805,7 +812,29 @@ int centralities (igraph_t *graph, char* method, int cutsize) {
   return 0;
 }
 
+/*
+ * quickrun borgreducer produces a graph for visualization purposes only.
+ * It runs basic degree, modularity and layout algorithms on the submitted graph
+ * with no filtering or reporting.
+*/
 
+int quickrunGraph() {
+  igraph_t g2;
+  igraph_vector_t size;
+  igraph_vector_init(&size, graphsize);
+  igraph_copy(&g2, &g);
+  calc_degree(&g2, 'd');
+  calc_modularity(&g2);
+  colours(&g2);
+  VANV(&g2, "Degree", &size);
+  set_size(&g2, &size, 100);
+  layout_graph(&g2, 'f');
+  write_graph(&g2, output, "_", filename);
+
+  igraph_vector_destroy(&size);
+  igraph_destroy(&g2);
+  return 0;
+}
 
 /**
  * @brief Filters an igraph using one or more methods, and outputs graphs
@@ -843,6 +872,11 @@ extern int filter_graph(double percentile,
     printf ("The percentage you provided (%f) is greater than the number \n\
     of nodes (%li) in the graph.  Select another percentage.\n", percent, graphsize);
     return 0;
+  }
+  if (quickrun == true) {
+    quickrunGraph();
+    igraph_destroy(&g);
+    exit(0);
   }
   cutsize = round((double)graphsize * percentile);
   centralities (&g, method, cutsize);
