@@ -51,6 +51,7 @@ double percent;
 bool report = false;
 bool gformat = false;
 bool quickrun = false;
+bool save = false;
 
 int write_report(igraph_t *graph) {
   if (quickrun == true) {
@@ -702,7 +703,9 @@ that %i values at cutoff point %f \n will be selected randomly.\n\n", randoms, c
   SETGAN(&g2, "ASSORTATIVITY", assort);
   SETGAN(&g2, "DENSITY", dens);
   SETGAN(&g2, "RECIPROCITY", recip);
-  write_graph(&g2, output, attr, filename);
+  if (save == true) {
+    write_graph(&g2, output, attr, filename);
+  }
   push(&asshead, assort, attr);
   push(&edges, GAN(&g2, "EDGES"), attr);
   push(&density, dens, attr);
