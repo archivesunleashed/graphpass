@@ -8,7 +8,7 @@ typedef enum { false, true } bool;
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
-#include "Include/borg-reducer.h"
+#include "include/borg-reducer.h"
 
 int verbose_flag;
 bool save;
