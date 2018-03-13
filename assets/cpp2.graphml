@@ -1,0 +1,1547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+  http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"
+><key id="label" for="node" attr.name="label" attr.type="string" />
+<key id="weight" for="edge" attr.name="weight" attr.type="double">
+<default>0.0</default>
+</key>
+<key id="crawlDate" for="edge" attr.name="crawlDate" attr.type="string" />
+<graph mode="static" edgedefault="directed">
+<node id="8e8decc8e8107bcf9d3896f3222b77d8">
+<data key="label">unesco.org</data>
+</node>
+<node id="ff8767098a55ac94018470a8c8e8dd9c">
+<data key="label">yasminratansi.com</data>
+</node>
+<node id="1d1af95f0337c5d51d0721e6af6b44f0">
+<data key="label">raisedeyebrow.com</data>
+</node>
+<node id="1ea35c5922254ef047141148783bee95">
+<data key="label">medusa2000.com</data>
+</node>
+<node id="fca12b2185ef8db41d41989c46743cbe">
+<data key="label">butterfliesandwheels.com</data>
+</node>
+<node id="0e37433cf5166e817abd742fb1bfa1ca">
+<data key="label">bonniebrown.org</data>
+</node>
+<node id="7e1a85977f707266d26c3722ab5f57ef">
+<data key="label">contact.greenparty.ca</data>
+</node>
+<node id="5024353844acec034e4ee4f1106dd1b7">
+<data key="label">gov.nt.ca</data>
+</node>
+<node id="355ecb2f44cef9b85eab4000eea781fc">
+<data key="label">realwomenca.com</data>
+</node>
+<node id="d29a8b44fd424d49a9a3fd052f6d2105">
+<data key="label">scottsimms.com</data>
+</node>
+<node id="161d466665db97a55b7c65c6e1a756a5">
+<data key="label">chidrenfirstnow.com</data>
+</node>
+<node id="bc3bccadfd5866750f7ecbd8bb1f3173">
+<data key="label">irandwr.org</data>
+</node>
+<node id="407a7ac4c85ec67940c7ce1c860bb60a">
+<data key="label">gardedenfants.ca</data>
+</node>
+<node id="a79b39aba13dbfa277891ddabc9b9403">
+<data key="label">aaml.org</data>
+</node>
+<node id="2f3a58b0e9be954b04a88a4d195210f3">
+<data key="label">new-horizon.up.co.il</data>
+</node>
+<node id="612747e722e5c9a3288e8ed5f12bf11d">
+<data key="label">environmentnetwork.org</data>
+</node>
+<node id="21a9ac2b8c0bf1d24c5220f66ac49468">
+<data key="label">gametec.com</data>
+</node>
+<node id="724fb07d179833a8baa09e06d8bb6fd9">
+<data key="label">renoufbooks.com</data>
+</node>
+<node id="7bdc476457fb537975d40db7d8389f1e">
+<data key="label">gca.ca</data>
+</node>
+<node id="897564200e1866455fe53cb3bd7d118e">
+<data key="label">druglibrary.org</data>
+</node>
+<node id="84b9fcec638d0b00d11eba5ee3171d84">
+<data key="label">pm.gc.ca</data>
+</node>
+<node id="04e313a4979a2219e81df1306fdba961">
+<data key="label">youth.ndp.ca</data>
+</node>
+<node id="65b441dfbadc09c99f2471b9afd66355">
+<data key="label">spip.net</data>
+</node>
+<node id="8db91e1e658cc7c6389ebc1518dd975f">
+<data key="label">blocquebecois.org</data>
+</node>
+<node id="85c142fea19866302ae88a4eea11b42b">
+<data key="label">cisr.gc.ca</data>
+</node>
+<node id="ea79ccdbb21e44e91a54775d3c1ac5bb">
+<data key="label">severnsound.ca</data>
+</node>
+<node id="b57e90e545cbd2a5c3dfb1156491c4d9">
+<data key="label">mciunix.mciu.k12.pa.us</data>
+</node>
+<node id="1da3123f5ad26b172a3dd4a030f6a322">
+<data key="label">ottawariverinstitute.ca</data>
+</node>
+<node id="da7f81863a2183f672f148cdbdde151b">
+<data key="label">flagrancy.net</data>
+</node>
+<node id="6754aade72973203abcc11a2101a846d">
+<data key="label">electionsontario.on.ca</data>
+</node>
+<node id="a8badd1d31bc6711709e93498cc8464b">
+<data key="label">policyalternatives.ca</data>
+</node>
+<node id="eeb0214fd308240652eedadc8194647f">
+<data key="label">secure.bloc.org</data>
+</node>
+<node id="2d9297a0e6002d670bfe2e2f304d5595">
+<data key="label">unhcr.ch</data>
+</node>
+<node id="0412791bbc450bbeb5b7d35eaed7e4f2">
+<data key="label">calendarix.com</data>
+</node>
+<node id="0a46ab47663d8c7a556e79273780c07e">
+<data key="label">aea.nt.ca</data>
+</node>
+<node id="ab427db012bf49fc4d10da8ad7cca816">
+<data key="label">johnmaloney.ca</data>
+</node>
+<node id="6f536977001fbd1243265d62355bdb7d">
+<data key="label">energiepcc.ca</data>
+</node>
+<node id="a4dff0e11169135933d0c9572789b132">
+<data key="label">app.infoaa.7700.gnb.ca</data>
+</node>
+<node id="6064ad6a1b34ffd055999d7b2a2c5ba8">
+<data key="label">assembly.nu.ca</data>
+</node>
+<node id="ef30525aef76244c78f773842c77f19c">
+<data key="label">legassembly.sk.ca</data>
+</node>
+<node id="afaf01b9d8d1308566870e998cbd83f4">
+<data key="label">webcom.com</data>
+</node>
+<node id="9d86e0fd0c4ee40ab2a0076fa19d821a">
+<data key="label">vivelacasa.org</data>
+</node>
+<node id="04be4ba28961338d79cc34e4735fd40c">
+<data key="label">archives.radio-canada.ca</data>
+</node>
+<node id="00b8c3504a7fb3a25826976066ba9711">
+<data key="label">kenboshcoff.ca</data>
+</node>
+<node id="42d946511b4361926857e79e57238aa6">
+<data key="label">nationalpost.com</data>
+</node>
+<node id="2601e21e23963594c5dd08f7e58931c1">
+<data key="label">canadians.inline.net</data>
+</node>
+<node id="4590e321b43804e3067317b27d61ba3b">
+<data key="label">lloydstamand.ca</data>
+</node>
+<node id="4f1760b190ea33a5c9012cb0f0af945a">
+<data key="label">bioguide.congress.gov</data>
+</node>
+<node id="e0d6ee3eb988c6ed090f5dba2c4d60c5">
+<data key="label">cbc.ca</data>
+</node>
+<node id="a1f415a64a70e2cc79780b6a69abc1f3">
+<data key="label">lists.riseup.net</data>
+</node>
+<node id="e84e00b1c72bd77e061575bc83613622">
+<data key="label">freedomsite.org</data>
+</node>
+<node id="b0fff72e4bbf14a8b779ab443ae9f340">
+<data key="label">msf.ca</data>
+</node>
+<node id="6716d1d42846ba1b264a77ca5a24b771">
+<data key="label">drkylepae.com</data>
+</node>
+<node id="8c919071c12f99e8d9e0a8ba54e15b4e">
+<data key="label">telegdi.org</data>
+</node>
+<node id="dcc3b4a857a15e9c5ffa41495a030932">
+<data key="label">web.amnesty.org</data>
+</node>
+<node id="411758a85dc6be659a62bd358062b924">
+<data key="label">members.rogers.com</data>
+</node>
+<node id="21dd8022d1e78b3ab96239e4d57c09a5">
+<data key="label">embassymag.ca</data>
+</node>
+<node id="a86de8a5133c2ac1878b9403e084024e">
+<data key="label">ccsd.ca</data>
+</node>
+<node id="fe252681283adf979bacc269dd4bdf81">
+<data key="label">macon.com</data>
+</node>
+<node id="9cce24c55aee4eb39845fde935cca3da">
+<data key="label">web.net</data>
+</node>
+<node id="c6adb41b66b066f5bd541d2cdba4d65c">
+<data key="label">mail-archive.com</data>
+</node>
+<node id="bdc71a0180ccb54658eb203942c5db60">
+<data key="label">agoracosmopolite.com</data>
+</node>
+<node id="6ac40183833de603d9c596133b37292e">
+<data key="label">marqui.com</data>
+</node>
+<node id="9c63c2d8ead8f966e58f51f179885a7c">
+<data key="label">globeandmail.com</data>
+</node>
+<node id="3d29ed40468aefcbf78ca0cf002f91c1">
+<data key="label">aboriginalwomenonthemove.org</data>
+</node>
+<node id="d5ae6cd0b4b9546893cf3c03fc0c4aeb">
+<data key="label">coat.ncf.ca</data>
+</node>
+<node id="acce9265f82046c77c62a15053871c1d">
+<data key="label">gov.ns.ca</data>
+</node>
+<node id="58bb5cbf14b56b6755ea0971f968e580">
+<data key="label">vivelecanada.ca</data>
+</node>
+<node id="8de2b275624d4a9bd411a519cea54d32">
+<data key="label">legis.gov.bc.ca</data>
+</node>
+<node id="f016a08a2ac8eff2ab46bdfc79a0b956">
+<data key="label">assembly.ab.ca</data>
+</node>
+<node id="3175fe9eca908fd4d0653829615a741b">
+<data key="label">search.ancestry.com</data>
+</node>
+<node id="88f582d20e5fd506403f032816836736">
+<data key="label">roycullen.com</data>
+</node>
+<node id="e7b36da829dd514b50d7401fbe94031e">
+<data key="label">clean.ns.ca</data>
+</node>
+<node id="d8daf520ecb021d55f0dc62fba7dba8b">
+<data key="label">home.att.net</data>
+</node>
+<node id="c6124246cee33458fa550515300059ee">
+<data key="label">thirdworldtraveler.com</data>
+</node>
+<node id="20e42be3207733486c2d648535e4b3c6">
+<data key="label">dcaf.ch</data>
+</node>
+<node id="2ed871e9d2b204365e61ee2d3ede94ab">
+<data key="label">fcjsisters.ca</data>
+</node>
+<node id="38f1eeb72644a26518bcd009bdb4b596">
+<data key="label">benmor.com</data>
+</node>
+<node id="4cfccea352679febd6bf826c10a63f04">
+<data key="label">wsulibs.wsu.edu</data>
+</node>
+<node id="f8eab763c863b6270dad3db76fd2094a">
+<data key="label">carpenoctem.tv</data>
+</node>
+<node id="8f9f95aef14ece4a4a5dc32a72721149">
+<data key="label">greenparty.ca</data>
+</node>
+<node id="d1ed4ab9d26886124eb3d4404f609e6a">
+<data key="label">agorabookcafe.com</data>
+</node>
+<node id="c0281943e3e3566078c176532fd42543">
+<data key="label">canadiancrc.com</data>
+</node>
+<node id="1725075aee617949c6bd8a1557dd0670">
+<data key="label">newislam.org</data>
+</node>
+<node id="45cad84930433827d75db97d0af88f33">
+<data key="label">westernblockparty.com</data>
+</node>
+<node id="633c96238b8d07b8a40ea16b4ce8eb53">
+<data key="label">adobe.com</data>
+</node>
+<node id="f410b061b4ec7da003f87101e5d9c658">
+<data key="label">quidnovis.net</data>
+</node>
+<node id="26a75f9c68ff4727a2fb1e936b9d26d4">
+<data key="label">partivert.ca</data>
+</node>
+<node id="4bb8f77ad94cb5b279dec378680dfc90">
+<data key="label">sauvonskyoto.org</data>
+</node>
+<node id="6d9aaa230eae666a1e5cbad8f857f1b1">
+<data key="label">acapcb.ns.ca</data>
+</node>
+<node id="cd010a0fa1c6e5043410784601448ca7">
+<data key="label">worldwaterday.org</data>
+</node>
+<node id="b929a12045d92d7967b33e65dae329fa">
+<data key="label">politicalgraveyard.com</data>
+</node>
+<node id="5f110a5a98c8d77583671fd913d80c37">
+<data key="label">liberal.ca</data>
+</node>
+<node id="823472703eadc53cd1d8c99e5e02264a">
+<data key="label">davidsuzuki.org</data>
+</node>
+<node id="3cdca5d155b682f6b2ead545f25b7726">
+<data key="label">laliberation.org</data>
+</node>
+<node id="9e835514f572ce7676a9af702ffbe0c2">
+<data key="label">albinaguarnieri.com</data>
+</node>
+<node id="731b811d91cfc4522308823d383482e3">
+<data key="label">xynapse.ca</data>
+</node>
+<node id="e3e173c17e74f49a7e789278cac8b14c">
+<data key="label">spiritone.com</data>
+</node>
+<node id="9ee597e68021ad5ef823cdffbc218edb">
+<data key="label">nosharia.com</data>
+</node>
+<node id="c45891a8764d82afa7064c78579f0115">
+<data key="label">fraserinstitute.ca</data>
+</node>
+<node id="405d19a958ba43d88e9edd7a77338aa3">
+<data key="label">laws.justice.gc.ca</data>
+</node>
+<node id="9c7e27b90ad48f79a973f4d8aa62fb49">
+<data key="label">main.greenparty.ca</data>
+</node>
+<node id="66eb477bbdff51a7c0172a07f9dd85d9">
+<data key="label">npd.ca</data>
+</node>
+<node id="6749de40aefb2ed7b8113f4f2b0bee5d">
+<data key="label">cleancalgary.org</data>
+</node>
+<node id="d1063af181fe606e55ed93dd5b867169">
+<data key="label">en.wikipedia.org</data>
+</node>
+<node id="b0110c47e8b706ed219e3e5a41430ea1">
+<data key="label">canada.gc.ca</data>
+</node>
+<node id="308fbee3a74310d6784091c9a1fbb60e">
+<data key="label">fotf.ca</data>
+</node>
+<node id="c0fcf66fb86011609f84c104d799fe3b">
+<data key="label">unhcr.org.uk</data>
+</node>
+<node id="b0ad95c53b6935457aff4d749907d3d9">
+<data key="label">irb.gc.ca</data>
+</node>
+<node id="b74010a3384fda16ccca54135a215c34">
+<data key="label">votons.org</data>
+</node>
+<node id="563644f1b299bef8883e5e2aade89bc1">
+<data key="label">cippic.ca</data>
+</node>
+<node id="2fea3850ae4d0124b568409ec68ef6e0">
+<data key="label">sol-littman.com</data>
+</node>
+<node id="4d23d9bba280490d99a0808088184d38">
+<data key="label">phpbb.com</data>
+</node>
+<node id="0a8fcf07cbf35b28b271107303fec3bb">
+<data key="label">iheu.org</data>
+</node>
+<node id="4ce097425298a5d41e6bba1a45b84b7e">
+<data key="label">attorneygeneral.jus.gov.on.ca</data>
+</node>
+<node id="6fb9b038ae3bfbc4dd86f1228aa19325">
+<data key="label">karenredman.com</data>
+</node>
+<node id="09f8995a3489afd2a3f9933e06ae5374">
+<data key="label">greeningnipissing.org</data>
+</node>
+<node id="8043ebefc6302bfa08a15e56812fe37b">
+<data key="label">jfcy.org</data>
+</node>
+<node id="319347d1d0e3c3cf590206fac5ca69d2">
+<data key="label">video.rogerstelevision.com</data>
+</node>
+<node id="56f65c1bce68ad9cadba507852ebc824">
+<data key="label">cleannorth.org</data>
+</node>
+<node id="58dc21d796f159e28e4b0ea9cd9cea35">
+<data key="label">ndp.ca</data>
+</node>
+<node id="d49e69e83e2cd0eeecce24f4b6665fff">
+<data key="label">threeworldwars.com</data>
+</node>
+<node id="88d6dbf6a36ed106280bd9d1cc35c78d">
+<data key="label">claytoncramer.com</data>
+</node>
+<node id="bb3e972f0aee53df18ea8cbf9ca3b13b">
+<data key="label">unac.org</data>
+</node>
+<node id="77eadafc0a53cb80d572c1afc302495a">
+<data key="label">assembly.pe.ca</data>
+</node>
+<node id="267e170be88b02e13da865137e9fe5e4">
+<data key="label">hashamconsulting.com</data>
+</node>
+<node id="458d6ce76a19e2dfb1c9c5d9b7b5f460">
+<data key="label">greenventure.on.ca</data>
+</node>
+<node id="bf33af084e99a8e2d617b7fb3fc6aa5d">
+<data key="label">partimarijuana.org</data>
+</node>
+<node id="7f81422f68de2a1a160de03d362dd48c">
+<data key="label">validator.w3.org</data>
+</node>
+<node id="f33b3da536125574d5992df191d66b92">
+<data key="label">coe.int</data>
+</node>
+<node id="1aa6fab06a82a054f99638488f489465">
+<data key="label">bayteksystems.com</data>
+</node>
+<node id="5973a27afaff792965f138d880fa485d">
+<data key="label">egale.ca</data>
+</node>
+<node id="526ca4e918e76368d127bc25266c0fd3">
+<data key="label">secularalliance.ca</data>
+</node>
+<node id="c8afd9a8d4f41febfc0a3e4e3d70265f">
+<data key="label">ecee.on.ca</data>
+</node>
+<node id="9e222f6f06d6f1102a23e64d04c1af70">
+<data key="label">adpi.net</data>
+</node>
+<node id="959af53724f8552e040b244a49bd2689">
+<data key="label">cric.ca%20</data>
+</node>
+<node id="d8aa06a9e787628d1636d65026a817d4">
+<data key="label">ppforum.com</data>
+</node>
+<node id="685c58fd100fb98b41dc5857e8434019">
+<data key="label">indigenoussummit.net</data>
+</node>
+<node id="d8d7e089ad395d1e983dfbbd473adda9">
+<data key="label">h3creative.com</data>
+</node>
+<node id="ed14afb4b86233e7d0cb59a928ef09c0">
+<data key="label">canadians.org</data>
+</node>
+<node id="ba2ac5ecf64166b7817f783d40cc0e8e">
+<data key="label">citygreen.ca</data>
+</node>
+<node id="4d426e9f5a1275a111a83fd4d388567c">
+<data key="label">canadianactionparty.ca</data>
+</node>
+<node id="92d26cac24fed58bb104884873c5f275">
+<data key="label">images.google.ca</data>
+</node>
+<node id="7976afb00427239d847abdcd93964588">
+<data key="label">conservative.ca</data>
+</node>
+<node id="9da0e9791cf33fd4e9990551c3359f2e">
+<data key="label">canadafirst.net</data>
+</node>
+<node id="533e6f8d24e06db302658919052ca81d">
+<data key="label">namebase.org</data>
+</node>
+<node id="d5d1f9bedf19f63ad496d57441a2a08b">
+<data key="label">bloc.org</data>
+</node>
+<node id="f9f475d1dc96dc9777b5f56d94e3ebbb">
+<data key="label">ntp1.kookiejar.net</data>
+</node>
+<node id="c058081ff838d45233dab70ae6163c50">
+<data key="label">cicnet.ci.gc.ca</data>
+</node>
+<node id="5399465c5b23df17b16c2377e865a0b2">
+<data key="label">PetitionOnline.com</data>
+</node>
+<node id="b5292b14062eeaa88b2bc8b862866dbb">
+<data key="label">mozilla.org</data>
+</node>
+<node id="09ac73d074abea5f1911a86ddbd5b4db">
+<data key="label">freedomhousedetroit.org</data>
+</node>
+<node id="b9d3a2ec49484d20eafeb6b6b658cb24">
+<data key="label">afn.ca</data>
+</node>
+<node id="5166dbc6d070f1df2e331a0fa4aa93ba">
+<data key="label">canada.justice.gc.ca</data>
+</node>
+<node id="7bf6d0438847d3e4136ec5de0b7f2f55">
+<data key="label">pacificcoast.net</data>
+</node>
+<node id="dc2c25c1de8f9561ea8e6702912090ea">
+<data key="label">envirocentre.ca</data>
+</node>
+<node id="60c32f448f99fd9fefbb44899ad9cc3a">
+<data key="label">canadaelection.net</data>
+</node>
+<node id="482ad443fcb93afbc96b8a3a4418e952">
+<data key="label">lexum.umontreal.ca</data>
+</node>
+<node id="c114172bee26554a6880e94fd1c6ba76">
+<data key="label">stopstoningnow.no-ip.com</data>
+</node>
+<node id="1ae0a54b5707d930a119ad7feab41965">
+<data key="label">povertyandhumanrights.org</data>
+</node>
+<node id="5d251160e5b44cfaac8cacdd8850bacb">
+<data key="label">store.aetv.com</data>
+</node>
+<node id="ecab7930ae6daaae85e0e49cbaaca87d">
+<data key="label">ad.doubleclick.net</data>
+</node>
+<node id="2f3545a0b5bbe6df93a66c43f880f2e9">
+<data key="label">members.tripod.com</data>
+</node>
+<node id="442b478edb0cb7391b174e14c3d1a7c6">
+<data key="label">gov.yk.ca</data>
+</node>
+<node id="5886b9f576df7b8ae6f2c8a6268c0974">
+<data key="label">genesmedia.com</data>
+</node>
+<node id="cb19fda7cafb6df912349276b8f9d65f">
+<data key="label">ridings.greenparty.ca</data>
+</node>
+<node id="809d72197f12ae1890bffcb575be7ff3">
+<data key="label">equalvoice.ca%20</data>
+</node>
+<node id="e357f78cf52ab0898f6cf6adafe37a29">
+<data key="label">cic.gc.ca</data>
+</node>
+<node id="df33670b4d8711fbe854a65ad72e9fb3">
+<data key="label">mehr.org</data>
+</node>
+<node id="fc1fdc00966f512df568e14e707ec29b">
+<data key="label">equal-marriage.ca</data>
+</node>
+<node id="6904877e66c32e4ef3a31fe1832ddae4">
+<data key="label">edit.yahoo.com</data>
+</node>
+<node id="ff0ce68bf0167bce979f6142d9ae7415">
+<data key="label">theglobeandmail.com</data>
+</node>
+<node id="bff0b419c166757006abcff3d058f0df">
+<data key="label">populist.org</data>
+</node>
+<node id="266e123b46836ac3949cef2157e36a93">
+<data key="label">secure.conservative.ca</data>
+</node>
+<node id="1d3cace869c02950f2fd7ca5585cd78b">
+<data key="label">conservationcouncil.ca</data>
+</node>
+<node id="f493e9bc92945cc90e939de538e20135">
+<data key="label">strongholdpublishing.com</data>
+</node>
+<node id="acf1defb61298e646ee3659ce6f8746d">
+<data key="label">mediameriquat.com</data>
+</node>
+<node id="c00994b64130ef12c262a0a389f87e8e">
+<data key="label">familyaction.org</data>
+</node>
+<node id="aee224792317e5d036a15fd62c5f800b">
+<data key="label">heritagefront.com</data>
+</node>
+<node id="16d0bffe49ee76d95867dc7aac7b5857">
+<data key="label">google.ca</data>
+</node>
+<node id="669e9d825f3f8f6e177b45c4f74b3cc7">
+<data key="label">nawl.ca</data>
+</node>
+<node id="7f2457b84778c7c222510c25db43f96e">
+<data key="label">assnat.qc.ca</data>
+</node>
+<node id="1ca74d9dee796c1698bea2e7d185bd2b">
+<data key="label">pencilneck.net</data>
+</node>
+<node id="48407b181a7f4ea4beeb7530f5636df3">
+<data key="label">ecosuperior.com</data>
+</node>
+<node id="2456107d98c67ecac54a6d987c5bf192">
+<data key="label">oacas.org</data>
+</node>
+<node id="f21dd810bef3f99118df2c8dc6c8403e">
+<data key="label">hsldacanada.org</data>
+</node>
+<node id="ee911c750cee65e3cc4ee5401b0b3e78">
+<data key="label">gov.mb.ca</data>
+</node>
+<node id="154fa4df3f082abfecf1995a46fded31">
+<data key="label">middleastwomen.org</data>
+</node>
+<node id="5702d1fb01edc5acae5f53fe65b49107">
+<data key="label">batgrafix.ca</data>
+</node>
+<node id="5ac82d4250c1c0d2d35cd120045e517b">
+<data key="label">ctf-fce.ca</data>
+</node>
+<node id="98e4c299bae7d9ce3a8ea73491f77369">
+<data key="label">vermontrefugeeassistance.org</data>
+</node>
+<node id="c27b54bab5684779149501f9180eeae3">
+<data key="label">sft-ddt.gc.ca</data>
+</node>
+<node id="b8c54ddeb990c06a028e49f5c8e42552">
+<data key="label">forces.gc.ca</data>
+</node>
+<node id="85a58fb4d3118f1ba7ed29d0e91d4466">
+<data key="label">childcareadvocacy.ca</data>
+</node>
+<node id="790f669499ecba098796e51ecb4f3f13">
+<data key="label">communist-party.ca</data>
+</node>
+<node id="7443e52d9798ecfc13347396b05fa123">
+<data key="label">eav.admin.ch</data>
+</node>
+<node id="20f199cccc50b47e55297fa77c64de09">
+<data key="label">britannica.com</data>
+</node>
+<node id="ca0cebc0f9a75dce981efd248da44df4">
+<data key="label">repeal43.org</data>
+</node>
+<node id="5b88030ddfd0793e7af6e655fac816cd">
+<data key="label">vivreenville.org</data>
+</node>
+<node id="3954037b85b143f7f11007b3ef2d28db">
+<data key="label">hrdc-drhc.gc.ca</data>
+</node>
+<node id="423ce16c379e46488d1c1b90c8580098">
+<data key="label">canadagazette.gc.ca</data>
+</node>
+<node id="c48c9d9c9525983831add0ff5194f898">
+<data key="label">conservationcorps.nf.ca</data>
+</node>
+<node id="c0bb814ddd6e46e5b51d7355b17e4379">
+<data key="label">equalvoice.ca</data>
+</node>
+<node id="42b763b9ee4cb75de35430e8fe8efc1e">
+<data key="label">cpcenergy.ca</data>
+</node>
+<node id="643e5e0407d3cac64dd3b702fa6d8a4c">
+<data key="label">redmoonrising.com</data>
+</node>
+<node id="de429b980312582317f1708361b4463b">
+<data key="label">swarthmore.edu</data>
+</node>
+<node id="264bea18042c842fcfb88b7bd40e41fb">
+<data key="label">parl.gc.ca</data>
+</node>
+<node id="cf4ad6942be68dde12284907c176e237">
+<data key="label">safewatergroup.org</data>
+</node>
+<node id="ebf63cac9e04d6eccc67c7c154944bc3">
+<data key="label">manyhandsonedream.ca</data>
+</node>
+<node id="f9a12b41b7e9cb9fb8d3aacba11ec230">
+<data key="label">endcorporalpunishment.org</data>
+</node>
+<node id="9015c459d235149c645b109d01a67e20">
+<data key="label">hoa.gov.nl.ca</data>
+</node>
+<node id="2062d39a9bea19719fe63bd86b126cc1">
+<data key="label">fgcquaker.org</data>
+</node>
+<node id="94cfa905f15213b825a12fb03f52d443">
+<data key="label">passagestocanada.com</data>
+</node>
+<node id="2009006346eacdc3199fc3975b81bf76">
+<data key="label">web.greenparty.ca</data>
+</node>
+<node id="ffbbc85fb1305473167a8a56a728bfdc">
+<data key="label">janda.org</data>
+</node>
+<node id="b34f9883e299a3fffdf7551d9dbddc8a">
+<data key="label">hambastegi.org</data>
+</node>
+<node id="73de7a64016f48de62aa600ab413fb57">
+<data key="label">babelfish.altavista.com</data>
+</node>
+<node id="d9effdb67b68389a9a179d1dd09077ff">
+<data key="label">elections.ca</data>
+</node>
+<edge source="a8badd1d31bc6711709e93498cc8464b" target="a8badd1d31bc6711709e93498cc8464b"  type="directed">
+<data key="weight">1072</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="a86de8a5133c2ac1878b9403e084024e" target="a86de8a5133c2ac1878b9403e084024e"  type="directed">
+<data key="weight">367</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7976afb00427239d847abdcd93964588" target="7976afb00427239d847abdcd93964588"  type="directed">
+<data key="weight">267</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8f9f95aef14ece4a4a5dc32a72721149" target="9c7e27b90ad48f79a973f4d8aa62fb49"  type="directed">
+<data key="weight">220</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="58dc21d796f159e28e4b0ea9cd9cea35" target="58dc21d796f159e28e4b0ea9cd9cea35"  type="directed">
+<data key="weight">190</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="823472703eadc53cd1d8c99e5e02264a" target="823472703eadc53cd1d8c99e5e02264a"  type="directed">
+<data key="weight">170</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="669e9d825f3f8f6e177b45c4f74b3cc7" target="669e9d825f3f8f6e177b45c4f74b3cc7"  type="directed">
+<data key="weight">168</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8f9f95aef14ece4a4a5dc32a72721149" target="7e1a85977f707266d26c3722ab5f57ef"  type="directed">
+<data key="weight">117</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5973a27afaff792965f138d880fa485d" target="5973a27afaff792965f138d880fa485d"  type="directed">
+<data key="weight">91</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="d5ae6cd0b4b9546893cf3c03fc0c4aeb"  type="directed">
+<data key="weight">89</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8f9f95aef14ece4a4a5dc32a72721149" target="cb19fda7cafb6df912349276b8f9d65f"  type="directed">
+<data key="weight">78</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="790f669499ecba098796e51ecb4f3f13" target="0412791bbc450bbeb5b7d35eaed7e4f2"  type="directed">
+<data key="weight">76</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8f9f95aef14ece4a4a5dc32a72721149" target="8f9f95aef14ece4a4a5dc32a72721149"  type="directed">
+<data key="weight">39</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8f9f95aef14ece4a4a5dc32a72721149" target="7f81422f68de2a1a160de03d362dd48c"  type="directed">
+<data key="weight">39</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8f9f95aef14ece4a4a5dc32a72721149" target="2009006346eacdc3199fc3975b81bf76"  type="directed">
+<data key="weight">39</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8f9f95aef14ece4a4a5dc32a72721149" target="26a75f9c68ff4727a2fb1e936b9d26d4"  type="directed">
+<data key="weight">39</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="b9d3a2ec49484d20eafeb6b6b658cb24" target="b9d3a2ec49484d20eafeb6b6b658cb24"  type="directed">
+<data key="weight">38</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="4d426e9f5a1275a111a83fd4d388567c" target="f9f475d1dc96dc9777b5f56d94e3ebbb"  type="directed">
+<data key="weight">38</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="c0281943e3e3566078c176532fd42543"  type="directed">
+<data key="weight">29</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7976afb00427239d847abdcd93964588" target="266e123b46836ac3949cef2157e36a93"  type="directed">
+<data key="weight">29</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="4d426e9f5a1275a111a83fd4d388567c" target="4d426e9f5a1275a111a83fd4d388567c"  type="directed">
+<data key="weight">22</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="f410b061b4ec7da003f87101e5d9c658"  type="directed">
+<data key="weight">20</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="45cad84930433827d75db97d0af88f33" target="4d23d9bba280490d99a0808088184d38"  type="directed">
+<data key="weight">18</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="a8badd1d31bc6711709e93498cc8464b" target="1ca74d9dee796c1698bea2e7d185bd2b"  type="directed">
+<data key="weight">17</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="ed14afb4b86233e7d0cb59a928ef09c0"  type="directed">
+<data key="weight">17</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="a8badd1d31bc6711709e93498cc8464b" target="1d1af95f0337c5d51d0721e6af6b44f0"  type="directed">
+<data key="weight">17</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="6f536977001fbd1243265d62355bdb7d" target="42b763b9ee4cb75de35430e8fe8efc1e"  type="directed">
+<data key="weight">16</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0bb814ddd6e46e5b51d7355b17e4379" target="c0bb814ddd6e46e5b51d7355b17e4379"  type="directed">
+<data key="weight">16</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0bb814ddd6e46e5b51d7355b17e4379" target="731b811d91cfc4522308823d383482e3"  type="directed">
+<data key="weight">15</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="b9d3a2ec49484d20eafeb6b6b658cb24" target="d8d7e089ad395d1e983dfbbd473adda9"  type="directed">
+<data key="weight">12</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="aee224792317e5d036a15fd62c5f800b" target="aee224792317e5d036a15fd62c5f800b"  type="directed">
+<data key="weight">12</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="73de7a64016f48de62aa600ab413fb57"  type="directed">
+<data key="weight">11</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="a8badd1d31bc6711709e93498cc8464b" target="633c96238b8d07b8a40ea16b4ce8eb53"  type="directed">
+<data key="weight">11</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="5f110a5a98c8d77583671fd913d80c37"  type="directed">
+<data key="weight">11</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="9ee597e68021ad5ef823cdffbc218edb"  type="directed">
+<data key="weight">10</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9da0e9791cf33fd4e9990551c3359f2e" target="c058081ff838d45233dab70ae6163c50"  type="directed">
+<data key="weight">9</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="563644f1b299bef8883e5e2aade89bc1"  type="directed">
+<data key="weight">9</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="5399465c5b23df17b16c2377e865a0b2"  type="directed">
+<data key="weight">8</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="669e9d825f3f8f6e177b45c4f74b3cc7" target="60c32f448f99fd9fefbb44899ad9cc3a"  type="directed">
+<data key="weight">8</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="669e9d825f3f8f6e177b45c4f74b3cc7" target="85a58fb4d3118f1ba7ed29d0e91d4466"  type="directed">
+<data key="weight">7</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="d1063af181fe606e55ed93dd5b867169"  type="directed">
+<data key="weight">7</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="669e9d825f3f8f6e177b45c4f74b3cc7" target="633c96238b8d07b8a40ea16b4ce8eb53"  type="directed">
+<data key="weight">7</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="aee224792317e5d036a15fd62c5f800b" target="9da0e9791cf33fd4e9990551c3359f2e"  type="directed">
+<data key="weight">6</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="e357f78cf52ab0898f6cf6adafe37a29"  type="directed">
+<data key="weight">6</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="4d426e9f5a1275a111a83fd4d388567c" target="319347d1d0e3c3cf590206fac5ca69d2"  type="directed">
+<data key="weight">6</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="2f3545a0b5bbe6df93a66c43f880f2e9"  type="directed">
+<data key="weight">5</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5973a27afaff792965f138d880fa485d" target="fc1fdc00966f512df568e14e707ec29b"  type="directed">
+<data key="weight">5</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d8aa06a9e787628d1636d65026a817d4" target="724fb07d179833a8baa09e06d8bb6fd9"  type="directed">
+<data key="weight">4</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9da0e9791cf33fd4e9990551c3359f2e" target="9da0e9791cf33fd4e9990551c3359f2e"  type="directed">
+<data key="weight">4</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d8aa06a9e787628d1636d65026a817d4" target="1aa6fab06a82a054f99638488f489465"  type="directed">
+<data key="weight">4</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d8aa06a9e787628d1636d65026a817d4" target="633c96238b8d07b8a40ea16b4ce8eb53"  type="directed">
+<data key="weight">4</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="aee224792317e5d036a15fd62c5f800b" target="e84e00b1c72bd77e061575bc83613622"  type="directed">
+<data key="weight">4</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="b0110c47e8b706ed219e3e5a41430ea1"  type="directed">
+<data key="weight">4</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="823472703eadc53cd1d8c99e5e02264a" target="6ac40183833de603d9c596133b37292e"  type="directed">
+<data key="weight">4</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="d9effdb67b68389a9a179d1dd09077ff"  type="directed">
+<data key="weight">4</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="da7f81863a2183f672f148cdbdde151b"  type="directed">
+<data key="weight">3</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="405d19a958ba43d88e9edd7a77338aa3"  type="directed">
+<data key="weight">3</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="e3e173c17e74f49a7e789278cac8b14c"  type="directed">
+<data key="weight">3</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="405d19a958ba43d88e9edd7a77338aa3"  type="directed">
+<data key="weight">3</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="58dc21d796f159e28e4b0ea9cd9cea35" target="66eb477bbdff51a7c0172a07f9dd85d9"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9da0e9791cf33fd4e9990551c3359f2e" target="2fea3850ae4d0124b568409ec68ef6e0"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8db91e1e658cc7c6389ebc1518dd975f" target="d5d1f9bedf19f63ad496d57441a2a08b"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="bb3e972f0aee53df18ea8cbf9ca3b13b"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="823472703eadc53cd1d8c99e5e02264a" target="e0d6ee3eb988c6ed090f5dba2c4d60c5"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="264bea18042c842fcfb88b7bd40e41fb"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="21a9ac2b8c0bf1d24c5220f66ac49468"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="264bea18042c842fcfb88b7bd40e41fb"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="b9d3a2ec49484d20eafeb6b6b658cb24" target="685c58fd100fb98b41dc5857e8434019"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="308fbee3a74310d6784091c9a1fbb60e"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="2601e21e23963594c5dd08f7e58931c1"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="58dc21d796f159e28e4b0ea9cd9cea35" target="04e313a4979a2219e81df1306fdba961"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="b9d3a2ec49484d20eafeb6b6b658cb24" target="ebf63cac9e04d6eccc67c7c154944bc3"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8db91e1e658cc7c6389ebc1518dd975f" target="eeb0214fd308240652eedadc8194647f"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="c45891a8764d82afa7064c78579f0115"  type="directed">
+<data key="weight">2</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="ca0cebc0f9a75dce981efd248da44df4"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="45cad84930433827d75db97d0af88f33" target="3cdca5d155b682f6b2ead545f25b7726"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="9e835514f572ce7676a9af702ffbe0c2"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="b0fff72e4bbf14a8b779ab443ae9f340"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="85c142fea19866302ae88a4eea11b42b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="d1063af181fe606e55ed93dd5b867169"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="b5292b14062eeaa88b2bc8b862866dbb"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="423ce16c379e46488d1c1b90c8580098"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="2f3a58b0e9be954b04a88a4d195210f3"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="0a8fcf07cbf35b28b271107303fec3bb"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0bb814ddd6e46e5b51d7355b17e4379" target="959af53724f8552e040b244a49bd2689"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="a79b39aba13dbfa277891ddabc9b9403"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8f9f95aef14ece4a4a5dc32a72721149" target="cd010a0fa1c6e5043410784601448ca7"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="77eadafc0a53cb80d572c1afc302495a"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="acce9265f82046c77c62a15053871c1d"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="c48c9d9c9525983831add0ff5194f898"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="ff8767098a55ac94018470a8c8e8dd9c"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="f33b3da536125574d5992df191d66b92"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="897564200e1866455fe53cb3bd7d118e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9da0e9791cf33fd4e9990551c3359f2e" target="42d946511b4361926857e79e57238aa6"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="411758a85dc6be659a62bd358062b924"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0bb814ddd6e46e5b51d7355b17e4379" target="809d72197f12ae1890bffcb575be7ff3"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="fca12b2185ef8db41d41989c46743cbe"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="8de2b275624d4a9bd411a519cea54d32"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="9c63c2d8ead8f966e58f51f179885a7c"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="48407b181a7f4ea4beeb7530f5636df3"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="cf4ad6942be68dde12284907c176e237"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="161d466665db97a55b7c65c6e1a756a5"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="d29a8b44fd424d49a9a3fd052f6d2105"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="20f199cccc50b47e55297fa77c64de09"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0bb814ddd6e46e5b51d7355b17e4379" target="20e42be3207733486c2d648535e4b3c6"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="669e9d825f3f8f6e177b45c4f74b3cc7" target="1ae0a54b5707d930a119ad7feab41965"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="8e8decc8e8107bcf9d3896f3222b77d8"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="5b88030ddfd0793e7af6e655fac816cd"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="823472703eadc53cd1d8c99e5e02264a" target="633c96238b8d07b8a40ea16b4ce8eb53"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="ff0ce68bf0167bce979f6142d9ae7415"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="355ecb2f44cef9b85eab4000eea781fc"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="7bf6d0438847d3e4136ec5de0b7f2f55"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="88f582d20e5fd506403f032816836736"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="4d426e9f5a1275a111a83fd4d388567c" target="a8badd1d31bc6711709e93498cc8464b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="98e4c299bae7d9ce3a8ea73491f77369"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="00b8c3504a7fb3a25826976066ba9711"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="c8afd9a8d4f41febfc0a3e4e3d70265f"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="612747e722e5c9a3288e8ed5f12bf11d"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="f016a08a2ac8eff2ab46bdfc79a0b956"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="c6124246cee33458fa550515300059ee"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="65b441dfbadc09c99f2471b9afd66355"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="aee224792317e5d036a15fd62c5f800b" target="f493e9bc92945cc90e939de538e20135"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="fe252681283adf979bacc269dd4bdf81"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="533e6f8d24e06db302658919052ca81d"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="2d9297a0e6002d670bfe2e2f304d5595"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="b57e90e545cbd2a5c3dfb1156491c4d9"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="c6adb41b66b066f5bd541d2cdba4d65c"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="c0fcf66fb86011609f84c104d799fe3b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="d49e69e83e2cd0eeecce24f4b6665fff"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="e7b36da829dd514b50d7401fbe94031e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="afaf01b9d8d1308566870e998cbd83f4"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="bc3bccadfd5866750f7ecbd8bb1f3173"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="2062d39a9bea19719fe63bd86b126cc1"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="0e37433cf5166e817abd742fb1bfa1ca"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="94cfa905f15213b825a12fb03f52d443"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="5d251160e5b44cfaac8cacdd8850bacb"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bdc71a0180ccb54658eb203942c5db60" target="bdc71a0180ccb54658eb203942c5db60"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="d8daf520ecb021d55f0dc62fba7dba8b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="6d9aaa230eae666a1e5cbad8f857f1b1"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="4590e321b43804e3067317b27d61ba3b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="38f1eeb72644a26518bcd009bdb4b596"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="4d426e9f5a1275a111a83fd4d388567c" target="5702d1fb01edc5acae5f53fe65b49107"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bdc71a0180ccb54658eb203942c5db60" target="5886b9f576df7b8ae6f2c8a6268c0974"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="6749de40aefb2ed7b8113f4f2b0bee5d"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="c114172bee26554a6880e94fd1c6ba76"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="84b9fcec638d0b00d11eba5ee3171d84" target="b8c54ddeb990c06a028e49f5c8e42552"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="6064ad6a1b34ffd055999d7b2a2c5ba8"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="84b9fcec638d0b00d11eba5ee3171d84" target="b0110c47e8b706ed219e3e5a41430ea1"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="dc2c25c1de8f9561ea8e6702912090ea"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="6754aade72973203abcc11a2101a846d"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="ea79ccdbb21e44e91a54775d3c1ac5bb"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="ef30525aef76244c78f773842c77f19c"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="5166dbc6d070f1df2e331a0fa4aa93ba"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="9cce24c55aee4eb39845fde935cca3da"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="8043ebefc6302bfa08a15e56812fe37b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="2ed871e9d2b204365e61ee2d3ede94ab"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="5024353844acec034e4ee4f1106dd1b7"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="b0ad95c53b6935457aff4d749907d3d9"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="df33670b4d8711fbe854a65ad72e9fb3"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="16d0bffe49ee76d95867dc7aac7b5857"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="ab427db012bf49fc4d10da8ad7cca816"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="a1f415a64a70e2cc79780b6a69abc1f3"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="4cfccea352679febd6bf826c10a63f04"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="f21dd810bef3f99118df2c8dc6c8403e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="a4dff0e11169135933d0c9572789b132"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="442b478edb0cb7391b174e14c3d1a7c6"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="8c919071c12f99e8d9e0a8ba54e15b4e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="45cad84930433827d75db97d0af88f33" target="6904877e66c32e4ef3a31fe1832ddae4"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="09ac73d074abea5f1911a86ddbd5b4db"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="2456107d98c67ecac54a6d987c5bf192"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="b929a12045d92d7967b33e65dae329fa"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="de429b980312582317f1708361b4463b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="1725075aee617949c6bd8a1557dd0670"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9cce24c55aee4eb39845fde935cca3da" target="9d86e0fd0c4ee40ab2a0076fa19d821a"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="88d6dbf6a36ed106280bd9d1cc35c78d"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="7f2457b84778c7c222510c25db43f96e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="ee911c750cee65e3cc4ee5401b0b3e78"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="b34f9883e299a3fffdf7551d9dbddc8a"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="6716d1d42846ba1b264a77ca5a24b771"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="3175fe9eca908fd4d0653829615a741b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="f9a12b41b7e9cb9fb8d3aacba11ec230"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="b74010a3384fda16ccca54135a215c34"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="21dd8022d1e78b3ab96239e4d57c09a5"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9da0e9791cf33fd4e9990551c3359f2e" target="bff0b419c166757006abcff3d058f0df"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="ecab7930ae6daaae85e0e49cbaaca87d"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="b9d3a2ec49484d20eafeb6b6b658cb24" target="3d29ed40468aefcbf78ca0cf002f91c1"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="4d426e9f5a1275a111a83fd4d388567c" target="58bb5cbf14b56b6755ea0971f968e580"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="154fa4df3f082abfecf1995a46fded31"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="1d3cace869c02950f2fd7ca5585cd78b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="84b9fcec638d0b00d11eba5ee3171d84" target="407a7ac4c85ec67940c7ce1c860bb60a"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="09f8995a3489afd2a3f9933e06ae5374"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="1ea35c5922254ef047141148783bee95"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="a86de8a5133c2ac1878b9403e084024e" target="3954037b85b143f7f11007b3ef2d28db"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="ba2ac5ecf64166b7817f783d40cc0e8e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="669e9d825f3f8f6e177b45c4f74b3cc7" target="482ad443fcb93afbc96b8a3a4418e952"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="0a46ab47663d8c7a556e79273780c07e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="458d6ce76a19e2dfb1c9c5d9b7b5f460"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="6f536977001fbd1243265d62355bdb7d" target="7976afb00427239d847abdcd93964588"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="5f110a5a98c8d77583671fd913d80c37" target="6fb9b038ae3bfbc4dd86f1228aa19325"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="669e9d825f3f8f6e177b45c4f74b3cc7" target="dcc3b4a857a15e9c5ffa41495a030932"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="56f65c1bce68ad9cadba507852ebc824"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="643e5e0407d3cac64dd3b702fa6d8a4c"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="9e222f6f06d6f1102a23e64d04c1af70"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="4f1760b190ea33a5c9012cb0f0af945a"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="4ce097425298a5d41e6bba1a45b84b7e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="7443e52d9798ecfc13347396b05fa123"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="526ca4e918e76368d127bc25266c0fd3"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="ffbbc85fb1305473167a8a56a728bfdc"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="9ee597e68021ad5ef823cdffbc218edb" target="267e170be88b02e13da865137e9fe5e4"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="7bdc476457fb537975d40db7d8389f1e" target="1da3123f5ad26b172a3dd4a030f6a322"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="84b9fcec638d0b00d11eba5ee3171d84" target="c27b54bab5684779149501f9180eeae3"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="ed14afb4b86233e7d0cb59a928ef09c0" target="9015c459d235149c645b109d01a67e20"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="92d26cac24fed58bb104884873c5f275"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="04be4ba28961338d79cc34e4735fd40c"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="8db91e1e658cc7c6389ebc1518dd975f" target="4bb8f77ad94cb5b279dec378680dfc90"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="c00994b64130ef12c262a0a389f87e8e"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bf33af084e99a8e2d617b7fb3fc6aa5d" target="acf1defb61298e646ee3659ce6f8746d"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="d5ae6cd0b4b9546893cf3c03fc0c4aeb" target="f8eab763c863b6270dad3db76fd2094a"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="c0281943e3e3566078c176532fd42543" target="5ac82d4250c1c0d2d35cd120045e517b"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+<edge source="bdc71a0180ccb54658eb203942c5db60" target="d1ed4ab9d26886124eb3d4404f609e6a"  type="directed">
+<data key="weight">1</data>
+<data key="crawlDate">20060622</data>
+</edge>
+</graph>
+</graphml>

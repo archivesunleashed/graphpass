@@ -1,0 +1,95 @@
+
+
+Borg Reducer is a helper library to filter networks and provide a default visualization output for \href{https://gephi.org/}{\tt Gephi}. It prevents the infamous \char`\"{}borg cube\char`\"{} result when entering large files into Gephi, allowing you to work with ready-\/made network layouts.
+
+\subsection*{Installation}
+
+\subsubsection*{Dependencies}
+
+This library requires the \href{http://igraph.org/c/}{\tt C Igraph Library} and a C compiler, such as \href{https://gcc.gnu.org/}{\tt gcc}.
+
+For Mac\+OS\+:
+
+Using \href{https://brew.sh/}{\tt brew}, the following commands will install dependencies\+:
+
+
+\begin{DoxyCode}
+brew install gcc
+brew install igraph
+\end{DoxyCode}
+
+
+\subsubsection*{Building}
+
+Clone the repository with\+:
+
+
+\begin{DoxyCode}
+git clone https://github.com/archivesunleashed/borg-reducer
+\end{DoxyCode}
+
+
+Type
+
+
+\begin{DoxyCode}
+brew info igraph
+\end{DoxyCode}
+
+
+and verify that the path displayed there matches the default I\+G\+R\+A\+P\+H\+\_\+\+P\+A\+TH value provided in the Makefile. By default this is {\ttfamily /usr/local/\+Cellar/igraph/0.7.\+1\+\_\+6/}.
+
+Then
+
+
+\begin{DoxyCode}
+cd borg-reducer
+make
+\end{DoxyCode}
+
+
+\subsection*{Usage}
+
+Once compiled use the following command\+:
+
+\`{}\`{}{\ttfamily  ./borgreducer -\/-\/file \{F\+I\+L\+E\+N\+A\+ME\} -\/-\/percent \{P\+E\+R\+C\+E\+N\+T\+A\+GE TO F\+I\+L\+T\+ER\} -\/-\/method \{M\+E\+T\+H\+O\+DS (see below)\} -\/-\/output \{O\+U\+T\+P\+UT D\+I\+R\+E\+C\+T\+O\+RY\}} 
+\begin{DoxyCode}
+You will pass options using the `--method` flag. The options can be seen below:
+
+* `a` : authority
+* `b` : betweenness
+* `c` : clustering
+* `d` : simple degree
+* `e` : eigenvector
+* `h` : hub
+* `i` : in-degree
+* `o` : out-degree
+* `p` : pagerank
+* `r` : random
+* `w` : weighted degree
+
+For example:
+\end{DoxyCode}
+ ./borgreducer --percent 10 --methods \char`\"{}b\char`\"{} --file links-\/for-\/gephi.\+graphml \`{}\`{}\`{}
+
+Will filter the graph down by 10\% and lay the network out using the betweenness function. It will find {\ttfamily links-\/for-\/gephi.\+graphml} file in {\ttfamily /assets} and output a new one to {\ttfamily /\+O\+UT} (titled {\ttfamily links-\/for-\/gephi.\+graphml10\+Betweenness.\+graphml}).
+
+\section*{Optional arguments}
+
+
+\begin{DoxyItemize}
+\item {\ttfamily -\/r} \+: create an output report showing the impact of filtering on graph features.
+\item {\ttfamily -\/g} \+: output as a .gexf (for Sigma\+JS) instead of .graphml.
+\end{DoxyItemize}
+
+\section*{Troubleshooting}
+
+It is possible that you can get a \char`\"{}error while loading shared libraries\char`\"{} error in Linux. If so, try running {\ttfamily sudo ldconfig} to set the libraries path for your local installation of igraph.
+
+\section*{License}
+
+Licensed under the \href{http://www.apache.org/licenses/LICENSE-2.0}{\tt Apache License, Version 2.\+0}.
+
+\section*{Acknowledgments}
+
+This work is primarily supported by the \href{https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock}{\tt Andrew W. Mellon Foundation}. Additional funding for the Toolkit has come from the U.\+S. National Science Foundation, Columbia University Library\textquotesingle{}s Mellon-\/funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation\textquotesingle{}s Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors. 

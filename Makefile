@@ -11,15 +11,22 @@ CC = gcc
 
 IGRAPH_INCLUDE = $(IGRAPH_PATH)include/igraph
 IGRAPH_LIB = $(IGRAPH_PATH)lib
-INCLUDE = ./Include/*.h
-DEPS = INCLUDE IGRAPH_INCLUDE
+TEST_INCLUDE = ./tests/*.c
+UNITY_INCLUDE = ./unity/unity.c ./unity/unity.h
+INCLUDE = ./include/*.h
+DEPS = INCLUDE IGRAPH_INCLUDE UNITY_INCLUDE
+BUILD = build/
 
-install: borg-reducer.c
-	gcc borg-reducer.c -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o borgreducer -lm
+install: graphpass.c
+	gcc graphpass.c -I$(DEPS) -L$(IGRAPH_LIB) -ligraph -o graphpass -lm
 
-debug: borg-reducer.c
-	gcc borg-reducer.c -g -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o borgreducer
+debug: graphpass.c
+	gcc graphpass.c -g -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o graphpass
+
+test: graphpass_test.c
+  gcc graphpass_test.c iI$(DEPS) -L$(IGRAPH_LIB)
+
 
 .PHONY : clean
 clean:
-	rm -f borgreducer
+	rm -f graphpass

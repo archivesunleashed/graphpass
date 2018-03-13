@@ -1,0 +1,67 @@
+\hypertarget{analyze_8h}{}\section{include/analyze.h File Reference}
+\label{analyze_8h}\index{include/analyze.\+h@{include/analyze.\+h}}
+
+
+Provides basic network analysis and adds them to the graph output.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{analyze_8h_a42266a68ec7dec39cab2dfaf9b7e960f}\label{analyze_8h_a42266a68ec7dec39cab2dfaf9b7e960f}} 
+int {\bfseries calc\+\_\+betweenness} (igraph\+\_\+t $\ast$graph)
+\item 
+\mbox{\Hypertarget{analyze_8h_a5ac9574f0f1667798b100335fca7a4b8}\label{analyze_8h_a5ac9574f0f1667798b100335fca7a4b8}} 
+int {\bfseries calc\+\_\+authority} (igraph\+\_\+t $\ast$graph)
+\item 
+\mbox{\Hypertarget{analyze_8h_aa55ffebfe9f43d601d1abd39007bcc05}\label{analyze_8h_aa55ffebfe9f43d601d1abd39007bcc05}} 
+int {\bfseries calc\+\_\+hub} (igraph\+\_\+t $\ast$graph)
+\item 
+\mbox{\Hypertarget{analyze_8h_a419d00268c0933e0d24ea635601383f4}\label{analyze_8h_a419d00268c0933e0d24ea635601383f4}} 
+int {\bfseries calc\+\_\+pagerank} (igraph\+\_\+t $\ast$graph)
+\item 
+\mbox{\Hypertarget{analyze_8h_af97d646bd402fe14b4a69cc966b16560}\label{analyze_8h_af97d646bd402fe14b4a69cc966b16560}} 
+int {\bfseries calc\+\_\+eigenvector} (igraph\+\_\+t $\ast$graph)
+\item 
+\mbox{\Hypertarget{analyze_8h_a3000150d33013b586e89f25735975f6e}\label{analyze_8h_a3000150d33013b586e89f25735975f6e}} 
+int {\bfseries calc\+\_\+clustering} (igraph\+\_\+t $\ast$graph)
+\item 
+\mbox{\Hypertarget{analyze_8h_a6b68ed8f3c993b1b43358149c5597b91}\label{analyze_8h_a6b68ed8f3c993b1b43358149c5597b91}} 
+int {\bfseries calc\+\_\+random} (igraph\+\_\+t $\ast$graph)
+\item 
+\mbox{\Hypertarget{analyze_8h_a718c44fbc664a2fccfce48ee8c7aaa40}\label{analyze_8h_a718c44fbc664a2fccfce48ee8c7aaa40}} 
+int {\bfseries calc\+\_\+degree} (igraph\+\_\+t $\ast$graph, char type)
+\item 
+\mbox{\Hypertarget{analyze_8h_a426579d8f0fd923b99b6c145718ee57c}\label{analyze_8h_a426579d8f0fd923b99b6c145718ee57c}} 
+int {\bfseries calc\+\_\+modularity} (igraph\+\_\+t $\ast$graph)
+\item 
+\mbox{\Hypertarget{analyze_8h_a4f5095ef53aeb6ce15158512c6a82ab8}\label{analyze_8h_a4f5095ef53aeb6ce15158512c6a82ab8}} 
+int {\bfseries centralization} (igraph\+\_\+t $\ast$graph, char $\ast$attr)
+\item 
+int \mbox{\hyperlink{analyze_8h_aa7a4240c401b00408a4e4634d94f7472}{analysis\+\_\+all}} (igraph\+\_\+t $\ast$graph)
+\begin{DoxyCompactList}\small\item\em Calculates the main analysis scores for the graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides basic network analysis and adds them to the graph output. 
+
+\mbox{\hyperlink{analyze_8h}{Analyze.\+h}} contains the main functions for analysing network graphs. These functions are used by other files (filter, or viz, for instance) to determine such things as what to filter, how to produce colors, and what size nodes should be. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{analyze_8h_aa7a4240c401b00408a4e4634d94f7472}\label{analyze_8h_aa7a4240c401b00408a4e4634d94f7472}} 
+\index{analyze.\+h@{analyze.\+h}!analysis\+\_\+all@{analysis\+\_\+all}}
+\index{analysis\+\_\+all@{analysis\+\_\+all}!analyze.\+h@{analyze.\+h}}
+\subsubsection{\texorpdfstring{analysis\+\_\+all()}{analysis\_all()}}
+{\footnotesize\ttfamily int analysis\+\_\+all (\begin{DoxyParamCaption}\item[{igraph\+\_\+t $\ast$}]{graph }\end{DoxyParamCaption})}
+
+
+
+Calculates the main analysis scores for the graph. 
+
+analysis\+\_\+all conducts all available graph, node and edge scores available in the network utility. It is very expensive in terms of processing time, so should be used only for smaller graphs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & -\/ the graph for which to record the scores. \\
+\hline
+\end{DoxyParams}
