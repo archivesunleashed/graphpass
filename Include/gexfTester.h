@@ -1,19 +1,41 @@
-/* -*- Nutil -- Network Graph Utilities mode: C -*-  */
+/* -*- mode: C -*-  */
 /*
- Copyright <2018> <Ryan Deschamps> <ryan.deschamps@gmail.com>
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
- */
+   IGraph R package.
+   Copyright (C) 2006-2012  Gabor Csardi <csardi.gabor@gmail.com>
+   334 Harvard street, Cambridge, MA 02139 USA
 
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
 
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+   02110-1301 USA
 
-extern int errno;
+*/
+
+#include "igraph_foreign.h"
+#include "config.h"
+#include <math.h>               /* isnan */
+#include "igraph_math.h"
+#include "igraph_attributes.h"
+#include "igraph_interface.h"
+#include "igraph_types_internal.h"
+
+#include <ctype.h>		/* isspace */
+#include <string.h>
+#include "igraph_memory.h"
+#include <stdarg.h> 		/* va_start & co */
+#include <time.h>
+
+#define GEXF_NAMESPACE_URI "http://www.gexf.net/1.2draft"
 
 int igraph_i_xml_escape(char* src, char** dest) {
   long int destlen=0;
@@ -49,12 +71,11 @@ int igraph_i_xml_escape(char* src, char** dest) {
 
 int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
 			       igraph_bool_t prefixattr) {
-  printf("Writing GEXF");
   int ret;
   igraph_integer_t l, vc, ec;
   igraph_eit_t it;
   igraph_strvector_t gnames, vnames, enames, label;
-  igraph_vector_t gtypes, vtypes, etypes, size, r, g, b, x, y, weight;
+  igraph_vector_t gtypes, vtypes, etypes, size, r, g, b, x, y, z, weight;
   long int i;
   igraph_vector_t numv;
   igraph_strvector_t strv;
@@ -64,8 +85,6 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   const char *gprefix= prefixattr ? "g_" : "";
   const char *vprefix= prefixattr ? "v_" : "";
   const char *eprefix= prefixattr ? "e_" : "";
-
-  printf("headers");
 
   ret=fprintf(outstream, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
@@ -179,10 +198,11 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   ret=fprintf(outstream, "  </attributes>\n");
   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
 
+  /* Graph Attvalues are not supported by the GEXF XMLSchema
 
-
-  /* Do not include graph attvalues for now but can add them later */
-  /*
+  */
+  ret=fprintf(outstream, "  <attvalues>\n");
+  if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
   for (i=0; i<igraph_vector_size(&gtypes); i++) {
     char *name, *name_escaped;
     if (VECTOR(gtypes)[i] == IGRAPH_ATTRIBUTE_NUMERIC) {
@@ -190,7 +210,7 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
       IGRAPH_CHECK(igraph_i_attribute_get_numeric_graph_attr(graph, name, &numv));
       if (!isnan(VECTOR(numv)[0])) {
         IGRAPH_CHECK(igraph_i_xml_escape(name, &name_escaped));
-        ret=fprintf(outstream, "    <data key=\"%s%s\">%g</data>\n",
+        ret=fprintf(outstream, "    <attvalue for=\"%s%s\" value=\"%g\"></attvalue>\n",
                     gprefix, name_escaped, VECTOR(numv)[0]);
         igraph_Free(name_escaped);
         if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
@@ -199,27 +219,29 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
       char *s, *s_escaped;
       igraph_strvector_get(&gnames, i, &name);
       IGRAPH_CHECK(igraph_i_xml_escape(name, &name_escaped));
-      ret=fprintf(outstream, "    <data key=\"%s%s\">", gprefix,
+      ret=fprintf(outstream, "    <attvalue for=\"%s%s\" value=\"", gprefix,
 		  name_escaped);
       igraph_Free(name_escaped);
       IGRAPH_CHECK(igraph_i_attribute_get_string_graph_attr(graph, name, &strv));
       igraph_strvector_get(&strv, 0, &s);
       IGRAPH_CHECK(igraph_i_xml_escape(s, &s_escaped));
-      ret=fprintf(outstream, "%s", s_escaped);
+      ret=fprintf(outstream, "%s\"", s_escaped);
       igraph_Free(s_escaped);
       if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-      ret=fprintf(outstream, "</data>\n");
+      ret=fprintf(outstream, "</attvalue>\n");
       if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     } else if (VECTOR(gtypes)[i] == IGRAPH_ATTRIBUTE_BOOLEAN) {
       igraph_strvector_get(&gnames, i, &name);
       IGRAPH_CHECK(igraph_i_attribute_get_bool_graph_attr(graph, name, &boolv));
       IGRAPH_CHECK(igraph_i_xml_escape(name, &name_escaped));
-      ret=fprintf(outstream, "    <data key=\"%s%s\">%s</data>\n",
+      ret=fprintf(outstream, "    <attvalue for=\"%s%s\" value=\"%s\"></attvalue>\n",
                   gprefix, name_escaped, VECTOR(boolv)[0] ? "true" : "false");
       igraph_Free(name_escaped);
       if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     }
-  }*/
+  }
+  ret=fprintf(outstream, "  </attvalues>\n");
+  if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
 
   /* Let's dump the nodes first */
   ret=fprintf(outstream, "  <nodes>\n");
@@ -227,14 +249,14 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   vc=igraph_vcount(graph);
   ec=igraph_ecount(graph);
   igraph_strvector_init(&label, vc);
-  igraph_vector_init(&weight, ec);
   igraph_vector_init(&r, vc);
   igraph_vector_init(&g, vc);
   igraph_vector_init(&b, vc);
   igraph_vector_init(&y, vc);
   igraph_vector_init(&x, vc);
+  igraph_vector_init(&z, vc);
   igraph_vector_init(&size, vc);
-
+  igraph_vector_init(&weight, ec);
   if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_EDGE, "weight") == true) {
     EANV(graph, "weight", &weight);
   }
@@ -243,38 +265,46 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   }
   else if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "name") == true){
     VASV(graph, "name", &label);
-  } else {
-    printf ("No label information available on this graph.");
+  }
+  else {
+
   }
 
-  /*if ( VASV(graph, "label", &label) == 0 ){
-    VASV(graph, "label", &label);
-  } else if (VASV(graph, "name", &label) == 0) {
-    VASV(graph, "name", &label);
-  } else {
-    printf("label was null trying name");
-  }*/
-  VANV(graph, "r", &r);
-  VANV(graph, "g", &g);
-  VANV(graph, "b", &b);
-  VANV(graph, "size", &size);
-  VANV(graph, "x", &x);
-  VANV(graph, "y", &y);
+  if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "r") == true
+&& igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "g") == true
+&& igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "b") == true) {
+    VANV(graph, "r", &r);
+    VANV(graph, "g", &g);
+    VANV(graph, "b", &b);
+  }
+
+  if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "size") == true){
+    VANV(graph, "size", &size);
+  }
+
+  if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "x") == true
+&& igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "y") == true ) {
+    VANV(graph, "x", &x);
+    VANV(graph, "y", &y);
+
+  }
+  if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "z") == true) {
+    VANV(graph, "z", &z);
+  }
+
   for (l=0; l<vc; l++) {
     char *name, *name_escaped;
-    ret=fprintf(outstream, "    <node id=\"n%ld\" label=\"%s\">\n", (long)l, STR(label, l) ? STR(label, l) : "x");
+    ret=fprintf(outstream, "    <node id=\"n%ld\" label=\"%s\">\n", (long)l, STR(label, l));
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     ret=fprintf(outstream, "    <attvalues>\n");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     for (i=0; i<igraph_vector_size(&vtypes); i++) {
       if (VECTOR(vtypes)[i] == IGRAPH_ATTRIBUTE_NUMERIC) {
         igraph_strvector_get(&vnames, i, &name);
-        IGRAPH_CHECK(igraph_i_attribute_get_numeric_vertex_attr(graph, name,
-                     igraph_vss_1(l), &numv));
+        IGRAPH_CHECK(igraph_i_attribute_get_numeric_vertex_attr(graph, name, igraph_vss_1(l), &numv));
         if (!isnan(VECTOR(numv)[0])) {
           IGRAPH_CHECK(igraph_i_xml_escape(name, &name_escaped));
-          ret=fprintf(outstream, "      <attvalue for=\"%s%s\" value=\"%g\" />\n",
-                      vprefix, name_escaped, VECTOR(numv)[0]);
+          ret=fprintf(outstream, "      <attvalue for=\"%s%s\" value=\"%g\" />\n", vprefix, name_escaped, VECTOR(numv)[0]);
           igraph_Free(name_escaped);
           if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
         }
@@ -285,8 +315,7 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
         ret=fprintf(outstream, "      <attvalue for=\"%s%s\" value=\"", vprefix,
 		    name_escaped);
         igraph_Free(name_escaped);
-        IGRAPH_CHECK(igraph_i_attribute_get_string_vertex_attr(graph, name,
-                     igraph_vss_1(l), &strv));
+        IGRAPH_CHECK(igraph_i_attribute_get_string_vertex_attr(graph, name, igraph_vss_1(l), &strv));
         igraph_strvector_get(&strv, 0, &s);
         IGRAPH_CHECK(igraph_i_xml_escape(s, &s_escaped));
         ret=fprintf(outstream, "%s\" />\n", s_escaped);
@@ -305,11 +334,14 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
     }
     ret=fprintf(outstream, "    </attvalues>\n");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-    ret=fprintf(outstream, "      <viz:color r=\"%i\" g=\"%i\" b=\"%i\"></viz:color>\n", (int)VECTOR(r)[l], (int)VECTOR(g)[l], (int)VECTOR(b)[l]);
+    ret=fprintf(outstream, "      <viz:color r=\"%i\" g=\"%i\" b=\"%i\"></viz:color>\n",
+    (int)VECTOR(r)[l], (int)VECTOR(g)[l], (int)VECTOR(b)[l]);
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-    ret=fprintf(outstream, "      <viz:size value=\"%f\"></viz:size>\n", VECTOR(size)[l]);
+    ret=fprintf(outstream, "      <viz:size value=\"%f\"></viz:size>\n",
+    VECTOR(size)[l]);
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-    ret=fprintf(outstream, "      <viz:position y=\"%f\" x=\"%f\" z=\"0.0\"></viz:position>\n", VECTOR(y)[l], VECTOR(x)[l]);
+    ret=fprintf(outstream, "      <viz:position y=\"%f\" x=\"%f\" z=\"%f\"></viz:position>\n",
+    VECTOR(y)[l], VECTOR(x)[l], VECTOR(z)[l] ? VECTOR(z)[l] : 0.0);
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     ret=fprintf(outstream, "    </node>\n");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
@@ -328,7 +360,7 @@ int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
     long int edge=IGRAPH_EIT_GET(it);
     igraph_edge(graph, (igraph_integer_t) edge, &from, &to);
     ret=fprintf(outstream, "    <edge id=\"%ld\" source=\"n%ld\" target=\"n%ld\" weight=\"%f\">\n",
-		(long int)l, (long int)from, (long int)to, VECTOR(weight)[l] ? VECTOR(weight)[l] : 0.0);
+		(long int)l, (long int)from, (long int)to, VECTOR(weight)[l] ? VECTOR(weight)[l] : 1.0);
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     ret=fprintf(outstream, "      <attvalues>\n");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
