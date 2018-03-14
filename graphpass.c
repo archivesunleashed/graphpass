@@ -145,7 +145,8 @@ int main (int argc, char *argv[]) {
     printf("Removing redundant slashes from filename.\n");
     path[strlen(path)+1] = '\0';
   }
-  else if (FILENAME[0] != '/' && DIRECTORY[(sizeof(DIRECTORY)/sizeof(DIRECTORY[0])-2)] != '/') {
+  else if (FILENAME[0] != '/' && DIRECTORY[strlen(DIRECTORY)-1] != '/') {
+    printf("%s", DIRECTORY[strlen(DIRECTORY)]);
     printf("Adding slash separator.\n");
     strncat(path, "/", 1);
     printf ("Current path: %s.\n", path);
