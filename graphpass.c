@@ -133,14 +133,18 @@ int main (int argc, char *argv[]) {
   METHODS = METHODS ? METHODS : "d";
   DIRECTORY = DIRECTORY ? DIRECTORY : "assets/";
   FILENAME = FILENAME ? FILENAME : "miserables.graphml";
-  char path[(sizeof(DIRECTORY)/sizeof(DIRECTORY[0]) + 1)];
-  strncpy(path, DIRECTORY, sizeof(DIRECTORY)/sizeof(DIRECTORY[0]));
-  if (FILENAME[0] == '/' && DIRECTORY[(sizeof(DIRECTORY)/sizeof(DIRECTORY[0])-2)] == '/' ){
-    path[sizeof(path)/sizeof(path[0])-1] = '\0';
+  char path[strlen(DIRECTORY)+1];
+  strncpy(path, DIRECTORY, strlen(DIRECTORY)+1);
+  printf("path: %s \nDIRECTORY: %s \nSIZEOF DIRECTORY: %li \nSTRLEN PATH: %li \n", path, DIRECTORY, sizeof(DIRECTORY), strlen(path));
+  if (FILENAME[0] == '/' && DIRECTORY[strlen(DIRECTORY)] == '/' ){
+    printf("Removing redundant slashes from filename.\n");
+    path[strlen(path)+1] = '\0';
   }
   else if (FILENAME[0] != '/' && DIRECTORY[(sizeof(DIRECTORY)/sizeof(DIRECTORY[0])-2)] != '/') {
+    printf("Adding slash separator.\n");
     strncat(path, "/", 1);
     path[sizeof(path)/sizeof(path[0])-1] = '\0';
+    printf ("Current path: %s.\n", path);
   }
   int sizeOfPath = (sizeof(path) / sizeof(path[0]));
   int sizeOfFile = (strlen(FILENAME)+1);
