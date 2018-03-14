@@ -91,9 +91,9 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize, char* att
     }
     else if (checkFewer == 0) {
       /* The only values to cut are equal to the cutoff */
-      printf ("---WARNING--- :  Percentage resulted in ambiguous filtering because \n \
-              because no values were lower than cutoff point %f (only equal to) This means\n \
-              that all values at cutoff point will be selected randomly.\n\n", cutoff);
+      printf("  ---WARNING--- :  Percentage resulted in ambiguous filtering \n");
+      printf("    because no values were lower than cutoff point %f \n", cutoff);
+      printf("    This means that all values that equal the cutoff point will be selected randomly.\n");
       int rands = 0;
       for (long int i=0; i<NODESIZE; i++) {
         if (VAN(graph, attr, i) == cutoff) {
@@ -108,8 +108,9 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize, char* att
     } else {
       /* means we have to randomize selection for val == cutoff */
       int randoms = (cutsize - checkFewer);
-      printf ("---WARNING--- :  Percentage resulted in ambiguous filtering.\n This means \
-              that %i values at cutoff point %f \n will be selected randomly.\n\n", randoms, cutoff);
+      printf ("  ---WARNING--- :  Percentage resulted in ambiguous filtering.\n");
+      printf( "    This means that %i values at cutoff point %f \n will be selected randomly.\n",
+        randoms, cutoff);
       int index = 0;
       int rands = 0;
       for (long int i=0; i<NODESIZE; i++) {
@@ -281,14 +282,9 @@ extern int filter_graph() {
   }
   if (CALC_WEIGHTS == false) {igraph_vector_init(&WEIGHTED, NODESIZE);}
   percentile = (PERCENT > 0.99) ? fix_percentile() : PERCENT;
-
-  if (PERCENT > NODESIZE) {
-    printf ("The percentage you provided (%f) is greater than the number \n\
-            of nodes (%li) in the graph.  Select another percentage.\n", PERCENT, NODESIZE);
-    return 0;
-  }
   cutsize = round((double)NODESIZE * percentile);
-  printf("%d", cutsize);
+  printf("Filtering the graphs by %f will reduce the graph size by %d \n", PERCENT, cutsize);
+  printf("This will produce a graph with %d nodes.\n", (NODESIZE - cutsize));
   analysis_all(&g);
   runFilters(&g, cutsize);
   if (REPORT == true) {

@@ -54,7 +54,7 @@ char* FILEPATH; /**< The filepath (DIRECTORY + FILENAME) */
 char* METHODS;  /**< METHODS to filter */
 char* OUTPUT;  /**< Folder to output new graphs */
 char* OUTPATH; /**< Path to output folder (DIRECTORY + OUTPUT) */
-long int NODESIZE = 0; /**< Number of Nodes in original graph */
+igraph_integer_t NODESIZE; /**< Number of Nodes in original graph */
 float PERCENT; /**< Filtering percentage 0.0 by default */
 bool REPORT = false; /**< Include a report? */
 bool GFORMAT = false; /**< Graph format - true is "GEXF" false is "GRAPHML" */

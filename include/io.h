@@ -37,14 +37,15 @@ int strip_ext(char *fname) {
  */
 extern int load_graph (char* filename) {
   igraph_i_set_attribute_table(&igraph_cattribute_table);
-  printf ("%s", filename);
   FILE *fp;
   fp = fopen(filename, "r");
   if (fp == 0) {
     return (1);
   }
+  printf("Reading graphml file.\n");
   igraph_read_graph_graphml(&g, fp, 0);
   NODESIZE = igraph_vcount(&g);
+  printf("Successfully ingested graph with %li nodes.\n", (long int)NODESIZE);
   fclose(fp);
   return (0);
 }
