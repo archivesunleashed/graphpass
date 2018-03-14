@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['quickrun_2eh',['quickrun.h',['../quickrun_8h.html',1,'']]]
+  ['gexf_2eh',['gexf.h',['../gexf_8h.html',1,'']]],
+  ['graphpass_2ec',['graphpass.c',['../graphpass_8c.html',1,'']]],
+  ['graphpass_2eh',['graphpass.h',['../graphpass_8h.html',1,'']]]
 ];

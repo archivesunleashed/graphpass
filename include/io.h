@@ -10,8 +10,8 @@
  
  */
 
-/** \file io.h 
-    \brief Basic input-output utilities (loading and writing graphs)
+/** @file io.h
+    @brief Basic input-output utilities (loading and writing graphs)
  **/
 
 

@@ -1,17 +1,23 @@
-/* -*- Nutil -- Network Graph Utilities mode: C -*-  */
+/* -*- Graphpass -- Network Graph Utilities mode: C -*-  */
 /*
- Copyright <2018> <Ryan Deschamps> <ryan.deschamps@gmail.com>
+/* Copyright [2018] [Ryan Deschamps]
  
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
  
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ http://www.apache.org/licenses/LICENSE-2.0
  
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License. */
  
  */
 
 /** @file analyze.h
-    \brief Provides basic network analysis and adds them to the graph output.
+    @brief Provides basic network analysis and adds them to the graph output.
  
     Analyze.h contains the main functions for analysing network graphs.  These
     functions are used by other files (filter, or viz, for instance) to 
@@ -19,12 +25,12 @@
     what size nodes should be.
  */
 
-/*! \fn int calc_betweenness 
-    \brief Calculates betweenness scores for the individual nodes in a graph
+/** Calculates betweenness scores for the individual nodes in a graph
  
-    Betweenness is measured 
+ Betweenness is measured
  
-    @param graph - the graph for which to record the scores.
+ @param graph - the graph for which to record the scores.
+ @return 0 unless error occurs.
  */
 
 extern int calc_betweenness(igraph_t *graph){
@@ -37,8 +43,7 @@ extern int calc_betweenness(igraph_t *graph){
   return 0;
 }
 
-/*! \fn int calc_betweenness
- \brief Calculates betweenness scores for the individual nodes in a graph
+/** Calculates authority scores for the individual nodes in a graph
  
  Authority is measured
  
@@ -57,10 +62,9 @@ extern int calc_authority(igraph_t *graph){
   return 0;
 }
 
-/*! \fn int calc_betweenness
- \brief Calculates betweenness scores for the individual nodes in a graph
+/** Calculates hub scores for the individual nodes in a graph
  
- Authority is measured
+ Hub is measured
  
  @param graph - the graph for which to record the scores.
  */
@@ -77,10 +81,9 @@ extern int calc_hub(igraph_t *graph){
   return 0;
 }
 
-/*! \fn int calc_betweenness
- \brief Calculates betweenness scores for the individual nodes in a graph
+/** Calculates pagerank scores for the individual nodes in a graph
  
- Authority is measured
+ Pagerank is measured
  
  @param graph - the graph for which to record the scores.
  */
@@ -95,8 +98,7 @@ extern int calc_pagerank(igraph_t *graph){
   return 0;
 }
 
-/*! \fn int calc_betweenness
- \brief Calculates betweenness scores for the individual nodes in a graph
+/** Calculates eigenvector centrality scores for the individual nodes in a graph
  
  Authority is measured
  
@@ -123,12 +125,12 @@ extern int calc_random(igraph_t *graph) {
   return 0;
 }
 
-/*! \fn int calc_betweenness
- \brief Calculates betweenness scores for the individual nodes in a graph
+/** Calculates degree scores for the individual nodes in a graph
  
  Authority is measured
  
  @param graph - the graph for which to record the scores.
+ @param type - 'i' for indegree, 'o' for outdegree, 'd' for degree
  */
 extern int calc_degree(igraph_t *graph, char type) {
   char filtertype;
@@ -154,10 +156,10 @@ extern int calc_degree(igraph_t *graph, char type) {
   return (0);
 }
 
-/*! \fn int calc_betweenness
- \brief Calculates betweenness scores for the individual nodes in a graph
+/** Calculates walktrap modularity scores for the individual nodes in a graph
+ and sets group values for each.
  
- Authority is measured
+ Walktrap modularity is measured
  
  @param graph - the graph for which to record the scores.
  */
@@ -170,7 +172,7 @@ int calc_modularity(igraph_t *graph) {
   igraph_vector_init(&v, 0);
   igraph_matrix_init(&merges, 0, 0);
   igraph_community_walktrap(graph, 0 /* no weights */, 4 /* steps */, &merges,
-                            &v, &classes);
+    &v, &classes);
   SETVANV(graph, attr, &classes);
   igraph_vector_destroy(&v);
   igraph_matrix_destroy(&merges);
@@ -178,8 +180,7 @@ int calc_modularity(igraph_t *graph) {
   return 0;
 }
 
-/*! \fn int centraliztion
- \brief Calculates betweenness scores for the individual nodes in a graph
+/** Calculates betweenness scores for the individual nodes in a graph
  
  Centralization is a graph-level score created by comparing the centrality
  values (betweenness, degree, eigenvector etc.) of the nodes in a graph 
@@ -212,8 +213,7 @@ int centralization(igraph_t *graph, char* attr) {
 }
 
 
-/** \fn int analysis_all(igraph_t *graph)
- \brief Calculates the main analysis scores for the graph
+/** Calculates the main analysis scores for the graph
 
  analysis_all conducts all available graph, node and edge scores available
  in the network utility. It is very expensive in terms of processing time, 

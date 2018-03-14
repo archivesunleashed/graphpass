@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>graphpass: Borg Reducer</title>
+<title>graphpass: GraphPass</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,13 +69,13 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Borg Reducer </div>  </div>
+<div class="title">GraphPass </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="image">
-<img src="https://user-images.githubusercontent.com/3834704/35356808-87152cf0-011f-11e8-9264-9c411ca16b3e.png" alt="borg reducer in action"/>
+<img src="https://user-images.githubusercontent.com/3834704/35356808-87152cf0-011f-11e8-9264-9c411ca16b3e.png" alt="GraphPass in action"/>
 </div>
-<p>Borg Reducer is a helper library to filter networks and provide a default visualization output for <a href="https://gephi.org/">Gephi</a>. It prevents the infamous "borg cube" result when entering large files into Gephi, allowing you to work with ready-made network layouts.</p>
+<p>GraphPass is a helper library to filter networks and provide a default visualization output for <a href="https://gephi.org/">Gephi</a> or <a href="https://sigmaja.org">SigmaJS</a>. It prevents the infamous "borg cube" result when entering large files into Gephi, allowing you to work with ready-made network layouts.</p>
 <h2>Installation</h2>
 <h3>Dependencies</h3>
 <p>This library requires the <a href="http://igraph.org/c/">C Igraph Library</a> and a C compiler, such as <a href="https://gcc.gnu.org/">gcc</a>.</p>
@@ -83,24 +83,39 @@ $(function() {
 <p>Using <a href="https://brew.sh/">brew</a>, the following commands will install dependencies:</p>
 <div class="fragment"><div class="line">brew install gcc</div><div class="line">brew install igraph</div></div><!-- fragment --><h3>Building</h3>
 <p>Clone the repository with:</p>
-<div class="fragment"><div class="line">git clone https://github.com/archivesunleashed/borg-reducer</div></div><!-- fragment --><p>Type</p>
+<div class="fragment"><div class="line">git clone https://github.com/archivesunleashed/graphpass</div></div><!-- fragment --><p>Type</p>
 <div class="fragment"><div class="line">brew info igraph</div></div><!-- fragment --><p>and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is <code>/usr/local/Cellar/igraph/0.7.1_6/</code>.</p>
 <p>Then</p>
-<div class="fragment"><div class="line">cd borg-reducer</div><div class="line">make</div></div><!-- fragment --><h2>Usage</h2>
+<div class="fragment"><div class="line">cd graphpass</div><div class="line">make</div></div><!-- fragment --><h2>Usage</h2>
 <p>Once compiled use the following command:</p>
-<p>``<code> ./borgreducer --file {FILENAME} --percent {PERCENTAGE TO FILTER} --method {METHODS (see below)} --output {OUTPUT DIRECTORY}</code> </p><div class="fragment"><div class="line">You will pass options using the `--method` flag. The options can be seen below:</div><div class="line"></div><div class="line">* `a` : authority</div><div class="line">* `b` : betweenness</div><div class="line">* `c` : clustering</div><div class="line">* `d` : simple degree</div><div class="line">* `e` : eigenvector</div><div class="line">* `h` : hub</div><div class="line">* `i` : in-degree</div><div class="line">* `o` : out-degree</div><div class="line">* `p` : pagerank</div><div class="line">* `r` : random</div><div class="line">* `w` : weighted degree</div><div class="line"></div><div class="line">For example:</div></div><!-- fragment --><p> ./borgreducer &ndash;percent 10 &ndash;methods "b" &ndash;file links-for-gephi.graphml ```</p>
-<p>Will filter the graph down by 10% and lay the network out using the betweenness function. It will find <code>links-for-gephi.graphml</code> file in <code>/assets</code> and output a new one to <code>/OUT</code> (titled <code>links-for-gephi.graphml10Betweenness.graphml</code>).</p>
+<div class="fragment"><div class="line">./graphpass {FLAGS}</div></div><!-- fragment --><p>The following flags are available:</p>
+<p><code>--file {FILENAME}</code> - sets the default filename. If not set, graphpass will use a default network in /assets. <code>--dir {DIRECTORY}</code> - the path to look for {FILENAME} by default this is <code>assets/</code> <code>--output {OUTPUT}</code> - the directory to send output files such as filtered graphs and data reporst. <code>--percent {PERCENT}</code> - a percentage to remove from the file. By default this is 0.0. <code>--method {options}</code> - a string of various methods through which to filter the graph. These are outlined below:</p><ul>
+<li><code>a</code> : authority</li>
+<li><code>b</code> : betweenness</li>
+<li><code>d</code> : simple degree</li>
+<li><code>e</code> : eigenvector</li>
+<li><code>h</code> : hub</li>
+<li><code>i</code> : in-degree</li>
+<li><code>o</code> : out-degree</li>
+<li><code>p</code> : pagerank</li>
+<li><code>r</code> : random</li>
+</ul>
+<p>For example:</p>
+<div class="fragment"><div class="line">./borgreducer --percent 10 --methods b --file links-for-gephi.graphml --output OUT/</div></div><!-- fragment --><p>Will remove 10% of the graph using betweenness as a cutting measure and lay the network out. It will find <code>links-for-gephi.graphml</code> file in <code>/assets</code> and output a new one to <code>/OUT</code> (titled <code>links-for-gephi10Betweenness.graphml</code>).</p>
 <h1>Optional arguments</h1>
 <ul>
-<li><code>-r</code> : create an output report showing the impact of filtering on graph features.</li>
-<li><code>-g</code> : output as a .gexf (for SigmaJS) instead of .graphml.</li>
+<li><code>--report</code> or <code>-r</code> : create an output report showing the impact of filtering on graph features.</li>
+<li><code>--no-save</code> or <code>-n</code> : does not save any filtered files (useful if you just want a report).</li>
+<li><code>--quick</code> or <code>-q</code> : provides a "quickrun" for basic</li>
+<li><code>--gexf</code> or <code>-g</code> : output as a .gexf (e.g. for SigmaJS inputs) instead of .graphml.</li>
 </ul>
 <h1>Troubleshooting</h1>
 <p>It is possible that you can get a "error while loading shared libraries" error in Linux. If so, try running <code>sudo ldconfig</code> to set the libraries path for your local installation of igraph.</p>
 <h1>License</h1>
 <p>Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
 <h1>Acknowledgments</h1>
-<p>This work is primarily supported by the <a href="https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock">Andrew W. Mellon Foundation</a>. Additional funding for the Toolkit has come from the U.S. National Science Foundation, Columbia University Library's Mellon-funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation's Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors. </p>
+<p>This work is primarily supported by the <a href="https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock">Andrew W. Mellon Foundation</a>. Additional funding for the Toolkit has come from the U.S. National Science Foundation, Columbia University Library's Mellon-funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation's Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors.</p>
+<p>The author would also like to thank Drs. Ian Milligan &amp; Jimmy Lin plus Nick Nuest and Samantha Fritz for their kind advice and support. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

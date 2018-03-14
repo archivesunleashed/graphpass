@@ -1,15 +1,29 @@
-/* -*- Nutil -- Network Graph Utilities mode: C -*-  */
+/* -*- Graphpass -- Network Graph Utilities mode: C -*-  */
 /*
- Copyright <2018> <Ryan Deschamps> <ryan.deschamps@gmail.com>
+/* Copyright [2018] [Ryan Deschamps]
  
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
  
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ http://www.apache.org/licenses/LICENSE-2.0
  
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
- */
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License. */
 
+
+/** @file reports.h 
+ @brief Provides an output report that shows the effect of filtering on the 
+ network structure.
+ **/
+
+
+/** @struct Node
+ @brief Holds graph level values for each graph that has been filtered.
+ */
 
 struct Node {
   char* abbrev;
@@ -17,6 +31,9 @@ struct Node {
   struct Node *next;
 };
 
+/** @struct RankNode
+  @brief unimplemented struct for holding the top 20 rankids for the graph.
+ */
 struct RankNode {
   int rankids[20];
   struct RankNode *next;
@@ -37,6 +54,8 @@ struct Node* pathlength = NULL;
 struct Node* clustering = NULL;
 struct RankNode* ranks = NULL;
 
+
+/** adds a new value to a Node **/
 int push(struct Node** head_ref, igraph_real_t value, char* attr)
 {
   struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
@@ -46,7 +65,7 @@ int push(struct Node** head_ref, igraph_real_t value, char* attr)
   (*head_ref) = new_node;
   return 0;
 }
-
+/** adds a new value to a RankNode **/
 int pushRank (struct RankNode** head_ref, int rankids[20]) {
   struct RankNode* new_node = (struct RankNode*) malloc(sizeof(struct RankNode));
   for (int i=0; i<20; i++) {
@@ -57,8 +76,9 @@ int pushRank (struct RankNode** head_ref, int rankids[20]) {
   return 0;
 }
 
+/** Writes the report **/
 int write_report(igraph_t *graph) {
-  if (QUICKRUN == true) {
+  if (QUICKRUN == true) { /*< QUICKRUN does not write a report */
     printf("No reports available for quickrun\n");
     exit(0);
   }

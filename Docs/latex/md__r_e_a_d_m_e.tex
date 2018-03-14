@@ -1,6 +1,6 @@
 
 
-Borg Reducer is a helper library to filter networks and provide a default visualization output for \href{https://gephi.org/}{\tt Gephi}. It prevents the infamous \char`\"{}borg cube\char`\"{} result when entering large files into Gephi, allowing you to work with ready-\/made network layouts.
+Graph\+Pass is a helper library to filter networks and provide a default visualization output for \href{https://gephi.org/}{\tt Gephi} or \href{https://sigmaja.org}{\tt Sigma\+JS}. It prevents the infamous \char`\"{}borg cube\char`\"{} result when entering large files into Gephi, allowing you to work with ready-\/made network layouts.
 
 \subsection*{Installation}
 
@@ -25,7 +25,7 @@ Clone the repository with\+:
 
 
 \begin{DoxyCode}
-git clone https://github.com/archivesunleashed/borg-reducer
+git clone https://github.com/archivesunleashed/graphpass
 \end{DoxyCode}
 
 
@@ -43,7 +43,7 @@ Then
 
 
 \begin{DoxyCode}
-cd borg-reducer
+cd graphpass
 make
 \end{DoxyCode}
 
@@ -52,34 +52,45 @@ make
 
 Once compiled use the following command\+:
 
-\`{}\`{}{\ttfamily  ./borgreducer -\/-\/file \{F\+I\+L\+E\+N\+A\+ME\} -\/-\/percent \{P\+E\+R\+C\+E\+N\+T\+A\+GE TO F\+I\+L\+T\+ER\} -\/-\/method \{M\+E\+T\+H\+O\+DS (see below)\} -\/-\/output \{O\+U\+T\+P\+UT D\+I\+R\+E\+C\+T\+O\+RY\}} 
+
 \begin{DoxyCode}
-You will pass options using the `--method` flag. The options can be seen below:
-
-* `a` : authority
-* `b` : betweenness
-* `c` : clustering
-* `d` : simple degree
-* `e` : eigenvector
-* `h` : hub
-* `i` : in-degree
-* `o` : out-degree
-* `p` : pagerank
-* `r` : random
-* `w` : weighted degree
-
-For example:
+./graphpass \{FLAGS\}
 \end{DoxyCode}
- ./borgreducer --percent 10 --methods \char`\"{}b\char`\"{} --file links-\/for-\/gephi.\+graphml \`{}\`{}\`{}
 
-Will filter the graph down by 10\% and lay the network out using the betweenness function. It will find {\ttfamily links-\/for-\/gephi.\+graphml} file in {\ttfamily /assets} and output a new one to {\ttfamily /\+O\+UT} (titled {\ttfamily links-\/for-\/gephi.\+graphml10\+Betweenness.\+graphml}).
+
+The following flags are available\+:
+
+{\ttfamily -\/-\/file \{F\+I\+L\+E\+N\+A\+ME\}} -\/ sets the default filename. If not set, graphpass will use a default network in /assets. {\ttfamily -\/-\/dir \{D\+I\+R\+E\+C\+T\+O\+RY\}} -\/ the path to look for \{F\+I\+L\+E\+N\+A\+ME\} by default this is {\ttfamily assets/} {\ttfamily -\/-\/output \{O\+U\+T\+P\+UT\}} -\/ the directory to send output files such as filtered graphs and data reporst. {\ttfamily -\/-\/percent \{P\+E\+R\+C\+E\+NT\}} -\/ a percentage to remove from the file. By default this is 0.\+0. {\ttfamily -\/-\/method \{options\}} -\/ a string of various methods through which to filter the graph. These are outlined below\+:
+\begin{DoxyItemize}
+\item {\ttfamily a} \+: authority
+\item {\ttfamily b} \+: betweenness
+\item {\ttfamily d} \+: simple degree
+\item {\ttfamily e} \+: eigenvector
+\item {\ttfamily h} \+: hub
+\item {\ttfamily i} \+: in-\/degree
+\item {\ttfamily o} \+: out-\/degree
+\item {\ttfamily p} \+: pagerank
+\item {\ttfamily r} \+: random
+\end{DoxyItemize}
+
+For example\+:
+
+
+\begin{DoxyCode}
+./borgreducer --percent 10 --methods b --file links-for-gephi.graphml --output OUT/
+\end{DoxyCode}
+
+
+Will remove 10\% of the graph using betweenness as a cutting measure and lay the network out. It will find {\ttfamily links-\/for-\/gephi.\+graphml} file in {\ttfamily /assets} and output a new one to {\ttfamily /\+O\+UT} (titled {\ttfamily links-\/for-\/gephi10\+Betweenness.\+graphml}).
 
 \section*{Optional arguments}
 
 
 \begin{DoxyItemize}
-\item {\ttfamily -\/r} \+: create an output report showing the impact of filtering on graph features.
-\item {\ttfamily -\/g} \+: output as a .gexf (for Sigma\+JS) instead of .graphml.
+\item {\ttfamily -\/-\/report} or {\ttfamily -\/r} \+: create an output report showing the impact of filtering on graph features.
+\item {\ttfamily -\/-\/no-\/save} or {\ttfamily -\/n} \+: does not save any filtered files (useful if you just want a report).
+\item {\ttfamily -\/-\/quick} or {\ttfamily -\/q} \+: provides a \char`\"{}quickrun\char`\"{} for basic
+\item {\ttfamily -\/-\/gexf} or {\ttfamily -\/g} \+: output as a .gexf (e.\+g. for Sigma\+JS inputs) instead of .graphml.
 \end{DoxyItemize}
 
 \section*{Troubleshooting}
@@ -92,4 +103,6 @@ Licensed under the \href{http://www.apache.org/licenses/LICENSE-2.0}{\tt Apache 
 
 \section*{Acknowledgments}
 
-This work is primarily supported by the \href{https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock}{\tt Andrew W. Mellon Foundation}. Additional funding for the Toolkit has come from the U.\+S. National Science Foundation, Columbia University Library\textquotesingle{}s Mellon-\/funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation\textquotesingle{}s Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors. 
+This work is primarily supported by the \href{https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock}{\tt Andrew W. Mellon Foundation}. Additional funding for the Toolkit has come from the U.\+S. National Science Foundation, Columbia University Library\textquotesingle{}s Mellon-\/funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation\textquotesingle{}s Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors.
+
+The author would also like to thank Drs. Ian Milligan \& Jimmy Lin plus Nick Nuest and Samantha Fritz for their kind advice and support. 

@@ -1,4 +1,4 @@
-/* -*- Nutil -- Network Graph Utilities mode: C -*-  */
+/* -*- Graphpass -- Network Graph Utilities mode: C -*-  */
 /*
  Copyright <2018> <Ryan Deschamps> <ryan.deschamps@gmail.com>
  
@@ -10,6 +10,17 @@
  
  */
 
+/** @file viz.h
+ @brief Tools for presetting visualization elements: color, position & size.
+ */
+
+
+/** creates default colors for a graph based on walktrap modularity 
+ 
+  Colors sets the rgb values based on a preset color scheme.
+ 
+  @param - the graph for which to provide colors.
+ */
 int colors (igraph_t *graph) {
   /* Has modularity been set? */
   char* attr = COLOR_BASE;
@@ -93,6 +104,12 @@ int colors (igraph_t *graph) {
   return 0;
 }
 
+/** Lays out a graph using a standard algorithm 
+ 
+ @param graph - the graph to layout
+ @param layout - a char for the layout 'k' for kamada_kawai,
+   'f' for fruchterman rheingold or lgl if char is not recognized.
+ **/
 int layout_graph(igraph_t *graph, char layout) {
   igraph_matrix_t matrix;
   long int gsize = (long int)igraph_vcount(graph);
@@ -106,25 +123,13 @@ int layout_graph(igraph_t *graph, char layout) {
   igraph_matrix_init(&matrix, gsize, 2);
   switch (layout) {
     case 'k' : igraph_layout_kamada_kawai(graph, &matrix,
-                                          1000, gsize/0.5,
-                                          10, 0.98,
-                                          gsize, 0,
-                                          &min,
-                                          &max,
-                                          &min,
-                                          &max);
+      1000, gsize/0.5, 10, 0.98,gsize, 0,&min,&max,&min, &max);
       break;
     case 'f' : igraph_layout_fruchterman_reingold(graph, &matrix,
-                                                  500, gsize,
-                                                  10 * gsize^2,
-                                                  1.5,
-                                                  10 * gsize^3,
-                                                  0,
-                                                  NULL,
-                                                  &min, &max, &min, &max);
+      500, gsize, 10 * gsize^2, 1.5,10 * gsize^3,0,NULL, &min, &max, &min, &max);
       break;
     default: igraph_layout_lgl(graph, &matrix,
-                               150, gsize, gsize, 1.5, gsize^3, sqrt(gsize), -1);
+      150, gsize, gsize, 1.5, gsize^3, sqrt(gsize), -1);
   }
   igraph_matrix_get_col(&matrix, &x, 0);
   igraph_matrix_get_col(&matrix, &y, 1);
@@ -138,6 +143,13 @@ int layout_graph(igraph_t *graph, char layout) {
   return 0;
 }
 
+/** sets the size of nodes based on vector scores provide by v
+ 
+ @param graph - graph to set size values
+ @param v - vector used to set size values, an attribute for degree, for instance
+ @param max - the maximum desired size setting.
+ 
+ **/
 int set_size(igraph_t *graph, igraph_vector_t *v, int max) {
   long int gsize = (long int)igraph_vcount(graph);
   igraph_vector_t v2;
