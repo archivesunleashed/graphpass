@@ -129,13 +129,18 @@ int main (int argc, char *argv[]) {
         printf ("%s ", argv[optind++]);
       putchar ('\n');
     }
+  OUTPUT = OUTPUT ? OUTPUT : "OUT/";
   PERCENT = PERCENT ? PERCENT : 0.01;
   METHODS = METHODS ? METHODS : "d";
   DIRECTORY = DIRECTORY ? DIRECTORY : "assets/";
   FILENAME = FILENAME ? FILENAME : "miserables.graphml";
   char path[strlen(DIRECTORY)+1];
   strncpy(path, DIRECTORY, strlen(DIRECTORY)+1);
-  printf("path: %s \nDIRECTORY: %s \nSIZEOF DIRECTORY: %li \nSTRLEN PATH: %li \n", path, DIRECTORY, sizeof(DIRECTORY), strlen(path));
+  printf(">>>>>>>  GRAPHPASSING >>>>>>>> \n");
+  printf("DIRECTORY: %s \nSTRLEN PATH: %li \n", DIRECTORY, strlen(path));
+  printf("OUTPUT DIRECTORY: %s\nPERCENTAGE: %f\n", OUTPUT, PERCENT);
+  printf("FILE: %s\nMETHODS STRING: %s\n", FILENAME, METHODS);
+  printf("QUICKRUN: %i\nREPORT: %i\nSAVE: %i\n", QUICKRUN, REPORT, SAVE);
   if (FILENAME[0] == '/' && DIRECTORY[strlen(DIRECTORY)] == '/' ){
     printf("Removing redundant slashes from filename.\n");
     path[strlen(path)+1] = '\0';
@@ -143,10 +148,9 @@ int main (int argc, char *argv[]) {
   else if (FILENAME[0] != '/' && DIRECTORY[(sizeof(DIRECTORY)/sizeof(DIRECTORY[0])-2)] != '/') {
     printf("Adding slash separator.\n");
     strncat(path, "/", 1);
-    path[sizeof(path)/sizeof(path[0])-1] = '\0';
     printf ("Current path: %s.\n", path);
   }
-  int sizeOfPath = (sizeof(path) / sizeof(path[0]));
+  int sizeOfPath = (strlen(path)+1);
   int sizeOfFile = (strlen(FILENAME)+1);
   int filepathsize = sizeOfPath + sizeOfFile;
 
@@ -155,5 +159,6 @@ int main (int argc, char *argv[]) {
   printf("Running graphpass on file: %s\n", FILEPATH);
   load_graph(FILEPATH);
   filter_graph();
+  printf(">>>>  SUCCESS! - Files output to %s\n", OUTPUT);
   return 0;
 }
