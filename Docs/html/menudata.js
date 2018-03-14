@@ -31,6 +31,4 @@ var menudata={children:[
 {text:"File List",url:"files.html"},
 {text:"Globals",url:"globals.html",children:[
 {text:"All",url:"globals.html"},
-{text:"Functions",url:"globals_func.html"},
-{text:"Variables",url:"globals_vars.html"},
-{text:"Macros",url:"globals_defs.html"}]}]}]}
+{text:"Functions",url:"globals_func.html"}]}]}]}

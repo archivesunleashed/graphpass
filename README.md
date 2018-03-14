@@ -1,11 +1,9 @@
-# Borg Reducer
+# GraphPass
 
-![borg reducer in action](https://user-images.githubusercontent.com/3834704/35356808-87152cf0-011f-11e8-9264-9c411ca16b3e.png)
+![GraphPass in action](https://user-images.githubusercontent.com/3834704/35356808-87152cf0-011f-11e8-9264-9c411ca16b3e.png)
 
-Borg Reducer is a helper library to filter networks and provide a default
-visualization output for [Gephi](https://gephi.org/). It prevents the infamous "borg cube" result
-when entering large files into Gephi, allowing you to work with ready-made
-network layouts.
+GraphPass is a helper library to filter networks and provide a default
+visualization output for [Gephi](https://gephi.org/) or [SigmaJS](https://sigmaja.org). It prevents the infamous "borg cube" result when entering large files into Gephi, allowing you to work with ready-made network layouts.
 
 ## Installation
 
@@ -28,7 +26,7 @@ brew install igraph
 Clone the repository with:
 
 ```
-git clone https://github.com/archivesunleashed/borg-reducer
+git clone https://github.com/archivesunleashed/graphpass
 ```
 
 Type
@@ -42,7 +40,7 @@ and verify that the path displayed there matches the default IGRAPH_PATH value p
 Then
 
 ```
-cd borg-reducer
+cd graphpass
 make
 ```
 
@@ -51,14 +49,21 @@ make
 Once compiled use the following command:
 
 ```
-./borgreducer --file {FILENAME} --percent {PERCENTAGE TO FILTER} --method {METHODS (see below)} --output {OUTPUT DIRECTORY}`
+./graphpass {FLAGS}
 ```
 
-You will pass options using the `--method` flag. The options can be seen below:
+The following flags are available:
 
+`--file {FILENAME}` - sets the default filename.  If not set, graphpass will use
+a default network in /assets.
+`--dir {DIRECTORY}` - the path to look for {FILENAME} by default this is `assets/`
+`--output {OUTPUT}` - the directory to send output files such as filtered graphs
+and data reporst.
+`--percent {PERCENT}` - a percentage to remove from the file.  By default this is 0.0.
+`--method {options}` - a string of various methods through which to filter the 
+graph.  These are outlined below:
 * `a` : authority
 * `b` : betweenness
-* `c` : clustering
 * `d` : simple degree
 * `e` : eigenvector
 * `h` : hub
@@ -66,20 +71,21 @@ You will pass options using the `--method` flag. The options can be seen below:
 * `o` : out-degree
 * `p` : pagerank
 * `r` : random
-* `w` : weighted degree
 
 For example:
 
 ```
-./borgreducer --percent 10 --methods "b" --file links-for-gephi.graphml
+./borgreducer --percent 10 --methods b --file links-for-gephi.graphml --output OUT/
 ```
 
-Will filter the graph down by 10% and lay the network out using the betweenness function. It will find `links-for-gephi.graphml` file in `/assets` and output a new one to `/OUT` (titled `links-for-gephi.graphml10Betweenness.graphml`).
+Will remove 10% of the graph using betweenness as a cutting measure and lay the network out. It will find `links-for-gephi.graphml` file in `/assets` and output a new one to `/OUT` (titled `links-for-gephi10Betweenness.graphml`).
 
 # Optional arguments
 
-* `-r` : create an output report showing the impact of filtering on graph features.
-* `-g` : output as a .gexf (for SigmaJS) instead of .graphml.
+* `--report` or `-r` : create an output report showing the impact of filtering on graph features.
+* `--no-save` or `-n` : does not save any filtered files (useful if you just want a report).
+* `--quick` or `-q` : provides a "quickrun" for basic 
+* `--gexf` or `-g` : output as a .gexf (e.g. for SigmaJS inputs) instead of .graphml.
 
 # Troubleshooting
 
@@ -92,3 +98,5 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 # Acknowledgments
 
 This work is primarily supported by the [Andrew W. Mellon Foundation](https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock). Additional funding for the Toolkit has come from the U.S. National Science Foundation, Columbia University Library's Mellon-funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation's Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors.
+
+The author would also like to thank Drs. Ian Milligan & Jimmy Lin plus Nick Nuest and Samantha Fritz for their kind advice and support.

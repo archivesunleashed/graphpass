@@ -38,7 +38,7 @@ int main (int argc, char *argv[]) {
              We distinguish them by their indices. */
           {"no-save", no_argument,       0, 'n'},
           {"report",  no_argument,       0, 'r'},
-          {"format",  no_argument,       0, 'g'},
+          {"gexf",    no_argument,       0, 'g'},
           {"quick",   no_argument,       0, 'q'},
           {"weighted",no_argument,       0, 'w'},
           {"file",    required_argument, 0, 'f'},

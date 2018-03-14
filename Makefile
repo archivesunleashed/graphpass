@@ -11,20 +11,21 @@ CC = gcc
 
 IGRAPH_INCLUDE = $(IGRAPH_PATH)include/igraph
 IGRAPH_LIB = $(IGRAPH_PATH)lib
-TEST_INCLUDE = ./tests/*.c
-UNITY_INCLUDE = ./unity/unity.c ./unity/unity.h
-INCLUDE = ./include/*.h
-DEPS = INCLUDE IGRAPH_INCLUDE UNITY_INCLUDE
+TEST_INCLUDE = ./tests/
+UNITY_INCLUDE = -I./unity/
+INCLUDE = -I./include/
+DEPS = -I$(INCLUDE) -I$(IGRAPH_INCLUDE) -I$(UNITY_INCLUDE)
 BUILD = build/
 
 install: graphpass.c
-	gcc graphpass.c -I$(DEPS) -L$(IGRAPH_LIB) -ligraph -o graphpass -lm
+	gcc graphpass.c -g $(DEPS) -L$(IGRAPH_LIB) -ligraph -o graphpass -lm
+	./graphpass --file cpp2.graphml --output OUT/ --percent 10 --method b
 
 debug: graphpass.c
 	gcc graphpass.c -g -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o graphpass
 
 test: graphpass_test.c
-  gcc graphpass_test.c iI$(DEPS) -L$(IGRAPH_LIB)
+	gcc graphpass_test.c iI$(DEPS) -L$(IGRAPH_LIB)
 
 
 .PHONY : clean
