@@ -19,7 +19,6 @@ BUILD = build/
 
 install: graphpass.c
 	gcc graphpass.c -g $(DEPS) -L$(IGRAPH_LIB) -ligraph -o graphpass -lm
-	./graphpass --file cpp2.graphml --output OUT/ --percent 10 --method b
 
 debug: graphpass.c
 	gcc graphpass.c -g -I$(IGRAPH_INCLUDE) -L$(IGRAPH_LIB) -ligraph -o graphpass
