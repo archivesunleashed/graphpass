@@ -72,11 +72,11 @@ int write_graph(igraph_t *graph, char *attr) {
   int perc = (int)PERCENT;
   strip_ext(FILENAME);
   snprintf(perc_as_string, 3, "%d", perc);
-  strncpy(path, OUTPUT, sizeof(OUTPUT)/sizeof(OUTPUT[0]));
-  strncat(path, FILENAME, sizeof(FILENAME)/sizeof(FILENAME[0]));
+  strncpy(path, OUTPUT, strlen(OUTPUT));
+  strncat(path, FILENAME, strlen(FILENAME));
   if (QUICKRUN == false) {
     strncat(path, perc_as_string, 3);
-    strncat(path, attr, sizeof(attr)/sizeof(attr[0]));
+    strncat(path, attr, strlen(attr));
   }
   if (GFORMAT){
     strncat(path, ".gexf", 5);

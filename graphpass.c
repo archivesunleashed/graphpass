@@ -130,7 +130,7 @@ int main (int argc, char *argv[]) {
       putchar ('\n');
     }
   OUTPUT = OUTPUT ? OUTPUT : "OUT/";
-  PERCENT = PERCENT ? PERCENT : 0.01;
+  PERCENT = PERCENT ? PERCENT : 0.00;
   METHODS = METHODS ? METHODS : "d";
   DIRECTORY = DIRECTORY ? DIRECTORY : "assets/";
   FILENAME = FILENAME ? FILENAME : "miserables.graphml";
@@ -146,7 +146,7 @@ int main (int argc, char *argv[]) {
     path[strlen(path)+1] = '\0';
   }
   else if (FILENAME[0] != '/' && DIRECTORY[strlen(DIRECTORY)-1] != '/') {
-    printf("%s", DIRECTORY[strlen(DIRECTORY)]);
+    printf("%i", DIRECTORY[strlen(DIRECTORY)]);
     printf("Adding slash separator.\n");
     strncat(path, "/", 1);
     printf ("Current path: %s.\n", path);
