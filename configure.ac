@@ -1,0 +1,32 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ([2.69])
+AC_INIT([graphpass], [0.0.1], [ryan.deschamps@gmail.com])
+AC_CONFIG_SRCDIR([graphpass.c])
+AC_CONFIG_HEADERS([config.h])
+
+# Checks for programs.
+AC_PROG_CC
+
+# Checks for libraries.
+# FIXME: Replace `main' with a function in `-ligraph':
+AC_CHECK_LIB([igraph], [igraph_hub_score])
+# FIXME: Replace `main' with a function in `-lm':
+AC_CHECK_LIB([m], [main])
+
+# Checks for header files.
+AC_CHECK_HEADERS([limits.h stddef.h stdint.h stdlib.h string.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_CHECK_HEADER_STDBOOL
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_CHECK_FUNCS([mkdir sqrt])
+
+AC_CONFIG_FILES([Docs/latex/Makefile
+Makefile])
+AC_OUTPUT
+
+AM_INIT_AUTOMAKE([graphpass], [0.0.1])
