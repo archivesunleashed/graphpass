@@ -1,0 +1,95 @@
+\hypertarget{reports_8h}{}\section{headers/reports.h File Reference}
+\label{reports_8h}\index{headers/reports.\+h@{headers/reports.\+h}}
+
+
+Provides an output report that shows the effect of filtering on the network structure.  
+
+
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_node}{Node}}
+\begin{DoxyCompactList}\small\item\em Holds graph level values for each graph that has been filtered. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_rank_node}{Rank\+Node}}
+\begin{DoxyCompactList}\small\item\em unimplemented struct for holding the top 20 rankids for the graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{reports_8h_acdcdf9fdd29aed797e4fa517f62bf4d1}{push}} (struct \mbox{\hyperlink{struct_node}{Node}} $\ast$$\ast$head\+\_\+ref, igraph\+\_\+real\+\_\+t value, char $\ast$attr)
+\item 
+int \mbox{\hyperlink{reports_8h_aec4d3b9cbca17fd01a00c2de534eae26}{push\+Rank}} (struct \mbox{\hyperlink{struct_rank_node}{Rank\+Node}} $\ast$$\ast$head\+\_\+ref, int rankids\mbox{[}20\mbox{]})
+\item 
+int \mbox{\hyperlink{reports_8h_abcdcfe360ecc9dc3f459a1c750e4e45d}{write\+\_\+report}} (igraph\+\_\+t $\ast$graph)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{reports_8h_accb765be5408724c27464e13485c61a1}\label{reports_8h_accb765be5408724c27464e13485c61a1}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries asshead} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a22c74b3744d821ba1974738f19dbdd81}\label{reports_8h_a22c74b3744d821ba1974738f19dbdd81}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries edges} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_ad4a11f630005e343dfa48aaa8881a721}\label{reports_8h_ad4a11f630005e343dfa48aaa8881a721}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries density} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a0dc28681f52bd5f783a40e5d35e9442f}\label{reports_8h_a0dc28681f52bd5f783a40e5d35e9442f}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries betcent} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a8fe66d5752693dec067005f266c6257e}\label{reports_8h_a8fe66d5752693dec067005f266c6257e}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries reciprocity} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_aeee230f6b2c97de603ca2e388a2555fd}\label{reports_8h_aeee230f6b2c97de603ca2e388a2555fd}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries degcent} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a857f9b0e9a76dc8709dadc896a3cd53e}\label{reports_8h_a857f9b0e9a76dc8709dadc896a3cd53e}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries idegcent} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_aa2977218d5bce36acc214e9d25313a4b}\label{reports_8h_aa2977218d5bce36acc214e9d25313a4b}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries odegcent} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_aa0b595897d17555f693c5f5deaf150f2}\label{reports_8h_aa0b595897d17555f693c5f5deaf150f2}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries eigcent} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a2738bc8cb2d1de2d3e0b6c4b41db2fb7}\label{reports_8h_a2738bc8cb2d1de2d3e0b6c4b41db2fb7}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries pagecent} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a86365ed1f1bf31f9fe41d28104809b9f}\label{reports_8h_a86365ed1f1bf31f9fe41d28104809b9f}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries diameter} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a215776ab1152584b631131cb55353665}\label{reports_8h_a215776ab1152584b631131cb55353665}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries pathlength} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a66b2e658e50b2c1b1986ccca3d42fdec}\label{reports_8h_a66b2e658e50b2c1b1986ccca3d42fdec}} 
+struct \mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries clustering} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{reports_8h_a02c86d831eacd35c3b132c1f375bba4c}\label{reports_8h_a02c86d831eacd35c3b132c1f375bba4c}} 
+struct \mbox{\hyperlink{struct_rank_node}{Rank\+Node}} $\ast$ {\bfseries ranks} = N\+U\+LL
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides an output report that shows the effect of filtering on the network structure. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{reports_8h_acdcdf9fdd29aed797e4fa517f62bf4d1}\label{reports_8h_acdcdf9fdd29aed797e4fa517f62bf4d1}} 
+\index{reports.\+h@{reports.\+h}!push@{push}}
+\index{push@{push}!reports.\+h@{reports.\+h}}
+\subsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily int push (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct_node}{Node}} $\ast$$\ast$}]{head\+\_\+ref,  }\item[{igraph\+\_\+real\+\_\+t}]{value,  }\item[{char $\ast$}]{attr }\end{DoxyParamCaption})}
+
+adds a new value to a \mbox{\hyperlink{struct_node}{Node}} \mbox{\Hypertarget{reports_8h_aec4d3b9cbca17fd01a00c2de534eae26}\label{reports_8h_aec4d3b9cbca17fd01a00c2de534eae26}} 
+\index{reports.\+h@{reports.\+h}!push\+Rank@{push\+Rank}}
+\index{push\+Rank@{push\+Rank}!reports.\+h@{reports.\+h}}
+\subsubsection{\texorpdfstring{push\+Rank()}{pushRank()}}
+{\footnotesize\ttfamily int push\+Rank (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct_rank_node}{Rank\+Node}} $\ast$$\ast$}]{head\+\_\+ref,  }\item[{int}]{rankids\mbox{[}20\mbox{]} }\end{DoxyParamCaption})}
+
+adds a new value to a \mbox{\hyperlink{struct_rank_node}{Rank\+Node}} \mbox{\Hypertarget{reports_8h_abcdcfe360ecc9dc3f459a1c750e4e45d}\label{reports_8h_abcdcfe360ecc9dc3f459a1c750e4e45d}} 
+\index{reports.\+h@{reports.\+h}!write\+\_\+report@{write\+\_\+report}}
+\index{write\+\_\+report@{write\+\_\+report}!reports.\+h@{reports.\+h}}
+\subsubsection{\texorpdfstring{write\+\_\+report()}{write\_report()}}
+{\footnotesize\ttfamily int write\+\_\+report (\begin{DoxyParamCaption}\item[{igraph\+\_\+t $\ast$}]{graph }\end{DoxyParamCaption})}
+
+Writes the report 

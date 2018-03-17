@@ -1,0 +1,71 @@
+\hypertarget{viz_8h}{}\section{headers/viz.h File Reference}
+\label{viz_8h}\index{headers/viz.\+h@{headers/viz.\+h}}
+
+
+Tools for presetting visualization elements\+: color, position \& size.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{viz_8h_a7911c9040a380ba83b0c5598aaf8dcd9}{colors}} (igraph\+\_\+t $\ast$graph)
+\item 
+int \mbox{\hyperlink{viz_8h_ab5297fd77522afcdabd53efa1e237f94}{layout\+\_\+graph}} (igraph\+\_\+t $\ast$graph, char layout)
+\item 
+int \mbox{\hyperlink{viz_8h_ab8f5b6b81755c097de5317968b0ee953}{set\+\_\+size}} (igraph\+\_\+t $\ast$graph, igraph\+\_\+vector\+\_\+t $\ast$v, int max)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Tools for presetting visualization elements\+: color, position \& size. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{viz_8h_a7911c9040a380ba83b0c5598aaf8dcd9}\label{viz_8h_a7911c9040a380ba83b0c5598aaf8dcd9}} 
+\index{viz.\+h@{viz.\+h}!colors@{colors}}
+\index{colors@{colors}!viz.\+h@{viz.\+h}}
+\subsubsection{\texorpdfstring{colors()}{colors()}}
+{\footnotesize\ttfamily int colors (\begin{DoxyParamCaption}\item[{igraph\+\_\+t $\ast$}]{graph }\end{DoxyParamCaption})}
+
+creates default colors for a graph based on walktrap modularity
+
+Colors sets the rgb values based on a preset color scheme.
+
+
+\begin{DoxyParams}{Parameters}
+{\em -\/} & the graph for which to provide colors. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{viz_8h_ab5297fd77522afcdabd53efa1e237f94}\label{viz_8h_ab5297fd77522afcdabd53efa1e237f94}} 
+\index{viz.\+h@{viz.\+h}!layout\+\_\+graph@{layout\+\_\+graph}}
+\index{layout\+\_\+graph@{layout\+\_\+graph}!viz.\+h@{viz.\+h}}
+\subsubsection{\texorpdfstring{layout\+\_\+graph()}{layout\_graph()}}
+{\footnotesize\ttfamily int layout\+\_\+graph (\begin{DoxyParamCaption}\item[{igraph\+\_\+t $\ast$}]{graph,  }\item[{char}]{layout }\end{DoxyParamCaption})}
+
+Lays out a graph using a standard algorithm
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & -\/ the graph to layout \\
+\hline
+{\em layout} & -\/ a char for the layout \textquotesingle{}k\textquotesingle{} for kamada\+\_\+kawai, \textquotesingle{}f\textquotesingle{} for fruchterman rheingold or lgl if char is not recognized. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{viz_8h_ab8f5b6b81755c097de5317968b0ee953}\label{viz_8h_ab8f5b6b81755c097de5317968b0ee953}} 
+\index{viz.\+h@{viz.\+h}!set\+\_\+size@{set\+\_\+size}}
+\index{set\+\_\+size@{set\+\_\+size}!viz.\+h@{viz.\+h}}
+\subsubsection{\texorpdfstring{set\+\_\+size()}{set\_size()}}
+{\footnotesize\ttfamily int set\+\_\+size (\begin{DoxyParamCaption}\item[{igraph\+\_\+t $\ast$}]{graph,  }\item[{igraph\+\_\+vector\+\_\+t $\ast$}]{v,  }\item[{int}]{max }\end{DoxyParamCaption})}
+
+sets the size of nodes based on vector scores provide by v
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & -\/ graph to set size values \\
+\hline
+{\em v} & -\/ vector used to set size values, an attribute for degree, for instance \\
+\hline
+{\em max} & -\/ the maximum desired size setting. \\
+\hline
+\end{DoxyParams}

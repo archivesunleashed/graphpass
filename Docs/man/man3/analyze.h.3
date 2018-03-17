@@ -1,0 +1,160 @@
+.TH "headers/analyze.h" 3 "Fri Mar 16 2018" "Version 0.0.2" "Graphpass" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+headers/analyze.h \- Provides basic network analysis and adds them to the graph output\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBcalc_betweenness\fP (igraph_t *graph)"
+.br
+.ti -1c
+.RI "int \fBcalc_authority\fP (igraph_t *graph)"
+.br
+.ti -1c
+.RI "int \fBcalc_hub\fP (igraph_t *graph)"
+.br
+.ti -1c
+.RI "int \fBcalc_pagerank\fP (igraph_t *graph)"
+.br
+.ti -1c
+.RI "int \fBcalc_eigenvector\fP (igraph_t *graph)"
+.br
+.ti -1c
+.RI "int \fBcalc_degree\fP (igraph_t *graph, char type)"
+.br
+.ti -1c
+.RI "int \fBcalc_modularity\fP (igraph_t *graph)"
+.br
+.ti -1c
+.RI "int \fBcentralization\fP (igraph_t *graph, char *attr)"
+.br
+.ti -1c
+.RI "int \fBanalysis_all\fP (igraph_t *graph)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides basic network analysis and adds them to the graph output\&. 
+
+\fBAnalyze\&.h\fP contains the main functions for analysing network graphs\&. These functions are used by other files (filter, or viz, for instance) to determine such things as what to filter, how to produce colors, and what size nodes should be\&. 
+.SH "Function Documentation"
+.PP 
+.SS "int analysis_all (igraph_t * graph)"
+Calculates the main analysis scores for the graph
+.PP
+analysis_all conducts all available graph, node and edge scores available in the network utility\&. It is very expensive in terms of processing time, so should be used only for smaller graphs\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.RE
+.PP
+
+.SS "int calc_authority (igraph_t * graph)"
+Calculates authority scores for the individual nodes in a graph
+.PP
+Authority is measured
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.RE
+.PP
+
+.SS "int calc_betweenness (igraph_t * graph)"
+Calculates betweenness scores for the individual nodes in a graph
+.PP
+Betweenness is measured
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+0 unless error occurs\&. 
+.RE
+.PP
+
+.SS "int calc_degree (igraph_t * graph, char type)"
+Calculates degree scores for the individual nodes in a graph
+.PP
+Authority is measured
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.br
+\fItype\fP - 'i' for indegree, 'o' for outdegree, 'd' for degree 
+.RE
+.PP
+
+.SS "int calc_eigenvector (igraph_t * graph)"
+Calculates eigenvector centrality scores for the individual nodes in a graph
+.PP
+Authority is measured
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.RE
+.PP
+
+.SS "int calc_hub (igraph_t * graph)"
+Calculates hub scores for the individual nodes in a graph
+.PP
+Hub is measured
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.RE
+.PP
+
+.SS "int calc_modularity (igraph_t * graph)"
+Calculates walktrap modularity scores for the individual nodes in a graph and sets group values for each\&.
+.PP
+Walktrap modularity is measured
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.RE
+.PP
+
+.SS "int calc_pagerank (igraph_t * graph)"
+Calculates pagerank scores for the individual nodes in a graph
+.PP
+Pagerank is measured
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.RE
+.PP
+
+.SS "int centralization (igraph_t * graph, char * attr)"
+Calculates betweenness scores for the individual nodes in a graph
+.PP
+Centralization is a graph-level score created by comparing the centrality values (betweenness, degree, eigenvector etc\&.) of the nodes in a graph against the node with the highest centrality\&. A 'star' graph has a centralization of 1, whereas a 'full' graph (everyone is connected to everyone) has a centralization of 0\&.
+.PP
+In general it identifies the influence of the most central nodes on the entire graph\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph for which to record the scores\&. 
+.br
+\fIattr\fP - the graph attribute for which the centralization score is based on\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graphpass from the source code\&.

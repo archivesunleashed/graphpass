@@ -8,6 +8,22 @@ Graph\+Pass is a helper library to filter networks and provide a default visuali
 
 This library requires the \href{http://igraph.org/c/}{\tt C Igraph Library} and a C compiler, such as \href{https://gcc.gnu.org/}{\tt gcc}.
 
+For Linux (Ubuntu)\+:
+
+Install the igraph dependencies\+:
+
+
+\begin{DoxyCode}
+sudo apt-get install gcc libxml2-dev build-essential
+wget http://igraph.org/nightly/get/c/igraph-0.7.1.tar.gz
+tar -xvzf igraph-0.7.1.tar.gz
+cd igraph-0.7.1.tar.gz
+./configure
+make
+make instal
+\end{DoxyCode}
+
+
 For Mac\+OS\+:
 
 Using \href{https://brew.sh/}{\tt brew}, the following commands will install dependencies\+:
@@ -37,7 +53,7 @@ brew info igraph
 \end{DoxyCode}
 
 
-and verify that the path displayed there matches the default I\+G\+R\+A\+P\+H\+\_\+\+P\+A\+TH value provided in the Makefile. By default this is {\ttfamily /usr/local/\+Cellar/igraph/0.7.\+1\+\_\+6/}.
+and verify that the path displayed there matches the default I\+G\+R\+A\+P\+H\+\_\+\+P\+A\+TH value provided in the Makefile. By default this is {\ttfamily /usr/local/\+Cellar/igraph/0.7.\+1\+\_\+6/} for Mac\+OS and {\ttfamily /usr/local} for linux.
 
 Then
 
@@ -77,7 +93,7 @@ For example\+:
 
 
 \begin{DoxyCode}
-./borgreducer --percent 10 --methods b --file links-for-gephi.graphml --output OUT/
+./graphpass --percent 10 --methods b --file links-for-gephi.graphml --output OUT/
 \end{DoxyCode}
 
 

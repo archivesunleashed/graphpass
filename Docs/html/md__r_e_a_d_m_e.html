@@ -5,19 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>graphpass: GraphPass</title>
+<title>Graphpass: GraphPass</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -27,9 +21,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">graphpass
+   <div id="projectname">Graphpass
+   &#160;<span id="projectnumber">0.0.2</span>
    </div>
-   <div id="projectbrief">A Network Analysis Utilty</div>
+   <div id="projectbrief">A helper library for network filtering, analysis and visualization</div>
   </td>
  </tr>
  </tbody>
@@ -79,12 +74,14 @@ $(function() {
 <h2>Installation</h2>
 <h3>Dependencies</h3>
 <p>This library requires the <a href="http://igraph.org/c/">C Igraph Library</a> and a C compiler, such as <a href="https://gcc.gnu.org/">gcc</a>.</p>
-<p>For MacOS:</p>
+<p>For Linux (Ubuntu):</p>
+<p>Install the igraph dependencies:</p>
+<div class="fragment"><div class="line">sudo apt-get install gcc libxml2-dev build-essential</div><div class="line">wget http://igraph.org/nightly/get/c/igraph-0.7.1.tar.gz</div><div class="line">tar -xvzf igraph-0.7.1.tar.gz</div><div class="line">cd igraph-0.7.1.tar.gz</div><div class="line">./configure</div><div class="line">make</div><div class="line">make instal</div></div><!-- fragment --><p>For MacOS:</p>
 <p>Using <a href="https://brew.sh/">brew</a>, the following commands will install dependencies:</p>
 <div class="fragment"><div class="line">brew install gcc</div><div class="line">brew install igraph</div></div><!-- fragment --><h3>Building</h3>
 <p>Clone the repository with:</p>
 <div class="fragment"><div class="line">git clone https://github.com/archivesunleashed/graphpass</div></div><!-- fragment --><p>Type</p>
-<div class="fragment"><div class="line">brew info igraph</div></div><!-- fragment --><p>and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is <code>/usr/local/Cellar/igraph/0.7.1_6/</code>.</p>
+<div class="fragment"><div class="line">brew info igraph</div></div><!-- fragment --><p>and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is <code>/usr/local/Cellar/igraph/0.7.1_6/</code> for MacOS and <code>/usr/local</code> for linux.</p>
 <p>Then</p>
 <div class="fragment"><div class="line">cd graphpass</div><div class="line">make</div></div><!-- fragment --><h2>Usage</h2>
 <p>Once compiled use the following command:</p>
@@ -101,7 +98,7 @@ $(function() {
 <li><code>r</code> : random</li>
 </ul>
 <p>For example:</p>
-<div class="fragment"><div class="line">./borgreducer --percent 10 --methods b --file links-for-gephi.graphml --output OUT/</div></div><!-- fragment --><p>Will remove 10% of the graph using betweenness as a cutting measure and lay the network out. It will find <code>links-for-gephi.graphml</code> file in <code>/assets</code> and output a new one to <code>/OUT</code> (titled <code>links-for-gephi10Betweenness.graphml</code>).</p>
+<div class="fragment"><div class="line">./graphpass --percent 10 --methods b --file links-for-gephi.graphml --output OUT/</div></div><!-- fragment --><p>Will remove 10% of the graph using betweenness as a cutting measure and lay the network out. It will find <code>links-for-gephi.graphml</code> file in <code>/assets</code> and output a new one to <code>/OUT</code> (titled <code>links-for-gephi10Betweenness.graphml</code>).</p>
 <h1>Optional arguments</h1>
 <ul>
 <li><code>--report</code> or <code>-r</code> : create an output report showing the impact of filtering on graph features.</li>

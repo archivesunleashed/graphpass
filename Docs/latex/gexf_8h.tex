@@ -1,0 +1,53 @@
+\hypertarget{gexf_8h}{}\section{headers/gexf.h File Reference}
+\label{gexf_8h}\index{headers/gexf.\+h@{headers/gexf.\+h}}
+
+
+Gexf writer for graphpass.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{gexf_8h_ad0bce85c19736aa99add91415041b944}{igraph\+\_\+i\+\_\+xml\+\_\+escape}} (char $\ast$src, char $\ast$$\ast$dest)
+\item 
+int \mbox{\hyperlink{gexf_8h_ab06ec34e6c2e38b924b181b75cc091a5}{igraph\+\_\+write\+\_\+graph\+\_\+gexf}} (const igraph\+\_\+t $\ast$graph, F\+I\+LE $\ast$outstream, igraph\+\_\+bool\+\_\+t prefixattr)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gexf_8h_ad65a8842cc674e3ddf69355898c0ecbf}\label{gexf_8h_ad65a8842cc674e3ddf69355898c0ecbf}} 
+int {\bfseries errno}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Gexf writer for graphpass. 
+
+Because igraph does not have a gexf writer, we produced one based on the grapml writer. This writer has been submitted to igraph with the hopes that it will be added to the original library, in which case, this file will likely be deprecated. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{gexf_8h_ad0bce85c19736aa99add91415041b944}\label{gexf_8h_ad0bce85c19736aa99add91415041b944}} 
+\index{gexf.\+h@{gexf.\+h}!igraph\+\_\+i\+\_\+xml\+\_\+escape@{igraph\+\_\+i\+\_\+xml\+\_\+escape}}
+\index{igraph\+\_\+i\+\_\+xml\+\_\+escape@{igraph\+\_\+i\+\_\+xml\+\_\+escape}!gexf.\+h@{gexf.\+h}}
+\subsubsection{\texorpdfstring{igraph\+\_\+i\+\_\+xml\+\_\+escape()}{igraph\_i\_xml\_escape()}}
+{\footnotesize\ttfamily int igraph\+\_\+i\+\_\+xml\+\_\+escape (\begin{DoxyParamCaption}\item[{char $\ast$}]{src,  }\item[{char $\ast$$\ast$}]{dest }\end{DoxyParamCaption})}
+
+Escapes invalid xml character (\&, $<$, $>$, ") in attributes \mbox{\Hypertarget{gexf_8h_ab06ec34e6c2e38b924b181b75cc091a5}\label{gexf_8h_ab06ec34e6c2e38b924b181b75cc091a5}} 
+\index{gexf.\+h@{gexf.\+h}!igraph\+\_\+write\+\_\+graph\+\_\+gexf@{igraph\+\_\+write\+\_\+graph\+\_\+gexf}}
+\index{igraph\+\_\+write\+\_\+graph\+\_\+gexf@{igraph\+\_\+write\+\_\+graph\+\_\+gexf}!gexf.\+h@{gexf.\+h}}
+\subsubsection{\texorpdfstring{igraph\+\_\+write\+\_\+graph\+\_\+gexf()}{igraph\_write\_graph\_gexf()}}
+{\footnotesize\ttfamily int igraph\+\_\+write\+\_\+graph\+\_\+gexf (\begin{DoxyParamCaption}\item[{const igraph\+\_\+t $\ast$}]{graph,  }\item[{F\+I\+LE $\ast$}]{outstream,  }\item[{igraph\+\_\+bool\+\_\+t}]{prefixattr }\end{DoxyParamCaption})}
+
+Writes a G\+E\+XF file
+
+G\+E\+XF provides great support for visualizations and is therefore used by a number of light-\/weight visualization tools like Sigma\+JS and Gephi.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & -\/ the graph to write to gexf \\
+\hline
+{\em outstream} & -\/ a file object \\
+\hline
+{\em prefixattr} & -\/ if \char`\"{}true\char`\"{} will add prefixes to the gexf output. \\
+\hline
+\end{DoxyParams}

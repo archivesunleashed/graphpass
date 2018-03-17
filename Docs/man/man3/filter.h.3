@@ -1,0 +1,78 @@
+.TH "headers/filter.h" 3 "Fri Mar 16 2018" "Version 0.0.2" "Graphpass" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+headers/filter.h \- Basic filtering utilities\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "float \fBfix_percentile\fP ()"
+.br
+.ti -1c
+.RI "int \fBcreate_filtered_graph\fP (igraph_t *graph, double cutoff, int cutsize, char *attr)"
+.br
+.ti -1c
+.RI "int \fBshrink\fP (igraph_t *graph, int cutsize, char *attr)"
+.br
+.ti -1c
+.RI "int \fBrunFilters\fP (igraph_t *graph, int cutsize)"
+.br
+.ti -1c
+.RI "int \fBfilter_graph\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Basic filtering utilities\&. 
+
+
+.SH "Function Documentation"
+.PP 
+.SS "int create_filtered_graph (igraph_t * graph, double cutoff, int cutsize, char * attr)"
+Create a graph from an original graph with a number of nodes equal to cutsize\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph to filter 
+.br
+\fIcutoff\fP - the value to use as a cutoff value\&. 
+.br
+\fIcutsize\fP - the size of the requested graph\&. 
+.br
+\fIattr\fP - the method used to shorten the graph
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+0 unless an error occurs\&. 
+.RE
+.PP
+Random filtering is most basic 
+.SS "int filter_graph ()"
+Filters an igraph using one or more methods based on global 'METHODS', and outputs graphs as derivatives of filename\&.
+.PP
+\fBReturns:\fP
+.RS 4
+0 unless an error is discovered 
+.RE
+.PP
+
+.SS "float fix_percentile ()"
+Automatically converts percentage to decimal values to fit filter model\&.
+.PP
+If the --percent or -p flag is greater than 1 and less than 99, fix_percentile will divide by 100, otherwise it will return 0\&.99 (99 percent)\&.
+.PP
+\fBReturns:\fP
+.RS 4
+0\&.99 >= A float value >= 0\&.01 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graphpass from the source code\&.

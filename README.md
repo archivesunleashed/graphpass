@@ -12,6 +12,20 @@ visualization output for [Gephi](https://gephi.org/) or [SigmaJS](https://sigmaj
 This library requires the [C Igraph Library](http://igraph.org/c/) and
 a C compiler, such as [gcc](https://gcc.gnu.org/).
 
+For Linux (Ubuntu):
+
+Install the igraph dependencies:
+
+``` 
+sudo apt-get install gcc libxml2-dev build-essential
+wget http://igraph.org/nightly/get/c/igraph-0.7.1.tar.gz
+tar -xvzf igraph-0.7.1.tar.gz
+cd igraph-0.7.1.tar.gz
+./configure
+make
+make install```
+
+
 For MacOS:
 
 Using [brew](https://brew.sh/), the following commands will install dependencies:
@@ -35,7 +49,7 @@ Type
 brew info igraph
 ```
 
-and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is `/usr/local/Cellar/igraph/0.7.1_6/`.
+and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is `/usr/local/Cellar/igraph/0.7.1_6/` for MacOS and `/usr/local` for linux.
 
 Then
 
@@ -75,7 +89,7 @@ graph.  These are outlined below:
 For example:
 
 ```
-./borgreducer --percent 10 --methods b --file links-for-gephi.graphml --output OUT/
+./graphpass --percent 10 --methods b --file links-for-gephi.graphml --output OUT/
 ```
 
 Will remove 10% of the graph using betweenness as a cutting measure and lay the network out. It will find `links-for-gephi.graphml` file in `/assets` and output a new one to `/OUT` (titled `links-for-gephi10Betweenness.graphml`).

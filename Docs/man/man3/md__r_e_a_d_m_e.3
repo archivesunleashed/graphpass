@@ -1,0 +1,143 @@
+.TH "md__r_e_a_d_m_e" 3 "Fri Mar 16 2018" "Version 0.0.2" "Graphpass" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+md__r_e_a_d_m_e \- GraphPass 
+
+.PP
+GraphPass is a helper library to filter networks and provide a default visualization output for \fCGephi\fP or \fCSigmaJS\fP\&. It prevents the infamous 'borg cube' result when entering large files into Gephi, allowing you to work with ready-made network layouts\&.
+.PP
+.SS "Installation"
+.PP
+.SS "Dependencies"
+.PP
+This library requires the \fCC Igraph Library\fP and a C compiler, such as \fCgcc\fP\&.
+.PP
+For Linux (Ubuntu):
+.PP
+Install the igraph dependencies:
+.PP
+.PP
+.nf
+sudo apt-get install gcc libxml2-dev build-essential
+wget http://igraph\&.org/nightly/get/c/igraph-0\&.7\&.1\&.tar\&.gz
+tar -xvzf igraph-0\&.7\&.1\&.tar\&.gz
+cd igraph-0\&.7\&.1\&.tar\&.gz
+\&./configure
+make
+make instal
+.fi
+.PP
+.PP
+For MacOS:
+.PP
+Using \fCbrew\fP, the following commands will install dependencies:
+.PP
+.PP
+.nf
+brew install gcc
+brew install igraph
+.fi
+.PP
+.PP
+.SS "Building"
+.PP
+Clone the repository with:
+.PP
+.PP
+.nf
+git clone https://github\&.com/archivesunleashed/graphpass
+.fi
+.PP
+.PP
+Type
+.PP
+.PP
+.nf
+brew info igraph
+.fi
+.PP
+.PP
+and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile\&. By default this is \fC/usr/local/Cellar/igraph/0\&.7\&.1_6/\fP for MacOS and \fC/usr/local\fP for linux\&.
+.PP
+Then
+.PP
+.PP
+.nf
+cd graphpass
+make
+.fi
+.PP
+.PP
+.SS "Usage"
+.PP
+Once compiled use the following command:
+.PP
+.PP
+.nf
+\&./graphpass {FLAGS}
+.fi
+.PP
+.PP
+The following flags are available:
+.PP
+\fC--file {FILENAME}\fP - sets the default filename\&. If not set, graphpass will use a default network in /assets\&. \fC--dir {DIRECTORY}\fP - the path to look for {FILENAME} by default this is \fCassets/\fP \fC--output {OUTPUT}\fP - the directory to send output files such as filtered graphs and data reporst\&. \fC--percent {PERCENT}\fP - a percentage to remove from the file\&. By default this is 0\&.0\&. \fC--method {options}\fP - a string of various methods through which to filter the graph\&. These are outlined below:
+.IP "\(bu" 2
+\fCa\fP : authority
+.IP "\(bu" 2
+\fCb\fP : betweenness
+.IP "\(bu" 2
+\fCd\fP : simple degree
+.IP "\(bu" 2
+\fCe\fP : eigenvector
+.IP "\(bu" 2
+\fCh\fP : hub
+.IP "\(bu" 2
+\fCi\fP : in-degree
+.IP "\(bu" 2
+\fCo\fP : out-degree
+.IP "\(bu" 2
+\fCp\fP : pagerank
+.IP "\(bu" 2
+\fCr\fP : random
+.PP
+.PP
+For example:
+.PP
+.PP
+.nf
+\&./graphpass --percent 10 --methods b --file links-for-gephi\&.graphml --output OUT/
+.fi
+.PP
+.PP
+Will remove 10% of the graph using betweenness as a cutting measure and lay the network out\&. It will find \fClinks-for-gephi\&.graphml\fP file in \fC/assets\fP and output a new one to \fC/OUT\fP (titled \fClinks-for-gephi10Betweenness\&.graphml\fP)\&.
+.PP
+.SH "Optional arguments"
+.PP
+.PP
+.IP "\(bu" 2
+\fC--report\fP or \fC-r\fP : create an output report showing the impact of filtering on graph features\&.
+.IP "\(bu" 2
+\fC--no-save\fP or \fC-n\fP : does not save any filtered files (useful if you just want a report)\&.
+.IP "\(bu" 2
+\fC--quick\fP or \fC-q\fP : provides a 'quickrun' for basic
+.IP "\(bu" 2
+\fC--gexf\fP or \fC-g\fP : output as a \&.gexf (e\&.g\&. for SigmaJS inputs) instead of \&.graphml\&.
+.PP
+.PP
+.SH "Troubleshooting"
+.PP
+.PP
+It is possible that you can get a 'error while loading shared libraries' error in Linux\&. If so, try running \fCsudo ldconfig\fP to set the libraries path for your local installation of igraph\&.
+.PP
+.SH "License"
+.PP
+.PP
+Licensed under the \fCApache License, Version 2\&.0\fP\&.
+.PP
+.SH "Acknowledgments"
+.PP
+.PP
+This work is primarily supported by the \fCAndrew W\&. Mellon Foundation\fP\&. Additional funding for the Toolkit has come from the U\&.S\&. National Science Foundation, Columbia University Library's Mellon-funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation's Early Researcher Award program\&. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors\&.
+.PP
+The author would also like to thank Drs\&. Ian Milligan & Jimmy Lin plus Nick Nuest and Samantha Fritz for their kind advice and support\&. 

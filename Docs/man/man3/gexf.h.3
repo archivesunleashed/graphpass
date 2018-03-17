@@ -1,0 +1,53 @@
+.TH "headers/gexf.h" 3 "Fri Mar 16 2018" "Version 0.0.2" "Graphpass" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+headers/gexf.h \- Gexf writer for graphpass\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBigraph_i_xml_escape\fP (char *src, char **dest)"
+.br
+.ti -1c
+.RI "int \fBigraph_write_graph_gexf\fP (const igraph_t *graph, FILE *outstream, igraph_bool_t prefixattr)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBerrno\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Gexf writer for graphpass\&. 
+
+Because igraph does not have a gexf writer, we produced one based on the grapml writer\&. This writer has been submitted to igraph with the hopes that it will be added to the original library, in which case, this file will likely be deprecated\&. 
+.SH "Function Documentation"
+.PP 
+.SS "int igraph_i_xml_escape (char * src, char ** dest)"
+Escapes invalid xml character (&, <, >, ") in attributes 
+.SS "int igraph_write_graph_gexf (const igraph_t * graph, FILE * outstream, igraph_bool_t prefixattr)"
+Writes a GEXF file
+.PP
+GEXF provides great support for visualizations and is therefore used by a number of light-weight visualization tools like SigmaJS and Gephi\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph to write to gexf 
+.br
+\fIoutstream\fP - a file object 
+.br
+\fIprefixattr\fP - if 'true' will add prefixes to the gexf output\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graphpass from the source code\&.

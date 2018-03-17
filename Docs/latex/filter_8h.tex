@@ -1,0 +1,76 @@
+\hypertarget{filter_8h}{}\section{headers/filter.h File Reference}
+\label{filter_8h}\index{headers/filter.\+h@{headers/filter.\+h}}
+
+
+Basic filtering utilities.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{filter_8h_adccfbd3b2182a02f3ee87f0f50d874bb}{fix\+\_\+percentile}} ()
+\item 
+int \mbox{\hyperlink{filter_8h_a4c3e3e2086b1a65dc4e2f9fcf7eb0ac0}{create\+\_\+filtered\+\_\+graph}} (igraph\+\_\+t $\ast$graph, double cutoff, int cutsize, char $\ast$attr)
+\item 
+\mbox{\Hypertarget{filter_8h_a09a72eedc1c18cbd86e705655f10cf51}\label{filter_8h_a09a72eedc1c18cbd86e705655f10cf51}} 
+int {\bfseries shrink} (igraph\+\_\+t $\ast$graph, int cutsize, char $\ast$attr)
+\item 
+\mbox{\Hypertarget{filter_8h_a0f078a79683fbcf1babc34600ee86627}\label{filter_8h_a0f078a79683fbcf1babc34600ee86627}} 
+int {\bfseries run\+Filters} (igraph\+\_\+t $\ast$graph, int cutsize)
+\item 
+int \mbox{\hyperlink{filter_8h_a51f8ed6b110fdcbe5cbf9b0adfde8df4}{filter\+\_\+graph}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Basic filtering utilities. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{filter_8h_a4c3e3e2086b1a65dc4e2f9fcf7eb0ac0}\label{filter_8h_a4c3e3e2086b1a65dc4e2f9fcf7eb0ac0}} 
+\index{filter.\+h@{filter.\+h}!create\+\_\+filtered\+\_\+graph@{create\+\_\+filtered\+\_\+graph}}
+\index{create\+\_\+filtered\+\_\+graph@{create\+\_\+filtered\+\_\+graph}!filter.\+h@{filter.\+h}}
+\subsubsection{\texorpdfstring{create\+\_\+filtered\+\_\+graph()}{create\_filtered\_graph()}}
+{\footnotesize\ttfamily int create\+\_\+filtered\+\_\+graph (\begin{DoxyParamCaption}\item[{igraph\+\_\+t $\ast$}]{graph,  }\item[{double}]{cutoff,  }\item[{int}]{cutsize,  }\item[{char $\ast$}]{attr }\end{DoxyParamCaption})}
+
+Create a graph from an original graph with a number of nodes equal to cutsize.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & -\/ the graph to filter \\
+\hline
+{\em cutoff} & -\/ the value to use as a cutoff value. \\
+\hline
+{\em cutsize} & -\/ the size of the requested graph. \\
+\hline
+{\em attr} & -\/ the method used to shorten the graph\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 unless an error occurs. 
+\end{DoxyReturn}
+Random filtering is most basic \mbox{\Hypertarget{filter_8h_a51f8ed6b110fdcbe5cbf9b0adfde8df4}\label{filter_8h_a51f8ed6b110fdcbe5cbf9b0adfde8df4}} 
+\index{filter.\+h@{filter.\+h}!filter\+\_\+graph@{filter\+\_\+graph}}
+\index{filter\+\_\+graph@{filter\+\_\+graph}!filter.\+h@{filter.\+h}}
+\subsubsection{\texorpdfstring{filter\+\_\+graph()}{filter\_graph()}}
+{\footnotesize\ttfamily int filter\+\_\+graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Filters an igraph using one or more methods based on global \char`\"{}\+M\+E\+T\+H\+O\+D\+S\char`\"{}, and outputs graphs as derivatives of filename.
+
+\begin{DoxyReturn}{Returns}
+0 unless an error is discovered 
+\end{DoxyReturn}
+\mbox{\Hypertarget{filter_8h_adccfbd3b2182a02f3ee87f0f50d874bb}\label{filter_8h_adccfbd3b2182a02f3ee87f0f50d874bb}} 
+\index{filter.\+h@{filter.\+h}!fix\+\_\+percentile@{fix\+\_\+percentile}}
+\index{fix\+\_\+percentile@{fix\+\_\+percentile}!filter.\+h@{filter.\+h}}
+\subsubsection{\texorpdfstring{fix\+\_\+percentile()}{fix\_percentile()}}
+{\footnotesize\ttfamily float fix\+\_\+percentile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Automatically converts percentage to decimal values to fit filter model.
+
+If the --percent or -\/p flag is greater than 1 and less than 99, fix\+\_\+percentile will divide by 100, otherwise it will return 0.\+99 (99 percent).
+
+\begin{DoxyReturn}{Returns}
+0.\+99 $>$= A float value $>$= 0.\+01 
+\end{DoxyReturn}

@@ -5,19 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>graphpass: include/analyze.h File Reference</title>
+<title>Graphpass: headers/analyze.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-});
-</script><script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -27,9 +21,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">graphpass
+   <div id="projectname">Graphpass
+   &#160;<span id="projectnumber">0.0.2</span>
    </div>
-   <div id="projectbrief">A Network Analysis Utilty</div>
+   <div id="projectbrief">A helper library for network filtering, analysis and visualization</div>
   </td>
  </tr>
  </tbody>
@@ -68,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_7f57b1e41c5acd0e859ae5f3a2b075a9.html">headers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -86,38 +81,23 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a42266a68ec7dec39cab2dfaf9b7e960f"><td class="memItemLeft" align="right" valign="top"><a id="a42266a68ec7dec39cab2dfaf9b7e960f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_betweenness</b> (igraph_t *graph)</td></tr>
+<tr class="memitem:a42266a68ec7dec39cab2dfaf9b7e960f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#a42266a68ec7dec39cab2dfaf9b7e960f">calc_betweenness</a> (igraph_t *graph)</td></tr>
 <tr class="separator:a42266a68ec7dec39cab2dfaf9b7e960f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ac9574f0f1667798b100335fca7a4b8"><td class="memItemLeft" align="right" valign="top"><a id="a5ac9574f0f1667798b100335fca7a4b8"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_authority</b> (igraph_t *graph)</td></tr>
+<tr class="memitem:a5ac9574f0f1667798b100335fca7a4b8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#a5ac9574f0f1667798b100335fca7a4b8">calc_authority</a> (igraph_t *graph)</td></tr>
 <tr class="separator:a5ac9574f0f1667798b100335fca7a4b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa55ffebfe9f43d601d1abd39007bcc05"><td class="memItemLeft" align="right" valign="top"><a id="aa55ffebfe9f43d601d1abd39007bcc05"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_hub</b> (igraph_t *graph)</td></tr>
+<tr class="memitem:aa55ffebfe9f43d601d1abd39007bcc05"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#aa55ffebfe9f43d601d1abd39007bcc05">calc_hub</a> (igraph_t *graph)</td></tr>
 <tr class="separator:aa55ffebfe9f43d601d1abd39007bcc05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a419d00268c0933e0d24ea635601383f4"><td class="memItemLeft" align="right" valign="top"><a id="a419d00268c0933e0d24ea635601383f4"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_pagerank</b> (igraph_t *graph)</td></tr>
+<tr class="memitem:a419d00268c0933e0d24ea635601383f4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#a419d00268c0933e0d24ea635601383f4">calc_pagerank</a> (igraph_t *graph)</td></tr>
 <tr class="separator:a419d00268c0933e0d24ea635601383f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af97d646bd402fe14b4a69cc966b16560"><td class="memItemLeft" align="right" valign="top"><a id="af97d646bd402fe14b4a69cc966b16560"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_eigenvector</b> (igraph_t *graph)</td></tr>
+<tr class="memitem:af97d646bd402fe14b4a69cc966b16560"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#af97d646bd402fe14b4a69cc966b16560">calc_eigenvector</a> (igraph_t *graph)</td></tr>
 <tr class="separator:af97d646bd402fe14b4a69cc966b16560"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3000150d33013b586e89f25735975f6e"><td class="memItemLeft" align="right" valign="top"><a id="a3000150d33013b586e89f25735975f6e"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_clustering</b> (igraph_t *graph)</td></tr>
-<tr class="separator:a3000150d33013b586e89f25735975f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b68ed8f3c993b1b43358149c5597b91"><td class="memItemLeft" align="right" valign="top"><a id="a6b68ed8f3c993b1b43358149c5597b91"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_random</b> (igraph_t *graph)</td></tr>
-<tr class="separator:a6b68ed8f3c993b1b43358149c5597b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a718c44fbc664a2fccfce48ee8c7aaa40"><td class="memItemLeft" align="right" valign="top"><a id="a718c44fbc664a2fccfce48ee8c7aaa40"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_degree</b> (igraph_t *graph, char type)</td></tr>
+<tr class="memitem:a718c44fbc664a2fccfce48ee8c7aaa40"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#a718c44fbc664a2fccfce48ee8c7aaa40">calc_degree</a> (igraph_t *graph, char type)</td></tr>
 <tr class="separator:a718c44fbc664a2fccfce48ee8c7aaa40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a426579d8f0fd923b99b6c145718ee57c"><td class="memItemLeft" align="right" valign="top"><a id="a426579d8f0fd923b99b6c145718ee57c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>calc_modularity</b> (igraph_t *graph)</td></tr>
+<tr class="memitem:a426579d8f0fd923b99b6c145718ee57c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#a426579d8f0fd923b99b6c145718ee57c">calc_modularity</a> (igraph_t *graph)</td></tr>
 <tr class="separator:a426579d8f0fd923b99b6c145718ee57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f5095ef53aeb6ce15158512c6a82ab8"><td class="memItemLeft" align="right" valign="top"><a id="a4f5095ef53aeb6ce15158512c6a82ab8"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>centralization</b> (igraph_t *graph, char *attr)</td></tr>
+<tr class="memitem:a4f5095ef53aeb6ce15158512c6a82ab8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#a4f5095ef53aeb6ce15158512c6a82ab8">centralization</a> (igraph_t *graph, char *attr)</td></tr>
 <tr class="separator:a4f5095ef53aeb6ce15158512c6a82ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7a4240c401b00408a4e4634d94f7472"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyze_8h.html#aa7a4240c401b00408a4e4634d94f7472">analysis_all</a> (igraph_t *graph)</td></tr>
-<tr class="memdesc:aa7a4240c401b00408a4e4634d94f7472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the main analysis scores for the graph.  <a href="#aa7a4240c401b00408a4e4634d94f7472">More...</a><br /></td></tr>
 <tr class="separator:aa7a4240c401b00408a4e4634d94f7472"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -139,12 +119,243 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>centralization</b> (ig
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Calculates the main analysis scores for the graph. </p>
+<p>Calculates the main analysis scores for the graph</p>
 <p>analysis_all conducts all available graph, node and edge scores available in the network utility. It is very expensive in terms of processing time, so should be used only for smaller graphs.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5ac9574f0f1667798b100335fca7a4b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ac9574f0f1667798b100335fca7a4b8">&#9670;&nbsp;</a></span>calc_authority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calc_authority </td>
+          <td>(</td>
+          <td class="paramtype">igraph_t *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates authority scores for the individual nodes in a graph</p>
+<p>Authority is measured</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a42266a68ec7dec39cab2dfaf9b7e960f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42266a68ec7dec39cab2dfaf9b7e960f">&#9670;&nbsp;</a></span>calc_betweenness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calc_betweenness </td>
+          <td>(</td>
+          <td class="paramtype">igraph_t *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates betweenness scores for the individual nodes in a graph</p>
+<p>Betweenness is measured</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 unless error occurs. </dd></dl>
+
+</div>
+</div>
+<a id="a718c44fbc664a2fccfce48ee8c7aaa40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a718c44fbc664a2fccfce48ee8c7aaa40">&#9670;&nbsp;</a></span>calc_degree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calc_degree </td>
+          <td>(</td>
+          <td class="paramtype">igraph_t *&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates degree scores for the individual nodes in a graph</p>
+<p>Authority is measured</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+    <tr><td class="paramname">type</td><td>- 'i' for indegree, 'o' for outdegree, 'd' for degree </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af97d646bd402fe14b4a69cc966b16560"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af97d646bd402fe14b4a69cc966b16560">&#9670;&nbsp;</a></span>calc_eigenvector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calc_eigenvector </td>
+          <td>(</td>
+          <td class="paramtype">igraph_t *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates eigenvector centrality scores for the individual nodes in a graph</p>
+<p>Authority is measured</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa55ffebfe9f43d601d1abd39007bcc05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa55ffebfe9f43d601d1abd39007bcc05">&#9670;&nbsp;</a></span>calc_hub()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calc_hub </td>
+          <td>(</td>
+          <td class="paramtype">igraph_t *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates hub scores for the individual nodes in a graph</p>
+<p>Hub is measured</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a426579d8f0fd923b99b6c145718ee57c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a426579d8f0fd923b99b6c145718ee57c">&#9670;&nbsp;</a></span>calc_modularity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calc_modularity </td>
+          <td>(</td>
+          <td class="paramtype">igraph_t *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates walktrap modularity scores for the individual nodes in a graph and sets group values for each.</p>
+<p>Walktrap modularity is measured</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a419d00268c0933e0d24ea635601383f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a419d00268c0933e0d24ea635601383f4">&#9670;&nbsp;</a></span>calc_pagerank()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calc_pagerank </td>
+          <td>(</td>
+          <td class="paramtype">igraph_t *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates pagerank scores for the individual nodes in a graph</p>
+<p>Pagerank is measured</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4f5095ef53aeb6ce15158512c6a82ab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f5095ef53aeb6ce15158512c6a82ab8">&#9670;&nbsp;</a></span>centralization()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int centralization </td>
+          <td>(</td>
+          <td class="paramtype">igraph_t *&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>attr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates betweenness scores for the individual nodes in a graph</p>
+<p>Centralization is a graph-level score created by comparing the centrality values (betweenness, degree, eigenvector etc.) of the nodes in a graph against the node with the highest centrality. A "star" graph has a centralization of 1, whereas a "full" graph (everyone is connected to everyone) has a centralization of 0.</p>
+<p>In general it identifies the influence of the most central nodes on the entire graph.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>- the graph for which to record the scores. </td></tr>
+    <tr><td class="paramname">attr</td><td>- the graph attribute for which the centralization score is based on. </td></tr>
   </table>
   </dd>
 </dl>

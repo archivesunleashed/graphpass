@@ -1,0 +1,96 @@
+.TH "headers/reports.h" 3 "Fri Mar 16 2018" "Version 0.0.2" "Graphpass" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+headers/reports.h \- Provides an output report that shows the effect of filtering on the network structure\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBNode\fP"
+.br
+.RI "Holds graph level values for each graph that has been filtered\&. "
+.ti -1c
+.RI "struct \fBRankNode\fP"
+.br
+.RI "unimplemented struct for holding the top 20 rankids for the graph\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBpush\fP (struct \fBNode\fP **head_ref, igraph_real_t value, char *attr)"
+.br
+.ti -1c
+.RI "int \fBpushRank\fP (struct \fBRankNode\fP **head_ref, int rankids[20])"
+.br
+.ti -1c
+.RI "int \fBwrite_report\fP (igraph_t *graph)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "struct \fBNode\fP * \fBasshead\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBedges\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBdensity\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBbetcent\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBreciprocity\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBdegcent\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBidegcent\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBodegcent\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBeigcent\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBpagecent\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBdiameter\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBpathlength\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBNode\fP * \fBclustering\fP = NULL"
+.br
+.ti -1c
+.RI "struct \fBRankNode\fP * \fBranks\fP = NULL"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides an output report that shows the effect of filtering on the network structure\&. 
+
+
+.SH "Function Documentation"
+.PP 
+.SS "int push (struct \fBNode\fP ** head_ref, igraph_real_t value, char * attr)"
+adds a new value to a \fBNode\fP 
+.SS "int pushRank (struct \fBRankNode\fP ** head_ref, int rankids[20])"
+adds a new value to a \fBRankNode\fP 
+.SS "int write_report (igraph_t * graph)"
+Writes the report 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graphpass from the source code\&.

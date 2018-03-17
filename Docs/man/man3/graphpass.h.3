@@ -1,0 +1,198 @@
+.TH "headers/graphpass.h" 3 "Fri Mar 16 2018" "Version 0.0.2" "Graphpass" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+headers/graphpass.h \- The base library for nutil\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'gexf\&.h'\fP
+.br
+\fC#include 'rnd\&.h'\fP
+.br
+\fC#include 'reports\&.h'\fP
+.br
+\fC#include 'io\&.h'\fP
+.br
+\fC#include 'viz\&.h'\fP
+.br
+\fC#include 'analyze\&.h'\fP
+.br
+\fC#include 'quickrun\&.h'\fP
+.br
+\fC#include 'filter\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_GNU_SOURCE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBPROGRAM_NAME\fP   'Graph Pass'"
+.br
+.ti -1c
+.RI "#define \fBBUG_REPORT\fP   'ryan\&.deschamps@gmail\&.com'"
+.br
+.ti -1c
+.RI "#define \fBGIT_REPOSITORY\fP   'https://www\&.github\&.com/archivesunleashed/graphpass'"
+.br
+.ti -1c
+.RI "#define \fBCOLOUR_SET_PASTEL\fP   'pastel\&.h'"
+.br
+.ti -1c
+.RI "#define \fBCOLOUR_SET_PRIMARY\fP   'primary\&.h'"
+.br
+.ti -1c
+.RI "#define \fBCOLOUR_SET_DAMPENED\fP   'dampened\&.h'"
+.br
+.ti -1c
+.RI "#define \fBVIZ_SET_SPACIOUS\fP   'viz_spacious\&.h'"
+.br
+.ti -1c
+.RI "#define \fBVIZ_SET_LARGE\fP   'viz_large\&.h'"
+.br
+.ti -1c
+.RI "#define \fBVIZ_SET_SMALL\fP   'vis_small\&.h'"
+.br
+.ti -1c
+.RI "#define \fBMAX_METHODS\fP   9"
+.br
+.ti -1c
+.RI "#define \fBALL_METHODS\fP   'abcdehioprw'"
+.br
+.ti -1c
+.RI "#define \fBSIZE_DEFAULT\fP   'Degree'"
+.br
+.ti -1c
+.RI "#define \fBSIZE_DEFAULT_CHAR\fP   'd'"
+.br
+.ti -1c
+.RI "#define \fBCOLOR_BASE\fP   'WalkTrapModularity'"
+.br
+.ti -1c
+.RI "#define \fBPAGERANK_DAMPING\fP   0\&.85"
+.br
+.ti -1c
+.RI "#define \fBLAYOUT_DEFAULT_CHAR\fP   = 'f'"
+.br
+.ti -1c
+.RI "#define \fBNELEMS\fP(x)   (sizeof(x) / sizeof((x)[0]))"
+.br
+.ti -1c
+.RI "#define \fBFILENAME\fP(x)   x ? x : 'cpp\&.graphml'"
+.br
+.ti -1c
+.RI "#define \fBDIRECTORY\fP(x)   x ? x : 'assets/'"
+.br
+.ti -1c
+.RI "#define \fBOUTPUT\fP(x)   x ? x : 'OUT/'"
+.br
+.ti -1c
+.RI "#define \fBMETHODS\fP   (x) x ? x : 'b'"
+.br
+.ti -1c
+.RI "#define \fBPERCENT\fP   (x) x ? x : 0\&.0"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBbool\fP { \fBfalse\fP, \fBtrue\fP, \fBfalse\fP, \fBtrue\fP }"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "igraph_t \fBg\fP"
+.br
+.ti -1c
+.RI "igraph_attribute_table_t \fBatt\fP"
+.br
+.ti -1c
+.RI "char * \fBFILENAME\fP"
+.br
+.ti -1c
+.RI "char * \fBDIRECTORY\fP"
+.br
+.ti -1c
+.RI "char * \fBFILEPATH\fP"
+.br
+.ti -1c
+.RI "char * \fBMETHODS\fP"
+.br
+.ti -1c
+.RI "char * \fBOUTPUT\fP"
+.br
+.ti -1c
+.RI "char * \fBOUTPATH\fP"
+.br
+.ti -1c
+.RI "igraph_integer_t \fBNODESIZE\fP"
+.br
+.ti -1c
+.RI "float \fBPERCENT\fP"
+.br
+.ti -1c
+.RI "bool \fBREPORT\fP = false"
+.br
+.ti -1c
+.RI "bool \fBGFORMAT\fP = false"
+.br
+.ti -1c
+.RI "bool \fBQUICKRUN\fP = false"
+.br
+.ti -1c
+.RI "bool \fBSAVE\fP = true"
+.br
+.ti -1c
+.RI "bool \fBCALC_WEIGHTS\fP = false"
+.br
+.ti -1c
+.RI "igraph_vector_t \fBWEIGHTED\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The base library for nutil\&. 
+
+
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define PAGERANK_DAMPING   0\&.85"
+chance random walk will not restart 
+.SH "Variable Documentation"
+.PP 
+.SS "char* DIRECTORY"
+Directory to access FILENAME and put REPORT 
+.SS "char* FILENAME"
+The filename from -f flag\&. 
+.SS "char* FILEPATH"
+The filepath (DIRECTORY + FILENAME) 
+.SS "bool GFORMAT = false"
+Graph format - true is 'GEXF' false is 'GRAPHML' 
+.SS "char* METHODS"
+METHODS to filter 
+.SS "igraph_integer_t NODESIZE"
+Number of Nodes in original graph 
+.SS "char* OUTPATH"
+Path to output folder (DIRECTORY + OUTPUT) 
+.SS "char* OUTPUT"
+Folder to output new graphs 
+.SS "float PERCENT"
+Filtering percentage 0\&.0 by default 
+.SS "bool QUICKRUN = false"
+Lightweight visualization run 
+.SS "bool REPORT = false"
+Include a report? 
+.SS "bool SAVE = true"
+If false, does not save graphs at all (for reports) 
+.SS "igraph_vector_t WEIGHTED"
+If greater than 0, conducts weighted analysis 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graphpass from the source code\&.

@@ -1,0 +1,67 @@
+.TH "headers/viz.h" 3 "Fri Mar 16 2018" "Version 0.0.2" "Graphpass" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+headers/viz.h \- Tools for presetting visualization elements: color, position & size\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBcolors\fP (igraph_t *graph)"
+.br
+.ti -1c
+.RI "int \fBlayout_graph\fP (igraph_t *graph, char layout)"
+.br
+.ti -1c
+.RI "int \fBset_size\fP (igraph_t *graph, igraph_vector_t *v, int max)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Tools for presetting visualization elements: color, position & size\&. 
+
+
+.SH "Function Documentation"
+.PP 
+.SS "int colors (igraph_t * graph)"
+creates default colors for a graph based on walktrap modularity
+.PP
+Colors sets the rgb values based on a preset color scheme\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fI-\fP the graph for which to provide colors\&. 
+.RE
+.PP
+
+.SS "int layout_graph (igraph_t * graph, char layout)"
+Lays out a graph using a standard algorithm
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - the graph to layout 
+.br
+\fIlayout\fP - a char for the layout 'k' for kamada_kawai, 'f' for fruchterman rheingold or lgl if char is not recognized\&. 
+.RE
+.PP
+
+.SS "int set_size (igraph_t * graph, igraph_vector_t * v, int max)"
+sets the size of nodes based on vector scores provide by v
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgraph\fP - graph to set size values 
+.br
+\fIv\fP - vector used to set size values, an attribute for degree, for instance 
+.br
+\fImax\fP - the maximum desired size setting\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graphpass from the source code\&.
