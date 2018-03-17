@@ -17,13 +17,15 @@ For Linux (Ubuntu):
 Install the igraph dependencies:
 
 ``` 
-sudo apt-get install gcc libxml2-dev build-essential
+sudo apt-get install git gcc libxml2-dev build-essential
 wget http://igraph.org/nightly/get/c/igraph-0.7.1.tar.gz
 tar -xvzf igraph-0.7.1.tar.gz
 cd igraph-0.7.1.tar.gz
 ./configure
 make
-make install```
+make install
+ldconfig
+```
 
 
 For MacOS:

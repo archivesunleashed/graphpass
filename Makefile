@@ -11,9 +11,10 @@ CC = gcc
 OUTPUTS = lib_graphpass.o analyze.o filter.o gexf.o io.o quickrun.o reports.o rnd.o viz.o
 HELPERFILES = analyze.c filter.c gexf.c graphpass.c io.c lib_graphpass.c quickrun.c \
   reports.c rnd.c viz.c
-
 IGRAPH_INCLUDE = $(IGRAPH_PATH)include/igraph
 IGRAPH_LIB = $(IGRAPH_PATH)lib
+
+
 TEST_INCLUDE = ./tests/
 TEST_RUNNER_PATH = ./tests/
 UNITY_INCLUDE = ./unity
