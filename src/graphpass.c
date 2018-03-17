@@ -97,7 +97,7 @@ int main (int argc, char *argv[]) {
           METHODS = optarg ? optarg : "d";
           break;
         case 'f':
-          FILENAME = optarg ? optarg : "miserables.graphml";
+          FILENAME = optarg ? optarg : "cpp2.graphml";
           break;
         case 'q':
           QUICKRUN = !QUICKRUN;
@@ -135,7 +135,7 @@ int main (int argc, char *argv[]) {
   PERCENT = PERCENT ? PERCENT : 0.00;
   METHODS = METHODS ? METHODS : "d";
   DIRECTORY = DIRECTORY ? DIRECTORY : "assets/";
-  FILENAME = FILENAME ? FILENAME : "miserables.graphml";
+  FILENAME = FILENAME ? FILENAME : "cpp2.graphml";
   char path[strlen(DIRECTORY)+1];
   strncpy(path, DIRECTORY, strlen(DIRECTORY)+1);
   printf(">>>>>>>  GRAPHPASSING >>>>>>>> \n");
@@ -162,5 +162,6 @@ int main (int argc, char *argv[]) {
   load_graph(FILEPATH);
   filter_graph();
   printf(">>>>  SUCCESS! - Files output to %s\n", OUTPUT);
+  free(FILEPATH);
   return 0;
 }

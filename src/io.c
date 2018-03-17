@@ -64,6 +64,7 @@ extern int load_graph (char* filename) {
 
 int write_graph(igraph_t *graph, char *attr) {
   FILE *fp;
+  char fn[strlen(FILENAME)+1];
   struct stat st = {0};
   if (stat(OUTPUT, &st) == -1) {
     mkdir(OUTPUT, 0700);
@@ -71,10 +72,11 @@ int write_graph(igraph_t *graph, char *attr) {
   char path[150];
   char perc_as_string[3];
   int perc = (int)PERCENT;
-  strip_ext(FILENAME);
+  strncpy(fn, FILENAME, strlen(FILENAME)+1);
+  strip_ext(fn);
   snprintf(perc_as_string, 3, "%d", perc);
-  strncpy(path, OUTPUT, strlen(OUTPUT));
-  strncat(path, FILENAME, strlen(FILENAME));
+  strncpy(path, OUTPUT, strlen(OUTPUT)+1);
+  strncat(path, FILENAME, (strlen(FILENAME)+1));
   if (QUICKRUN == false) {
     strncat(path, perc_as_string, 3);
     strncat(path, attr, strlen(attr));
@@ -84,6 +86,7 @@ int write_graph(igraph_t *graph, char *attr) {
   } else {
     strncat(path, ".graphml", 8);
   }
+  printf("Writing output to: %s\n", path);
   fp = fopen(path, "w");
   if (GFORMAT) {
     igraph_write_graph_gexf(graph, fp, 1);

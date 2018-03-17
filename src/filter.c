@@ -279,11 +279,17 @@ int filter_graph() {
   float percentile;
   int cutsize;
   if (QUICKRUN == true) {
+    printf("Quickrun requested.\n");
+    printf("Quickrun does no filtering, and provides layout information\n");
+    printf("based on Degree (nodesize), Walktrap Modularity (color), and\n");
+    printf("the Fructerman-Rheingold algorithm to maximize space between\n");
+    printf("nodes.\n\n");
+    printf("Quickrun is quicker, but less informative in terms of output.\n");
     quickrunGraph();
     igraph_destroy(&g);
     exit(0);
   }
-  if (CALC_WEIGHTS == false) {igraph_vector_init(&WEIGHTED, NODESIZE);}
+  /* if (CALC_WEIGHTS == false) {igraph_vector_init(&WEIGHTED, NODESIZE);}*/
   percentile = (PERCENT > 0.99) ? fix_percentile() : PERCENT;
   cutsize = round((double)NODESIZE * percentile);
   printf("Filtering the graphs by %f will reduce the graph size by %d \n", PERCENT, cutsize);

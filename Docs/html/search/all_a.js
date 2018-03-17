@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['pagerank_5fdamping',['PAGERANK_DAMPING',['../graphpass_8h.html#aeae5da05271b19048d130d7775d27959',1,'graphpass.h']]],
-  ['percent',['PERCENT',['../graphpass_8h.html#a75ea51b7e08afde0f821732e9c69885a',1,'graphpass.h']]],
-  ['push',['push',['../reports_8h.html#acdcdf9fdd29aed797e4fa517f62bf4d1',1,'reports.c']]],
-  ['pushrank',['pushRank',['../reports_8h.html#aec4d3b9cbca17fd01a00c2de534eae26',1,'reports.c']]]
+  ['set_5fsize',['set_size',['../viz_8c.html#ab8f5b6b81755c097de5317968b0ee953',1,'viz.c']]],
+  ['shuffle',['shuffle',['../rnd_8c.html#a728d4b6810519556a4a5dc4ba614b910',1,'rnd.c']]]
 ];

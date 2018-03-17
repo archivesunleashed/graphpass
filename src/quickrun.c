@@ -27,7 +27,6 @@
 
 #include "../headers/graphpass.h"
 
-
 int quickrunGraph() {
   igraph_t g2;
   igraph_vector_t size;
