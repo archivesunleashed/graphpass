@@ -20,11 +20,11 @@ Install the igraph dependencies:
 sudo apt-get install git gcc libxml2-dev build-essential
 wget http://igraph.org/nightly/get/c/igraph-0.7.1.tar.gz
 tar -xvzf igraph-0.7.1.tar.gz
-cd igraph-0.7.1.tar.gz
+cd igraph-0.7.1
 ./configure
 make
 sudo make install
-ldconfig
+sudo ldconfig
 ```
 
 You can test that gcc and igraph have been installed properly by using:
@@ -33,18 +33,18 @@ You can test that gcc and igraph have been installed properly by using:
 gcc -ligraph
 ```
 
-If you get `undefined reference to 'main'` that means linux is looking for
+If you get `undefined reference to 'main'` that means Linux is looking for
 graphpass and you are ready to go.
 
 If you get `cannot find -ligraph` then something went wrong with the install.  
+
 Check through the logs to see what failed to install.
 
-
-If desired remove igraph directory:
+If desired remove the igraph directory:
 
 ```
 cd ..
-rm -rf igraph-0.7.1.tar.gz
+rm -rf igraph-0.7.1
 ```
 
 #### For MacOS:
@@ -56,9 +56,17 @@ brew install gcc
 brew install igraph
 ```
 
+Type
+
+```
+brew info igraph
+```
+
+and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is `/usr/local/Cellar/igraph/0.7.1_6/` for MacOS.
+
 ### Building
 
-Go to preferred install directory, for example:
+Go to your preferred install directory, for example:
 
 ```
 cd /Users/{USERNAME}/
@@ -69,14 +77,6 @@ Clone the repository with:
 ```
 git clone https://github.com/archivesunleashed/graphpass
 ```
-
-Type
-
-```
-brew info igraph
-```
-
-and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is `/usr/local/Cellar/igraph/0.7.1_6/` for MacOS and `/usr/local` for linux.
 
 Then
 
@@ -95,14 +95,17 @@ Once compiled use the following command:
 
 The following flags are available:
 
-`--file {FILENAME}` - sets the default filename.  If not set, graphpass will use
+* `--file {FILENAME}` - sets the default filename.  If not set, graphpass will use
 a default network in /assets.
-`--dir {DIRECTORY}` - the path to look for {FILENAME} by default this is `assets/`
-`--output {OUTPUT}` - the directory to send output files such as filtered graphs
+* `--dir {DIRECTORY}` - the path to look for {FILENAME} by default this is `assets/`
+* `--output {OUTPUT}` - the directory to send output files such as filtered graphs
 and data reporst.
-`--percent {PERCENT}` - a percentage to remove from the file.  By default this is 0.0.
-`--method {options}` - a string of various methods through which to filter the 
-graph.  These are outlined below:
+* `--percent {PERCENT}` - a percentage to remove from the file.  By default this is 0.0.
+* `--method {options}` - a string of various methods through which to filter the 
+graph.
+
+These various methods are outlined below:
+
 * `a` : authority
 * `b` : betweenness
 * `d` : simple degree
