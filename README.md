@@ -23,10 +23,35 @@ tar -xvzf igraph-0.7.1.tar.gz
 cd igraph-0.7.1.tar.gz
 ./configure
 make
-make install
+sudo make install
 ldconfig
 ```
 
+You can test that gcc and igraph have been installed properly by using:
+
+```
+gcc -ligraph
+```
+
+If you get `undefined reference to 'main'` that means linux is looking for
+graphpass and you are ready to go.
+
+If you get `cannot find -ligraph` then something went wrong with the install.  
+Check through the logs to see what failed to install.
+
+
+If desired remove igraph directory:
+
+```
+cd ..
+rm -rf igraph-0.7.1.tar.gz
+```
+
+Go to preferred install directory, for example:
+
+```
+cd /Users/username/
+```
 
 For MacOS:
 
@@ -59,6 +84,9 @@ Then
 cd graphpass
 make
 ```
+
+
+
 
 ## Usage
 
