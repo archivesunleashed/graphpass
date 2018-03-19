@@ -21,7 +21,7 @@
     \brief strips the file extension from a filename
     @param fname - filename to strip the extension from.
  */
-int strip_ext(char *fname) {
+extern int strip_ext(char *fname) {
   char *end = fname + strlen(fname);
   while (end > fname && *end != '.' && *end != '\\' && *end != '/') {
     --end;
@@ -36,7 +36,7 @@ int strip_ext(char *fname) {
  Loads a graphml file.
  @param filename - name of the file to load.
  */
-extern int load_graph (char* filename) {
+int load_graph (char* filename) {
   igraph_i_set_attribute_table(&igraph_cattribute_table);
   FILE *fp;
   fp = fopen(filename, "r");
@@ -72,11 +72,12 @@ int write_graph(igraph_t *graph, char *attr) {
   char path[150];
   char perc_as_string[3];
   int perc = (int)PERCENT;
-  strncpy(fn, FILENAME, strlen(FILENAME)+1);
+  strncpy(fn, FILENAME, strlen(FILENAME));
   strip_ext(fn);
+  printf("%s",fn);
   snprintf(perc_as_string, 3, "%d", perc);
   strncpy(path, OUTPUT, strlen(OUTPUT)+1);
-  strncat(path, FILENAME, (strlen(FILENAME)+1));
+  strncat(path, fn, (strlen(fn)+1));
   if (QUICKRUN == false) {
     strncat(path, perc_as_string, 3);
     strncat(path, attr, strlen(attr));
@@ -86,14 +87,17 @@ int write_graph(igraph_t *graph, char *attr) {
   } else {
     strncat(path, ".graphml", 8);
   }
-  printf("Writing output to: %s\n", path);
-  fp = fopen(path, "w");
-  if (GFORMAT) {
-    igraph_write_graph_gexf(graph, fp, 1);
-  } else {
-    igraph_write_graph_graphml(graph, fp, 1);
+  if (SAVE) {
+    printf("Writing output to: %s\n", path);
+    fp = fopen(path, "w");
+    if (GFORMAT) {
+      igraph_write_graph_gexf(graph, fp, 1);
+    } else {
+      igraph_write_graph_graphml(graph, fp, 1);
+    }
+    fclose(fp);
   }
-  fclose(fp);
+  
   return 0;
 }
 

@@ -22,19 +22,18 @@ INCLUDE = ./headers
 DEPS = -I$(INCLUDE) -I$(IGRAPH_INCLUDE) -I$(UNITY_INCLUDE)
 BUILD = build/
 
-install: src/graphpass.c
+install:  release
+
+release: src/graphpass.c
 	gcc src/graphpass.c src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
-	- ./graphpass -qn
+	- ./graphpass -qg
 
 debug: ./src/graphpass.c
 	gcc -g src/graphpass.c src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
 
-test: $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)all_test.c
-	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)all_test.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -o $(TEST_INCLUDE)graphpass_test
-	- $(TEST_RUNNER_PATH)graphpass_test
-
-release: ./src/graphpass.c
-	gcc graphpass.c -g $(DEPS) -L$(IGRAPH_LIB) -ligraph -o graphpass-0.0.1 -lm
+test: $(TEST_INCLUDE)all_test.c
+	gcc $(UNITY_INCLUDE)/unity.c src/quickrun.c src/analyze.c src/filter.c src/rnd.c src/reports.c  src/viz.c src/io.c src/gexf.c $(TEST_INCLUDE)*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -o graphpass_test
+	- ./graphpass_test
 
 
 .PHONY : clean

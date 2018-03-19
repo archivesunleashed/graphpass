@@ -25,10 +25,7 @@ UnityConcludeTest(); \
 #include "igraph.h"
 #include "unity.h"
 #include "unity_internals.h"
-#include "sample_graphs_test.c"
-#include "analyze_test.c"
-#include "filter_test.c"
-#include "quickrun_test.c"
+#include "../headers/graphpass.h"
 
 extern void setUp(void);
 extern void tearDown(void);
@@ -41,9 +38,14 @@ void resetTest(void)
   setUp();
 }
 
+void setUp() {
+}
+
+void tearDown() {
+}
 
 int main () {
-  UnityBegin("tests/quickrun_test.h");
+  UnityBegin("tests/quickrun_test.c");
   RUN_TEST(TEST_QUICKRUN, 15);
   return UNITY_END();
 }

@@ -287,7 +287,7 @@ int filter_graph() {
     printf("Quickrun is quicker, but less informative in terms of output.\n");
     quickrunGraph();
     igraph_destroy(&g);
-    exit(0);
+    return(0);
   }
   /* if (CALC_WEIGHTS == false) {igraph_vector_init(&WEIGHTED, NODESIZE);}*/
   percentile = (PERCENT > 0.99) ? fix_percentile() : PERCENT;

@@ -10,13 +10,15 @@
  @brief Tests for quickrun.h
  */
 
-#include "lib_graphpass.h"
-#include "quickrun.h"
+#include "../headers/graphpass.h"
+#include "../headers/graphpass_test.h"
+#include "../unity/unity.h"
 
 void TEST_QUICKRUN() {
-  igraph_i_set_attribute_table(&igraph_cattribute_table);
-  createUndirectedGraph(&g);
-  NODESIZE = igraph_vcount(&g);
+  QUICKRUN = true;
+  printf("q: %i %s", QUICKRUN, SIZE_DEFAULT);
+  load_graph("assets/cpp2.graphml");
+  printf("Is there an igraph available to us? %i", igraph_vcount(&g));
+  printf("FINISHED MAKING GRAPH");
   quickrunGraph();
-  TEST_ASSERT_EQUAL_INT(1, 1);
 }

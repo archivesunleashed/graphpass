@@ -2,16 +2,10 @@
  @brief Tests for analyze.h
  */
 
-#include "lib_graphpass.h"
+#include "../headers/graphpass.h"
+#include "../headers/graphpass_test.h"
+#include "unity.h"
 
-void setUp() {
-  
-}
-
-void tearDown(void)
-{
-  free(&g);
-}
 
 void TEST_BETWEENNESS_ALGORITHM_GRAPH() {
   igraph_vector_t bet;
