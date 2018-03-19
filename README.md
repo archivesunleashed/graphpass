@@ -12,7 +12,7 @@ visualization output for [Gephi](https://gephi.org/) or [SigmaJS](https://sigmaj
 This library requires the [C Igraph Library](http://igraph.org/c/) and
 a C compiler, such as [gcc](https://gcc.gnu.org/).
 
-For Linux (Ubuntu):
+#### For Linux (Ubuntu):
 
 Install the igraph dependencies:
 
@@ -47,13 +47,7 @@ cd ..
 rm -rf igraph-0.7.1.tar.gz
 ```
 
-Go to preferred install directory, for example:
-
-```
-cd /Users/username/
-```
-
-For MacOS:
+#### For MacOS:
 
 Using [brew](https://brew.sh/), the following commands will install dependencies:
 
@@ -63,6 +57,12 @@ brew install igraph
 ```
 
 ### Building
+
+Go to preferred install directory, for example:
+
+```
+cd /Users/{USERNAME}/
+```
 
 Clone the repository with:
 
@@ -84,9 +84,6 @@ Then
 cd graphpass
 make
 ```
-
-
-
 
 ## Usage
 
