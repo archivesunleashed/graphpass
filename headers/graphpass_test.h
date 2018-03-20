@@ -9,10 +9,4 @@
 #ifndef graphpass_test_h
 #define graphpass_test_h
 
-#include <igraph.h>
-
-int createUndirectedGraph (igraph_t *star_graph);
-int createDirectedGraph(igraph_t *star_digraph);
-
-
 #endif /* graphpass_test_h */

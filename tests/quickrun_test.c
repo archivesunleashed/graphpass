@@ -10,15 +10,16 @@
  @brief Tests for quickrun.h
  */
 
-#include "../headers/graphpass.h"
-#include "../headers/graphpass_test.h"
-#include "../unity/unity.h"
+#include "unity.h"
+#include "graphpass.h"
 
-void TEST_QUICKRUN() {
+void TEST_QUICKRUN_DEGREE() {
   QUICKRUN = true;
-  printf("q: %i %s", QUICKRUN, SIZE_DEFAULT);
-  load_graph("assets/cpp2.graphml");
-  printf("Is there an igraph available to us? %i", igraph_vcount(&g));
-  printf("FINISHED MAKING GRAPH");
   quickrunGraph();
+  igraph_vector_t deg;
+  igraph_vector_init(&deg, 0);
+  VANV(&g, "Degree", &deg);
+  TEST_ASSERT_EQUAL_FLOAT(VECTOR(deg)[0], 1.0);
+  TEST_ASSERT_EQUAL_FLOAT(VECTOR(deg)[10], 1.0);
+  igraph_vector_destroy(&deg);
 }

@@ -25,22 +25,18 @@
      which emphasizes the spacing between nodes.
  */
 
-#include "../headers/graphpass.h"
+#include <graphpass.h>
 
-int quickrunGraph() {
-  printf ("In quickrun");
-  igraph_t g2;
+extern int quickrunGraph() {
   igraph_vector_t size;
-  igraph_vector_init(&size, NODESIZE);
-  igraph_copy(&g2, &g);
-  calc_degree(&g2, SIZE_DEFAULT_CHAR);
-  calc_modularity(&g2);
-  colors(&g2);
-  VANV(&g2, SIZE_DEFAULT, &size);
-  set_size(&g2, &size, 100);
-  layout_graph(&g2, 'f');
-  write_graph(&g2, "");
+  igraph_vector_init(&size, igraph_vcount(&g));
+  calc_degree(&g, 'd');
+  calc_modularity(&g);
+  colors(&g);
+  VANV(&g, "Degree", &size);
+  set_size(&g, &size, 100);
+  layout_graph(&g, 'f');
+  write_graph(&g, "-");
   igraph_vector_destroy(&size);
-  igraph_destroy(&g2);
   return 0;
 }

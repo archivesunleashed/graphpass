@@ -23,9 +23,9 @@
  
   @param - the graph for which to provide colors.
  */
-int colors (igraph_t *graph) {
+extern int colors (igraph_t *graph) {
   /* Has modularity been set? */
-  char* attr = COLOR_BASE;
+  char* attr = "WalkTrapModularity";
   igraph_vector_t r, g, b;
   int gsize = (long int)igraph_vcount(graph);
   igraph_vector_init(&r, gsize);
@@ -112,7 +112,7 @@ int colors (igraph_t *graph) {
  @param layout - a char for the layout 'k' for kamada_kawai,
    'f' for fruchterman rheingold or lgl if char is not recognized.
  **/
-int layout_graph(igraph_t *graph, char layout) {
+extern int layout_graph(igraph_t *graph, char layout) {
   igraph_matrix_t matrix;
   long int gsize = (long int)igraph_vcount(graph);
   igraph_vector_t x, y, min, max;
@@ -152,7 +152,7 @@ int layout_graph(igraph_t *graph, char layout) {
  @param max - the maximum desired size setting.
  
  **/
-int set_size(igraph_t *graph, igraph_vector_t *v, int max) {
+extern int set_size(igraph_t *graph, igraph_vector_t *v, int max) {
   long int gsize = (long int)igraph_vcount(graph);
   igraph_vector_t v2;
   igraph_vector_t min;

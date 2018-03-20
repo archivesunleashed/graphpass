@@ -14,14 +14,14 @@
     @brief Basic input-output utilities (loading and writing graphs)
  **/
 
-#include "../headers/graphpass.h"
+#include <graphpass.h>
 
 
 /** \fn strip_ext
     \brief strips the file extension from a filename
     @param fname - filename to strip the extension from.
  */
-extern int strip_ext(char *fname) {
+int strip_ext(char *fname) {
   char *end = fname + strlen(fname);
   while (end > fname && *end != '.' && *end != '\\' && *end != '/') {
     --end;
@@ -36,7 +36,7 @@ extern int strip_ext(char *fname) {
  Loads a graphml file.
  @param filename - name of the file to load.
  */
-int load_graph (char* filename) {
+extern int load_graph (char* filename) {
   igraph_i_set_attribute_table(&igraph_cattribute_table);
   FILE *fp;
   fp = fopen(filename, "r");
@@ -62,7 +62,7 @@ int load_graph (char* filename) {
      @param graph - the graph to write to the file.
  **/
 
-int write_graph(igraph_t *graph, char *attr) {
+extern int write_graph(igraph_t *graph, char *attr) {
   FILE *fp;
   char fn[strlen(FILENAME)+1];
   struct stat st = {0};
@@ -74,7 +74,6 @@ int write_graph(igraph_t *graph, char *attr) {
   int perc = (int)PERCENT;
   strncpy(fn, FILENAME, strlen(FILENAME));
   strip_ext(fn);
-  printf("%s",fn);
   snprintf(perc_as_string, 3, "%d", perc);
   strncpy(path, OUTPUT, strlen(OUTPUT)+1);
   strncat(path, fn, (strlen(fn)+1));

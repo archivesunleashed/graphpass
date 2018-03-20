@@ -161,9 +161,12 @@ int main (int argc, char *argv[]) {
   printf("Running graphpass on file: %s\n", FILEPATH);
   load_graph(FILEPATH);
   filter_graph();
-  printf(">>>>  SUCCESS!");
+  printf("\n\n>>>>  SUCCESS!");
   if (SAVE) {
     printf("- Files output to %s\n", OUTPUT);
+  }
+  else {
+    printf("- NO_SAVE requested, so no output.\n\n\n");
   }
   free(FILEPATH);
   return 0;

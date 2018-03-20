@@ -14,7 +14,7 @@
  See the License for the specific language governing permissions and
  limitations under the License. */
 
-#include <../headers/graphpass.h>
+#include <graphpass.h>
 
 /** @file analyze.c
     @brief Provides basic network analysis and adds them to the graph output.
@@ -163,7 +163,7 @@ extern int calc_degree(igraph_t *graph, char type) {
  
  @param graph - the graph for which to record the scores.
  */
-int calc_modularity(igraph_t *graph) {
+extern int calc_modularity(igraph_t *graph) {
   char* attr = "WalkTrapModularity";
   igraph_vector_t v;
   igraph_vector_t classes;
@@ -195,7 +195,7 @@ int calc_modularity(igraph_t *graph) {
  @param attr - the graph attribute for which the centralization score is based
  on.
  */
-int centralization(igraph_t *graph, char* attr) {
+extern int centralization(igraph_t *graph, char* attr) {
   long int gsize = (long int)igraph_vcount(graph);
   int directed = igraph_is_directed(graph) ? 1 : 2;
   int maximum = (int) (gsize * (gsize -1))/directed;
@@ -221,7 +221,7 @@ int centralization(igraph_t *graph, char* attr) {
  
  @param graph - the graph for which to record the scores.
  */
-int analysis_all (igraph_t *graph) {
+extern int analysis_all (igraph_t *graph) {
   calc_authority(graph);
   calc_betweenness(graph);
   calc_degree(graph, 'd');

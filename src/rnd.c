@@ -33,7 +33,7 @@ static int rand_int(int n) {
 }
 
 /** shuffle an array */
-int shuffle(int *array, int n) {
+extern int shuffle(int *array, int n) {
   int i, j, tmp;
   for (i = n - 1; i > 0; i--) {
     j = rand_int(i + 1);

@@ -10,7 +10,7 @@
  @brief Writes gexf files.
  */
 
-#include "../headers/graphpass.h"
+#include <graphpass.h>
 
 extern int errno;
 
@@ -56,7 +56,7 @@ int igraph_i_xml_escape(char* src, char** dest) {
  @param outstream - a file object
  @param prefixattr - if "true" will add prefixes to the gexf output.
  */
-int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
+extern int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
                             igraph_bool_t prefixattr) {
   int ret;
   igraph_integer_t l, vc, ec;

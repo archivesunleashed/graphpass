@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License. */
 
-#include "../headers/graphpass.h"
+#include <graphpass.h>
 
 /** @file filter.c
  @brief Basic filtering utilities
@@ -279,7 +279,7 @@ int filter_graph() {
   float percentile;
   int cutsize;
   if (QUICKRUN == true) {
-    printf("Quickrun requested.\n");
+    printf("\n\nQuickrun requested.\n\n");
     printf("Quickrun does no filtering, and provides layout information\n");
     printf("based on Degree (nodesize), Walktrap Modularity (color), and\n");
     printf("the Fructerman-Rheingold algorithm to maximize space between\n");

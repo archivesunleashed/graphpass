@@ -73,7 +73,7 @@ igraph_vector_t WEIGHTED; /**< If greater than 0, conducts weighted analysis */
 #define SIZE_DEFAULT_CHAR 'd'
 #define COLOR_BASE "WalkTrapModularity"
 #define PAGERANK_DAMPING 0.85 /**< chance random walk will not restart */
-#define LAYOUT_DEFAULT_CHAR = 'f'
+#define LAYOUT_DEFAULT_CHAR 'f'
 
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
@@ -127,17 +127,17 @@ int set_size(igraph_t *graph, igraph_vector_t *v, int max);
 int strip_ext(char *fname);
 int load_graph (char* filename);
 int write_graph(igraph_t *graph, char *attr);
-extern int calc_betweenness(igraph_t *graph);
-extern int calc_authority(igraph_t *graph);
-extern int calc_hub(igraph_t *graph);
-extern int calc_pagerank(igraph_t *graph);
-extern int calc_eigenvector(igraph_t *graph);
+int calc_betweenness(igraph_t *graph);
+int calc_authority(igraph_t *graph);
+int calc_hub(igraph_t *graph);
+int calc_pagerank(igraph_t *graph);
+int calc_eigenvector(igraph_t *graph);
 /* extern int calc_clustering(igraph_t *graph); */
 /* extern int calc_random(igraph_t *graph); */
-extern int calc_degree(igraph_t *graph, char type);
-extern int calc_modularity(igraph_t *graph);
-extern int centralization(igraph_t *graph, char* attr);
-extern int analysis_all (igraph_t *graph);
+int calc_degree(igraph_t *graph, char type);
+int calc_modularity(igraph_t *graph);
+int centralization(igraph_t *graph, char* attr);
+int analysis_all (igraph_t *graph);
 int quickrunGraph();
 
 float fix_percentile();
