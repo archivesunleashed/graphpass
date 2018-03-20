@@ -22,7 +22,7 @@ INCLUDE = ./headers
 DEPS = -I$(INCLUDE) -I$(IGRAPH_INCLUDE) -I$(UNITY_INCLUDE)
 BUILD = build/
 
-all: clean test clean install
+all: test install
 
 install: src/graphpass.c
 	gcc src/graphpass.c src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
@@ -35,7 +35,7 @@ release: src/graphpass.c
 debug: ./src/graphpass.c
 	gcc -g src/graphpass.c src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
 
-test: qp ana run
+test: qp ana run clean
 
 qp: $(TEST_INCLUDE)runner_test_qp.c
 	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_qp.c $(DEPS)  $(TEST_INCLUDE)quickrun_test.c $(HELPER_FILES) -ligraph -o qp
