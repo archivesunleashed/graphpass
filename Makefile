@@ -35,21 +35,21 @@ release: src/graphpass.c
 debug: ./src/graphpass.c
 	gcc -g src/graphpass.c src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
 
-test: qp_test ana_test run
+test: qp ana run
 
-qp_test: $(TEST_INCLUDE)runner_test_qp.c
+qp: $(TEST_INCLUDE)runner_test_qp.c
 	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_qp.c $(DEPS)  $(TEST_INCLUDE)quickrun_test.c $(HELPER_FILES) -ligraph -o qp
 
-ana_test: $(TEST_INCLUDE)runner_test_ana.c
+ana: $(TEST_INCLUDE)runner_test_ana.c
 	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_ana.c $(DEPS)  $(TEST_INCLUDE)analyze_test.c $(HELPER_FILES) -ligraph -o ana
 
 run:
 	- ./ana
 	./qp
 
-
 .PHONY : clean
-	rm -f graphpass
-	rm -f ./qp
+clean:
+	rm -f qp
 	rm -f ana
 	rm -rf TEST_OUT_FOLDER
+	rm -f graphpass
