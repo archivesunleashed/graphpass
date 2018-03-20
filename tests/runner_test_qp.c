@@ -30,7 +30,12 @@ UnityConcludeTest(); \
 
 extern void setUp(void);
 extern void tearDown(void);
+extern void TEST_QUICKRUN_SIZE(void);
+extern void TEST_QUICKRUN_COLOR(void);
+extern void TEST_QUICKRUN_NOSAVE(void);
 extern void TEST_QUICKRUN_DEGREE(void);
+extern void TEST_QUICKRUN_GEXF(void);
+extern void TEST_QUICKRUN_GRAPHML(void);
 
 void resetTest(void);
 void resetTest(void)
@@ -40,15 +45,15 @@ void resetTest(void)
 }
 
 int main (void) {
-  FILENAME = "cpp2.graphml";
-  OUTPUT = "TEST_OUT_FOLDER/";
-  PERCENT = 0.0;
-  DIRECTORY = "assets/";
-  GFORMAT = false;
-  SAVE = false;
+  
   load_graph("assets/cpp2.graphml");
   UnityBegin("tests/quickrun_test.c");
-  RUN_TEST(TEST_QUICKRUN_DEGREE, 20)
+  RUN_TEST(TEST_QUICKRUN_NOSAVE, 22);
+  RUN_TEST(TEST_QUICKRUN_DEGREE, 29);
+  RUN_TEST(TEST_QUICKRUN_COLOR, 51);
+  RUN_TEST(TEST_QUICKRUN_SIZE, 40);
+  RUN_TEST(TEST_QUICKRUN_GEXF, 72);
+  RUN_TEST(TEST_QUICKRUN_GRAPHML, 80);
   igraph_destroy(&g);
   return (UNITY_END());
 }

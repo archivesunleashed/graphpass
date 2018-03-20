@@ -86,7 +86,7 @@ extern int write_graph(igraph_t *graph, char *attr) {
   } else {
     strncat(path, ".graphml", 8);
   }
-  if (SAVE) {
+  if (SAVE == true) {
     printf("Writing output to: %s\n", path);
     fp = fopen(path, "w");
     if (GFORMAT) {

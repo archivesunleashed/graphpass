@@ -164,5 +164,7 @@ extern int set_size(igraph_t *graph, igraph_vector_t *v, int max) {
   scale = log10(gsize / (igraph_vector_max(&v2) - igraph_vector_min(&v2)));
   igraph_vector_scale(&v2, scale);
   SETVANV(graph, "size", &v2);
+  igraph_vector_destroy(&v2);
+  igraph_vector_destroy(&min);
   return 0;
 }
