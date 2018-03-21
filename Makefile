@@ -38,10 +38,10 @@ debug: ./src/graphpass.c
 test: qp ana run clean
 
 qp: $(TEST_INCLUDE)runner_test_qp.c
-	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_qp.c $(DEPS)  $(TEST_INCLUDE)quickrun_test.c $(HELPER_FILES) -ligraph -o qp
+	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_qp.c $(DEPS)  $(TEST_INCLUDE)quickrun_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -o qp
 
 ana: $(TEST_INCLUDE)runner_test_ana.c
-	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_ana.c $(DEPS)  $(TEST_INCLUDE)analyze_test.c $(HELPER_FILES) -ligraph -o ana
+	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_ana.c $(DEPS)  $(TEST_INCLUDE)analyze_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -o ana
 
 run:
 	- ./ana

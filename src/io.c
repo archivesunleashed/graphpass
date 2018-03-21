@@ -41,7 +41,8 @@ extern int load_graph (char* filename) {
   FILE *fp;
   fp = fopen(filename, "r");
   if (fp == 0) {
-    return (1);
+    printf(">>> FAILURE - Count not find graphML file at filepath location.\n");
+    exit (-1);
   }
   printf("Reading graphml file.\n");
   igraph_read_graph_graphml(&g, fp, 0);
