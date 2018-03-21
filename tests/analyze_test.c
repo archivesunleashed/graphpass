@@ -4,6 +4,7 @@
 
 #include "graphpass.h"
 #include "unity.h"
+#include <math.h>
 void setUp(void) {
   calc_degree(&g, 'd');
   
@@ -45,7 +46,7 @@ void TEST_AUTHORITY_ALGORITHM() {
   igraph_vector_init(&aut, 0);
   VANV(&g, "Authority", &aut);
   TEST_ASSERT_EQUAL_FLOAT(VECTOR(aut)[0], 0.0768518);
-  TEST_ASSERT_EQUAL_FLOAT(VECTOR(aut)[10], 0.0);
+  TEST_ASSERT_EQUAL_FLOAT(roundf(10 * VECTOR(aut)[10])/100, 0.00);
   igraph_vector_destroy(&aut);
 }
 
