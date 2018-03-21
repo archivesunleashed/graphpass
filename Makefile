@@ -9,8 +9,7 @@ endif
 
 CC = gcc
 OUTPUTS = lib_graphpass.o analyze.o filter.o gexf.o io.o quickrun.o reports.o rnd.o viz.o
-HELPER_FILES = src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c \
-  src/reports.c src/rnd.c src/viz.c
+HELPER_FILES = src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c
 IGRAPH_INCLUDE = $(IGRAPH_PATH)include/igraph
 IGRAPH_LIB = $(IGRAPH_PATH)lib
 
@@ -38,10 +37,10 @@ debug: ./src/graphpass.c
 test: qp ana run clean
 
 qp: $(TEST_INCLUDE)runner_test_qp.c
-	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_qp.c $(DEPS)  $(TEST_INCLUDE)quickrun_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -o qp
+	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_qp.c $(DEPS) $(TEST_INCLUDE)quickrun_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -o qp
 
 ana: $(TEST_INCLUDE)runner_test_ana.c
-	gcc -g $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_ana.c $(DEPS)  $(TEST_INCLUDE)analyze_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -o ana
+	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_ana.c $(DEPS) $(TEST_INCLUDE)analyze_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -o ana
 
 run:
 	- ./ana
