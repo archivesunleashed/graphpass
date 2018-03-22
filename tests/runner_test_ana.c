@@ -33,6 +33,7 @@ extern void tearDown(void);
 extern void TEST_DEGREE_ALGORITHM(void);
 extern void TEST_BETWEENNESS_ALGORITHM(void);
 extern void TEST_AUTHORITY_ALGORITHM(void);
+extern void TEST_RANKORDER(void);
 
 void resetTest(void);
 void resetTest(void)
@@ -53,6 +54,7 @@ int main (void) {
   RUN_TEST(TEST_DEGREE_ALGORITHM, 25);
   RUN_TEST(TEST_BETWEENNESS_ALGORITHM, 34);
   RUN_TEST(TEST_AUTHORITY_ALGORITHM, 43);
+  RUN_TEST(TEST_RANKORDER, 53);
   igraph_destroy(&g);
   return (UNITY_END());
 }

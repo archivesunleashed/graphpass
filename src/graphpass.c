@@ -42,6 +42,24 @@ bool QUICKRUN = false;
 int verbose_flag;
 
 int main (int argc, char *argv[]) {
+  /* Experiments here */
+  printf("test\n\n");
+  igraph_vector_t test, test2;
+  igraph_vector_init(&test, 10);
+  igraph_vector_init(&test2, 10);
+  VECTOR(test)[0] = 10; VECTOR(test)[1] = 2;
+  VECTOR(test)[2] = 4;  VECTOR(test)[3] = 7;
+  VECTOR(test)[4] = 10; VECTOR(test)[5] = 100;
+  VECTOR(test)[6] = 11; VECTOR(test)[7] = 99;
+  VECTOR(test)[8] = 2;  VECTOR(test)[9] = 10;
+  produceRank(&test, &test2);
+  printf("%f\n", VECTOR(test2)[5]);
+  printf("%f\n", VECTOR(test2)[9]);
+  
+  
+  /* End experiments */
+  
+  
   int c;
   while (1)
     {

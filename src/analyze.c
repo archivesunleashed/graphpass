@@ -212,6 +212,47 @@ extern int centralization(igraph_t *graph, char* attr) {
   return 0;
 }
 
+/** Creates a rank-order from a vector of values 
+ 
+ produceRank taks a source vector and produces ranks for the values in the 
+ that they occur in source.
+ @param source - An igraph vector containing the source data to rank.
+ @param vector - An initialized igraph_vector_t to contain the ranks.
+ **/
+
+int produceRank(igraph_vector_t *source, igraph_vector_t *v) {
+  long int source_size;
+  source_size = igraph_vector_size(source);
+  igraph_vector_t source_cpy, rank_vals;
+  igraph_vector_init(&source_cpy, source_size);
+  igraph_vector_init(&rank_vals, source_size);
+  igraph_vector_copy(&source_cpy, source);
+  igraph_vector_sort(&source_cpy);
+  igraph_vector_reverse(&source_cpy);
+  for (long int i=0; i < source_size; i++){
+    if (i == 0) {
+      VECTOR(rank_vals)[0] = 1;
+    } else if (VECTOR(source_cpy)[i] == VECTOR(source_cpy)[i-1]) {
+      VECTOR(rank_vals)[i] = VECTOR(rank_vals)[i-1];
+    } else {
+      VECTOR(rank_vals)[i] = i+1;
+    }
+  }
+  for (long int i=0; i < source_size; i++) {
+    long int j = 0;
+    while (j< source_size) {
+      if (igraph_vector_e(source, i) == VECTOR(source_cpy)[j]) {
+        igraph_vector_set(v,i,VECTOR(rank_vals)[j]);
+        break;
+      }
+      j++;
+    }
+  }
+  igraph_vector_destroy(&rank_vals);
+  igraph_vector_destroy(&source_cpy);
+  return 0;
+}
+
 
 /** Calculates the main analysis scores for the graph
 

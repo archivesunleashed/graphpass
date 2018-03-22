@@ -127,6 +127,7 @@ int set_size(igraph_t *graph, igraph_vector_t *v, int max);
 int strip_ext(char *fname);
 int load_graph (char* filename);
 int write_graph(igraph_t *graph, char *attr);
+int produceRank(igraph_vector_t *source, igraph_vector_t *vector);
 int calc_betweenness(igraph_t *graph);
 int calc_authority(igraph_t *graph);
 int calc_hub(igraph_t *graph);
