@@ -35,7 +35,6 @@ igraph_t g;
 igraph_attribute_table_t att;
 char* FILENAME; /**< The filename from -f flag. */
 char* DIRECTORY; /**< Directory to access FILENAME and put REPORT */
-char* FILEPATH; /**< The filepath (DIRECTORY + FILENAME) */
 char* METHODS;  /**< METHODS to filter */
 char* OUTPUT;  /**< Folder to output new graphs */
 char* OUTPATH; /**< Path to output folder (DIRECTORY + OUTPUT) */

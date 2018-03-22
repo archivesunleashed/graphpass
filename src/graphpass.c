@@ -34,31 +34,23 @@
 #include "igraph.h"
 #include "graphpass.h"
 
+char* FILEPATH; /**< The filepath (DIRECTORY + FILENAME) */
+
+/** Whether to save the graph **/
 bool SAVE = true;
+/** Graph format true for GEXF; false for GRAPHML **/
 bool GFORMAT = false;
+/** Produce a report analyzing effect of filtering on graph **/
 bool REPORT = false;
+/** Provide a quickrun with simple sizing, positioning and coloring **/
 bool QUICKRUN = false;
 
 int verbose_flag;
 
 int main (int argc, char *argv[]) {
-  /* Experiments here */
-  printf("test\n\n");
-  igraph_vector_t test, test2;
-  igraph_vector_init(&test, 10);
-  igraph_vector_init(&test2, 10);
-  VECTOR(test)[0] = 10; VECTOR(test)[1] = 2;
-  VECTOR(test)[2] = 4;  VECTOR(test)[3] = 7;
-  VECTOR(test)[4] = 10; VECTOR(test)[5] = 100;
-  VECTOR(test)[6] = 11; VECTOR(test)[7] = 99;
-  VECTOR(test)[8] = 2;  VECTOR(test)[9] = 10;
-  produceRank(&test, &test2);
-  printf("%f\n", VECTOR(test2)[5]);
-  printf("%f\n", VECTOR(test2)[9]);
-  
-  
-  /* End experiments */
-  
+  /* Experiments here 
+   
+   End experiments */
   
   int c;
   while (1)
@@ -149,35 +141,45 @@ int main (int argc, char *argv[]) {
         printf ("%s ", argv[optind++]);
       putchar ('\n');
     }
+  
+  /** set default values if not included in flags **/
   OUTPUT = OUTPUT ? OUTPUT : "OUT/";
   PERCENT = PERCENT ? PERCENT : 0.00;
   METHODS = METHODS ? METHODS : "d";
   DIRECTORY = DIRECTORY ? DIRECTORY : "assets/";
   FILENAME = FILENAME ? FILENAME : "cpp2.graphml";
+  
+  /** setup directory path DIRECTORY + FILENAME **/
   char path[strlen(DIRECTORY)+1];
   strncpy(path, DIRECTORY, strlen(DIRECTORY)+1);
+  
+  /** start output description **/
   printf(">>>>>>>  GRAPHPASSING >>>>>>>> \n");
   printf("DIRECTORY: %s \nSTRLEN PATH: %li \n", DIRECTORY, strlen(path));
   printf("OUTPUT DIRECTORY: %s\nPERCENTAGE: %f\n", OUTPUT, PERCENT);
   printf("FILE: %s\nMETHODS STRING: %s\n", FILENAME, METHODS);
   printf("QUICKRUN: %i\nREPORT: %i\nSAVE: %i\n", QUICKRUN, REPORT, SAVE);
+  
+  /** try to be nice if user leaves out a '/' **/
   if (FILENAME[0] == '/' && DIRECTORY[strlen(DIRECTORY)] == '/' ){
-    printf("Removing redundant slashes from filename.\n");
-    path[strlen(path)+1] = '\0';
+    path[strlen(path)+1] = '\0';  // remove end slash
   }
   else if (FILENAME[0] != '/' && DIRECTORY[strlen(DIRECTORY)-1] != '/') {
-    printf("Adding slash separator.\n");
-    strncat(path, "/", 1);
-    printf ("Current path: %s.\n", path);
+    strncat(path, "/", 1); // add a slash.
   }
+  
+  /** set up FILEPATH to access graphml file **/
   int sizeOfPath = (strlen(path)+1);
   int sizeOfFile = (strlen(FILENAME)+1);
   int filepathsize = sizeOfPath + sizeOfFile;
-
   FILEPATH = malloc(filepathsize + 1);
   snprintf(FILEPATH, filepathsize, "%s%s", path, FILENAME);
   printf("Running graphpass on file: %s\n", FILEPATH);
+  
+  /** load the graphml **/
   load_graph(FILEPATH);
+  free(FILEPATH);
+  /** start the filtering based on values and methods **/
   filter_graph();
   printf("\n\n>>>>  SUCCESS!");
   if (SAVE) {
@@ -186,6 +188,6 @@ int main (int argc, char *argv[]) {
   else {
     printf("- NO_SAVE requested, so no output.\n\n\n");
   }
-  free(FILEPATH);
+  
   return 0;
 }
