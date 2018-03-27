@@ -176,9 +176,9 @@ int main (int argc, char *argv[]) {
   snprintf(FILEPATH, filepathsize, "%s%s", path, FILENAME);
   printf("Running graphpass on file: %s\n", FILEPATH);
   
-  /** load the graphml **/
   load_graph(FILEPATH);
   free(FILEPATH);
+  
   /** start the filtering based on values and methods **/
   filter_graph();
   printf("\n\n>>>>  SUCCESS!");
@@ -187,7 +187,6 @@ int main (int argc, char *argv[]) {
   }
   else {
     printf("- NO_SAVE requested, so no output.\n\n\n");
-  }
-  
+  }  
   return 0;
 }

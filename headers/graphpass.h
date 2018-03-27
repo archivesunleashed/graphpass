@@ -67,7 +67,7 @@ igraph_vector_t WEIGHTED; /**< If greater than 0, conducts weighted analysis */
 
 /* Required External libraries */
 #define MAX_METHODS 9
-#define ALL_METHODS 'abcdehioprw'
+#define ALL_METHODS "abdehiopr"
 #define SIZE_DEFAULT "Degree"
 #define SIZE_DEFAULT_CHAR 'd'
 #define COLOR_BASE "WalkTrapModularity"
@@ -90,6 +90,8 @@ struct RankNode {
   struct RankNode *next;
 };
 
+static struct Node* EmptyNode;
+
 struct stat;
 struct Node* asshead;
 struct Node* edges;
@@ -104,6 +106,8 @@ struct Node* pagecent;
 struct Node* diameter;
 struct Node* pathlength;
 struct Node* clustering;
+struct Node* pv;
+struct Node* ts;
 struct RankNode* ranks;
 
 int shuffle(int *array, int n);
@@ -116,7 +120,14 @@ int igraph_i_xml_escape(char* src, char** dest);
 
 int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
                             igraph_bool_t prefixattr);
+igraph_real_t mean_vector (igraph_vector_t *v1);
+igraph_real_t variance_vector (igraph_vector_t *v1);
+igraph_real_t std_vector(igraph_vector_t *v1);
+igraph_real_t stderror_vector(igraph_vector_t *v1);
+igraph_real_t t_stat_vector(igraph_vector_t *v1);
+igraph_real_t t_test_vector(igraph_vector_t *v1, igraph_real_t df);
 
+int rankCompare(igraph_t *g1, igraph_t *g2, char* attr, igraph_real_t* result_pv, igraph_real_t* result_ts );
 /** Writes the report **/
 int write_report(igraph_t *graph);
 int colors (igraph_t *graph);
@@ -127,6 +138,8 @@ int strip_ext(char *fname);
 int load_graph (char* filename);
 int write_graph(igraph_t *graph, char *attr);
 int produceRank(igraph_vector_t *source, igraph_vector_t *vector);
+int create_graph_csv(char* filepath, int start, int perc);
+int paired_t_stat (igraph_vector_t *v1, igraph_vector_t *v2, igraph_real_t *pv, igraph_real_t *ts);
 int calc_betweenness(igraph_t *graph);
 int calc_authority(igraph_t *graph);
 int calc_hub(igraph_t *graph);

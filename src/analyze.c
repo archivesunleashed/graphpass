@@ -15,6 +15,7 @@
  limitations under the License. */
 
 #include <graphpass.h>
+#include <math.h>
 
 /** @file analyze.c
     @brief Provides basic network analysis and adds them to the graph output.
@@ -25,14 +26,205 @@
     what size nodes should be.
  */
 
-/** Calculates betweenness scores for the individual nodes in a graph
- 
- Betweenness is measured
- 
- @param graph - the graph for which to record the scores.
- @return 0 unless error occurs.
- */
+igraph_real_t mean_vector (igraph_vector_t *v1) {
+  return (igraph_vector_sum(v1)/igraph_vector_size(v1));
+}
 
+igraph_real_t variance_vector (igraph_vector_t *v1) {
+  igraph_real_t mean = mean_vector(v1);
+  igraph_vector_t squared_residuals;
+  igraph_vector_init(&squared_residuals, igraph_vector_size(v1));
+  igraph_real_t variance;
+  for (long int i=0; i<igraph_vector_size(v1); i++) {
+    VECTOR(squared_residuals)[i] = pow((igraph_vector_e(v1, i) - mean), 2);
+  }
+  variance = (igraph_vector_sum(&squared_residuals) / (igraph_vector_size(&squared_residuals) -1));
+  // igraph_vector_destroy(&squared_residuals);
+  return variance;
+}
+
+igraph_real_t std_vector(igraph_vector_t *v1) {
+  return sqrt(variance_vector(v1));
+}
+
+igraph_real_t stderror_vector(igraph_vector_t *v1) {
+  return (std_vector(v1) / sqrt(igraph_vector_size(v1)));
+}
+          
+igraph_real_t t_stat_vector(igraph_vector_t *v1) {
+  return (mean_vector(v1)/stderror_vector(v1));
+}
+
+igraph_real_t t_test_vector(igraph_vector_t *v1, igraph_real_t df) {
+  igraph_real_t t_stat;
+  igraph_real_t pvalue;
+  t_stat = t_stat_vector(v1);
+  pvalue = (df / (t_stat * t_stat + df));
+  if ((isinf(pvalue) != 0) || (isnan(pvalue) != 0)) {
+    return 1.0;
+  }
+  if ((isinf(pvalue) != 0) || (isnan(pvalue) != 0)) {
+    return 1.0;
+  }
+  
+  const double daf = df/2;
+  /*  Purpose:
+   
+   BETAIN computes the incomplete Beta function ratio.
+   
+   Licensing:
+   
+   This code is distributed under the GNU LGPL license.
+   
+   Modified:
+   
+   05 November 2010
+   
+   Author:
+   
+   Original FORTRAN77 version by KL Majumder, GP Bhattacharjee.
+   C version by John Burkardt.
+   
+   Reference:
+   
+   KL Majumder, GP Bhattacharjee,
+   Algorithm AS 63:
+   The incomplete Beta Integral,
+   Applied Statistics,
+   Volume 22, Number 3, 1973, pages 409-411.
+   
+   Parameters:
+   https://www.jstor.org/stable/2346797?seq=1#page_scan_tab_contents
+   Input, double X, the argument, between 0 and 1.
+   
+   Input, double P, Q, the parameters, which
+   must be positive.
+   
+   Input, double BETA, the logarithm of the complete
+   beta function.
+   
+   Output, int *IFAULT, error flag.
+   0, no error.
+   nonzero, an error occurred.
+   
+   Output, double BETAIN, the value of the incomplete
+   Beta function ratio.
+   */
+
+  const double beta = lgammal(daf)+0.57236494292470009-lgammal(daf+0.5);
+  const double acu = 0.1E-14;
+  double ai;
+  double cx;
+  int indx;
+  int ns;
+  double pp;
+  double psq;
+  double qq;
+  double rx;
+  double temp;
+  double term;
+  double xx;
+  
+  //  if ault = 0;
+  //Check the input arguments.
+  if ( (daf<= 0.0)) {// || (0.5 <= 0.0 )){
+    //    *ifault = 1;
+    //    return pvalue;
+  }
+  if ( pvalue < 0.0 || 1.0 < pvalue )
+  {
+    //    *ifault = 2;
+    return pvalue;
+  }
+  /*
+   Special cases.
+   */
+  if ( pvalue == 0.0 || pvalue == 1.0 )   {
+    return pvalue;
+  }
+  psq = daf+ 0.5;
+  cx = 1.0 - pvalue;
+  
+  if ( daf< psq * pvalue )
+  {
+    xx = cx;
+    cx = pvalue;
+    pp = 0.5;
+    qq = daf;
+    indx = 1;
+  }
+  else
+  {
+    xx = pvalue;
+    pp = daf;
+    qq = 0.5;
+    indx = 0;
+  }
+  
+  term = 1.0;
+  ai = 1.0;
+  pvalue = 1.0;
+  ns = ( int ) ( qq + cx * psq );
+  /*
+   Use the Soper reduction formula.
+   */
+  rx = xx / cx;
+  temp = qq - ai;
+  if ( ns == 0 ) {
+    rx = xx;
+  }
+  for ( ; ; ) {
+    term = term * temp * rx / ( pp + ai );
+    pvalue = pvalue + term;;
+    temp = fabs ( term );
+    if ( temp <= acu && temp <= acu * pvalue ) {
+      pvalue = pvalue * exp ( pp * log ( xx )
+                           + ( qq - 1.0 ) * log ( cx ) - beta ) / pp;
+      if ( indx ) {
+        pvalue = 1.0 - pvalue;
+      }
+      break;
+    }
+    ai = ai + 1.0;
+    ns = ns - 1;
+    if ( 0 <= ns ) {
+      temp = qq - ai;
+      if ( ns == 0 )
+      {
+        rx = xx;
+      }
+    } else {
+      temp = psq;
+      psq = psq + 1.0;
+    }
+  }
+  return pvalue;
+}
+
+int paired_t_stat (igraph_vector_t *v1, igraph_vector_t *v2, igraph_real_t *pv, igraph_real_t *ts) {
+  igraph_vector_t diff;
+  igraph_vector_init(&diff, igraph_vector_size(v2));
+  igraph_real_t pvalue;
+  
+  for (long int i=0; i<igraph_vector_size(v2); i++) {
+    //printf("diff %f", igraph_vector_e(v1,i) - igraph_vector_e(v2,i));
+    VECTOR(diff)[i] = igraph_vector_e(v1,i) - igraph_vector_e(v2,i);
+  }
+  *pv = t_test_vector(&diff, igraph_vector_size(&diff)-1);
+  *ts = t_stat_vector(&diff);
+  // calculate t-statistic and p-value;
+  igraph_vector_destroy(&diff);
+  return 0;
+}
+
+  
+/** Calculates betweenness scores for the individual nodes in a graph
+   
+  Betweenness is measured
+   
+  @param graph - the graph for which to record the scores.
+  @return 0 unless error occurs.
+   */
 extern int calc_betweenness(igraph_t *graph){
   char *attr = "Betweenness";
   igraph_vector_t v;
@@ -224,7 +416,6 @@ int produceRank(igraph_vector_t *source, igraph_vector_t *v) {
   long int source_size;
   source_size = igraph_vector_size(source);
   igraph_vector_t source_cpy, rank_vals;
-  igraph_vector_init(&source_cpy, source_size);
   igraph_vector_init(&rank_vals, source_size);
   igraph_vector_copy(&source_cpy, source);
   igraph_vector_sort(&source_cpy);
@@ -237,15 +428,15 @@ int produceRank(igraph_vector_t *source, igraph_vector_t *v) {
     } else {
       VECTOR(rank_vals)[i] = i+1;
     }
+    //printf("I : %li, RANKVALS: %f", i, VECTOR(rank_vals)[i]);
   }
   for (long int i=0; i < source_size; i++) {
-    long int j = 0;
-    while (j< source_size) {
-      if (igraph_vector_e(source, i) == VECTOR(source_cpy)[j]) {
-        igraph_vector_set(v,i,VECTOR(rank_vals)[j]);
+    for (long int j=0; j < source_size; j++) {
+      if (igraph_vector_e(source, i) == igraph_vector_e(&source_cpy,j)) {
+        //igraph_vector_set(v, i, VECTOR(rank_vals)[j]);
+        VECTOR(*v)[i] = VECTOR(rank_vals)[j];
         break;
       }
-      j++;
     }
   }
   igraph_vector_destroy(&rank_vals);
@@ -266,6 +457,14 @@ extern int analysis_all (igraph_t *graph) {
   calc_authority(graph);
   calc_betweenness(graph);
   calc_degree(graph, 'd');
+  igraph_vector_t deg, rank;
+  igraph_vector_init(&deg, igraph_vcount(graph));
+  igraph_vector_init(&rank, igraph_vcount(graph));
+  VANV(graph, "Degree", &deg);
+  produceRank(&deg, &rank);
+  SETVANV(graph, "DegreeRank", &rank);
+  igraph_vector_destroy(&deg);
+  igraph_vector_destroy(&rank);
   calc_hub(graph);
   calc_degree(graph, 'i');
   calc_degree(graph, 'o');
@@ -300,6 +499,36 @@ extern int analysis_all (igraph_t *graph) {
   centralization(graph, "Eigenvector");
   centralization(graph, "PageRank");
   igraph_vector_destroy(&mod);
+  igraph_vector_destroy(&rank);
+  return 0;
+}
+
+int create_graph_csv(char* filepath, int start, int perc) {
+  struct stat st = {0};
+  if (stat("GRAPH/", &st) == -1) {
+    mkdir("GRAPH/", 0700);
+  }
+  FILE *fs;
+  fs = fopen("GRAPH/graph_report.csv", "a");
+  fprintf(fs, "| perc       | Authority  | Betweenness | Degree      | Eigenvector | Hub         | Indegree    | OutDegree   | PageRank    |  Random      |\n");
+  
+  for (int i=start; i<perc; i++) {
+    REPORT = false;
+    SAVE = false;
+    PERCENT = i;
+    METHODS = ALL_METHODS;
+    OUTPUT = "GRAPH/";
+    load_graph(filepath);
+    filter_graph();
+    fprintf(fs, "|%-5i|", i);
+    while (pv != NULL) {
+      fprintf(fs, "%-13f|", pv->val);
+      pv = pv->next;
+    }
+    fprintf(fs, "\n");
+    pv = EmptyNode;
+  }
+  fclose(fs);
   return 0;
 }
 

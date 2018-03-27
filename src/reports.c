@@ -48,6 +48,67 @@ int pushRank (struct RankNode** head_ref, int rankids[20]) {
   return 0;
 }
 
+/** Does a rank-order test on two graphs, bassed on attribute **/
+int rankCompare(igraph_t *g1, igraph_t *g2, char* attr, igraph_real_t* result_pv, igraph_real_t* result_ts ) {
+  igraph_vector_t rank1, rank2, idRef1, idRef2, checkRef;
+  char attribute[strlen(attr) + 5];
+  strncpy(attribute, attr, strlen(attr)+1);
+  strncat(attribute, "Rank", 5);
+  bool first = (igraph_vcount(g1) < igraph_vcount(g2));
+  if (first){
+    printf("first");
+    igraph_vector_init(&rank2, igraph_vcount(g1));
+    igraph_vector_init(&rank1, igraph_vcount(g1));
+    //idRefs should be shrunk to smaller size;
+    igraph_vector_init(&idRef1, igraph_vcount(g2));
+    igraph_vector_init(&idRef2, igraph_vcount(g1));
+    igraph_vector_init(&checkRef, igraph_vcount(g1));
+    printf("Get attribute");
+    VANV(g1, attribute, &rank2);
+    VANV(g2, "idRef", &idRef1);
+    VANV(g1, "idRef", &idRef2);
+  } else {
+    igraph_vector_init(&rank2, igraph_vcount(g2));
+    igraph_vector_init(&rank1, igraph_vcount(g2));
+    //idRefs will be filtered to smaller size;
+    igraph_vector_init(&idRef1, igraph_vcount(g1));
+    igraph_vector_init(&idRef2, igraph_vcount(g2));
+    igraph_vector_init(&checkRef, igraph_vcount(g2));
+    VANV(g2, attribute, &rank2);
+    VANV(g2, "idRef", &idRef2);
+    VANV(g1, "idRef", &idRef1);
+  }
+  //need to find ranks based on idReference
+  int check = 0;
+  for (long int i=0; i<igraph_vector_size(&idRef1); i++) {
+    if (igraph_vector_contains(&idRef2, VECTOR(idRef1)[i])) {
+      if (first) {
+        VECTOR(rank1)[check]=VAN(g2, attribute, i);
+        VECTOR(checkRef)[check] = i;
+      } else {
+        VECTOR(rank1)[check]=VAN(g1, attribute, i);
+        VECTOR(checkRef)[check] = i;
+      }
+      check++;
+    }
+  }
+  printf("Check okay? %i\n", igraph_vector_all_e(&checkRef, &idRef2));
+  printf("Rank1 & Rank2 are the same? %i\n", igraph_vector_all_e(&rank1, &rank2));
+  igraph_vector_destroy(&idRef2);
+  igraph_vector_destroy(&idRef1);
+  igraph_real_t pvalue;
+  igraph_real_t tstat;
+  paired_t_stat(&rank1, &rank2, &pvalue, &tstat);
+  printf("\npvalue: %f\n", pvalue);
+  *result_pv = pvalue;
+  *result_ts = tstat;
+  igraph_vector_destroy(&rank2);
+  igraph_vector_destroy(&rank1);
+  igraph_vector_destroy(&checkRef);
+  return 0;
+}
+
+
 /** Writes the report **/
 int write_report(igraph_t *graph) {
   if (QUICKRUN == true) { /*< QUICKRUN does not write a report */
@@ -55,6 +116,7 @@ int write_report(igraph_t *graph) {
     exit(0);
   }
   printf("Write report ... \n");
+  //rankCompare(graph, &g, "Degree");
   char dir[150];
   struct stat st = {0};
   strncpy(dir, OUTPUT, sizeof(OUTPUT)/sizeof(OUTPUT[0]));
@@ -131,3 +193,9 @@ int write_report(igraph_t *graph) {
   igraph_strvector_destroy(&enames);
   return 0;
 }
+
+int pvalues_to_csv (){
+  return 0;
+  };
+
+
