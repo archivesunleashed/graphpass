@@ -55,12 +55,12 @@ void resetTest(void)
 }
 
 int main (void) {
-  FILENAME = "cpp2.graphml";
-  OUTPUT = "TEST_OUT_FOLDER/";
-  PERCENT = 0.0;
-  DIRECTORY = "assets/";
-  GFORMAT = false;
-  SAVE = true;
+  ug_FILENAME = "cpp2.graphml";
+  ug_OUTPUT = "TEST_OUT_FOLDER/";
+  ug_percent = 0.0;
+  ug_DIRECTORY = "assets/";
+  ug_gformat = false;
+  ug_save = true;
   load_graph("assets/cpp2.graphml");
   UnityBegin("tests/analyze_test.c");
   RUN_TEST(TEST_DEGREE_ALGORITHM, 14);

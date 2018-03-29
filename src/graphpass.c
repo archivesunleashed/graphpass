@@ -34,16 +34,16 @@
 #include "igraph.h"
 #include "graphpass.h"
 
-char* FILEPATH; /**< The filepath (DIRECTORY + FILENAME) */
+char* FILEPATH; /**< The filepath (ug_DIRECTORY + ug_FILENAME) */
 
 /** Whether to save the graph **/
-bool SAVE = true;
+bool ug_save = true;
 /** Graph format true for GEXF; false for GRAPHML **/
-bool GFORMAT = false;
+bool ug_gformat = false;
 /** Produce a report analyzing effect of filtering on graph **/
-bool REPORT = false;
+bool ug_report = false;
 /** Provide a quickrun with simple sizing, positioning and coloring **/
-bool QUICKRUN = false;
+bool ug_quickrun = false;
 
 int verbose_flag;
 
@@ -89,32 +89,32 @@ int main (int argc, char *argv[]) {
           if (long_options[option_index].flag != 0)
             break;
         case 'n':
-          SAVE = !SAVE;
+          ug_save = !ug_save;
           break;
         case 'g':
-          GFORMAT = !GFORMAT;
+          ug_gformat = !ug_gformat;
           break;
         case 'd':
-          DIRECTORY = optarg ? optarg : "assets/";
+          ug_DIRECTORY = optarg ? optarg : "assets/";
           break;
         case 'r':
-          REPORT = !REPORT;
+          ug_report = !ug_report;
           break;
         case 'p':
-          PERCENT = optarg ? atof(optarg) : 0.0;
+          ug_percent = optarg ? atof(optarg) : 0.0;
           break;
         case 'm':
-          METHODS = optarg ? optarg : "d";
+          ug_methods = optarg ? optarg : "d";
           break;
         case 'f':
-          FILENAME = optarg ? optarg : "cpp2.graphml";
+          ug_FILENAME = optarg ? optarg : "cpp2.graphml";
           break;
         case 'q':
-          QUICKRUN = !QUICKRUN;
+          ug_quickrun = !ug_quickrun;
           break;
         case 'o':
           /*check size of output text */
-          OUTPUT = optarg ? optarg : "OUT/";
+          ug_OUTPUT = optarg ? optarg : "OUT/";
           break;
         case 'w':
           CALC_WEIGHTS = !CALC_WEIGHTS;
@@ -143,37 +143,37 @@ int main (int argc, char *argv[]) {
     }
   
   /** set default values if not included in flags **/
-  OUTPUT = OUTPUT ? OUTPUT : "OUT/";
-  PERCENT = PERCENT ? PERCENT : 0.00;
-  METHODS = METHODS ? METHODS : "d";
-  DIRECTORY = DIRECTORY ? DIRECTORY : "assets/";
-  FILENAME = FILENAME ? FILENAME : "cpp2.graphml";
+  ug_OUTPUT = ug_OUTPUT ? ug_OUTPUT : "OUT/";
+  ug_percent = ug_percent ? ug_percent : 0.00;
+  ug_methods = ug_methods ? ug_methods : "d";
+  ug_DIRECTORY = ug_DIRECTORY ? ug_DIRECTORY : "assets/";
+  ug_FILENAME = ug_FILENAME ? ug_FILENAME : "cpp2.graphml";
   
-  /** setup directory path DIRECTORY + FILENAME **/
-  char path[strlen(DIRECTORY)+1];
-  strncpy(path, DIRECTORY, strlen(DIRECTORY)+1);
+  /** setup directory path ug_DIRECTORY + ug_FILENAME **/
+  char path[strlen(ug_DIRECTORY)+1];
+  strncpy(path, ug_DIRECTORY, strlen(ug_DIRECTORY)+1);
   
   /** start output description **/
   printf(">>>>>>>  GRAPHPASSING >>>>>>>> \n");
-  printf("DIRECTORY: %s \nSTRLEN PATH: %li \n", DIRECTORY, strlen(path));
-  printf("OUTPUT DIRECTORY: %s\nPERCENTAGE: %f\n", OUTPUT, PERCENT);
-  printf("FILE: %s\nMETHODS STRING: %s\n", FILENAME, METHODS);
-  printf("QUICKRUN: %i\nREPORT: %i\nSAVE: %i\n", QUICKRUN, REPORT, SAVE);
+  printf("DIRECTORY: %s \nSTRLEN PATH: %li \n", ug_DIRECTORY, strlen(path));
+  printf("OUTPUT DIRECTORY: %s\nPERCENTAGE: %f\n", ug_OUTPUT, ug_percent);
+  printf("FILE: %s\nMETHODS STRING: %s\n", ug_FILENAME, ug_methods);
+  printf("QUICKRUN: %i\nREPORT: %i\nSAVE: %i\n", ug_quickrun, ug_report, ug_save);
   
   /** try to be nice if user leaves out a '/' **/
-  if (FILENAME[0] == '/' && DIRECTORY[strlen(DIRECTORY)] == '/' ){
+  if (ug_FILENAME[0] == '/' && ug_DIRECTORY[strlen(ug_DIRECTORY)] == '/' ){
     path[strlen(path)+1] = '\0';  // remove end slash
   }
-  else if (FILENAME[0] != '/' && DIRECTORY[strlen(DIRECTORY)-1] != '/') {
+  else if (ug_FILENAME[0] != '/' && ug_DIRECTORY[strlen(ug_DIRECTORY)-1] != '/') {
     strncat(path, "/", 1); // add a slash.
   }
   
   /** set up FILEPATH to access graphml file **/
   int sizeOfPath = (strlen(path)+1);
-  int sizeOfFile = (strlen(FILENAME)+1);
+  int sizeOfFile = (strlen(ug_FILENAME)+1);
   int filepathsize = sizeOfPath + sizeOfFile;
   FILEPATH = malloc(filepathsize + 1);
-  snprintf(FILEPATH, filepathsize, "%s%s", path, FILENAME);
+  snprintf(FILEPATH, filepathsize, "%s%s", path, ug_FILENAME);
   printf("Running graphpass on file: %s\n", FILEPATH);
   
   load_graph(FILEPATH);
@@ -182,8 +182,8 @@ int main (int argc, char *argv[]) {
   /** start the filtering based on values and methods **/
   filter_graph();
   printf("\n\n>>>>  SUCCESS!");
-  if (SAVE) {
-    printf("- Files output to %s\n", OUTPUT);
+  if (ug_save) {
+    printf("- Files output to %s\n", ug_OUTPUT);
   }
   else {
     printf("- NO_SAVE requested, so no output.\n\n\n");

@@ -61,7 +61,7 @@ extern int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   int ret;
   igraph_integer_t l, vc, ec;
   igraph_eit_t it;
-  igraph_strvector_t gnames, vnames, enames, label;
+  igraph_strvector_t gnames, vnames, enames, labels;
   igraph_vector_t gtypes, vtypes, etypes, size, r, g, b, x, y, weight;
   long int i;
   igraph_vector_t numv;
@@ -229,7 +229,7 @@ extern int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
   vc=igraph_vcount(graph);
   ec=igraph_ecount(graph);
-  igraph_strvector_init(&label, vc);
+  igraph_strvector_init(&labels, vc);
   igraph_vector_init(&weight, ec);
   igraph_vector_init(&r, vc);
   igraph_vector_init(&g, vc);
@@ -242,10 +242,10 @@ extern int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
     EANV(graph, "weight", &weight);
   }
   if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "label") == true) {
-    VASV(graph, "label", &label);
+    VASV(graph, "label", &labels);
   }
   else if (igraph_cattribute_has_attr(graph, IGRAPH_ATTRIBUTE_VERTEX, "name") == true){
-    VASV(graph, "name", &label);
+    VASV(graph, "name", &labels);
   } else {
     printf ("No label information available on this graph.");
   }
@@ -264,8 +264,10 @@ extern int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   VANV(graph, "x", &x);
   VANV(graph, "y", &y);
   for (l=0; l<vc; l++) {
-    char *name, *name_escaped;
-    ret=fprintf(outstream, "    <node id=\"n%ld\" label=\"%s\">\n", (long)l, STR(label, l) ? STR(label, l) : "x");
+    char *name, *name_escaped, *label, *label_escaped;
+    igraph_strvector_get(&labels, l, &label);
+    IGRAPH_CHECK(igraph_i_xml_escape(label, &label_escaped));
+    ret=fprintf(outstream, "    <node id=\"n%ld\" label=\"%s\">\n", (long)l, label_escaped ? label_escaped : "x");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
     ret=fprintf(outstream, "    <attvalues>\n");
     if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);

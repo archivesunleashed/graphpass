@@ -513,11 +513,11 @@ int create_graph_csv(char* filepath, int start, int perc) {
   fprintf(fs, "| perc       | Authority  | Betweenness | Degree      | Eigenvector | Hub         | Indegree    | OutDegree   | PageRank    |  Random      |\n");
   
   for (int i=start; i<perc; i++) {
-    REPORT = false;
-    SAVE = false;
-    PERCENT = i;
-    METHODS = ALL_METHODS;
-    OUTPUT = "GRAPH/";
+    ug_report = false;
+    ug_save = false;
+    ug_percent = i;
+    ug_methods = ALL_METHODS;
+    ug_OUTPUT = "GRAPH/";
     load_graph(filepath);
     filter_graph();
     fprintf(fs, "|%-5i|", i);

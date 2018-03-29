@@ -111,7 +111,7 @@ int rankCompare(igraph_t *g1, igraph_t *g2, char* attr, igraph_real_t* result_pv
 
 /** Writes the report **/
 int write_report(igraph_t *graph) {
-  if (QUICKRUN == true) { /*< QUICKRUN does not write a report */
+  if (ug_quickrun == true) { /*< QUICKRUN does not write a report */
     printf("No reports available for quickrun\n");
     exit(0);
   }
@@ -119,7 +119,7 @@ int write_report(igraph_t *graph) {
   //rankCompare(graph, &g, "Degree");
   char dir[150];
   struct stat st = {0};
-  strncpy(dir, OUTPUT, sizeof(OUTPUT)/sizeof(OUTPUT[0]));
+  strncpy(dir, ug_OUTPUT, sizeof(ug_OUTPUT)/sizeof(ug_OUTPUT[0]));
   strncat(dir, "REPORT/", 7);
   char filepath[150];
   strncpy(filepath, dir, sizeof(dir)/sizeof(dir[0]));
@@ -143,14 +143,14 @@ int write_report(igraph_t *graph) {
   t = time(NULL);
   fprintf( fs, "REPORT: %s ", ctime(&t));
   fprintf( fs, "-------------------- \n\n");
-  fprintf( fs, "ORIGINAL GRAPH: *%s.gexf*\n\n", FILENAME);
+  fprintf( fs, "ORIGINAL GRAPH: *%s.gexf*\n\n", ug_FILENAME);
   for (int i=0; i<igraph_strvector_size(&gnames); i++) {
     fprintf(fs, "%s : %f \n", STR(gnames, i), GAN(&g, STR(gnames, i)));
   }
   /* print names (use asshead) */
   fprintf(fs, "TRAIT COMPARISON BY FILTERING METHOD \n");
   fprintf(fs, "------------------------------------ \n");
-  fprintf(fs, "Percent Filtered: %-2f\n", PERCENT);
+  fprintf(fs, "Percent Filtered: %-2f\n", ug_percent);
   fprintf(fs, "\n| Method          | Δ Edges   | Δ Assort | Δ Dens.  | Δ Recipr | Δ C(Deg.)|\n");
   fprintf(fs, "|-----------------|-----------|----------|----------|----------|----------|\n");
   while (asshead != NULL) {

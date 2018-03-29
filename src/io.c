@@ -55,7 +55,7 @@ extern int load_graph (char* filename) {
 /** \fn int write_graph (igraph_t *graph)
     \brief Writes a graph file.
  
-     Based on the OUTPUT, FILENAME and METHODS constants
+     Based on the ug_OUTPUT, FILENAME and methods
      writes a network graph to the appropriate location.
      If GFORMAT is set to "true" the file will output to GEXF, 
      otherwise a graphml file will be produced.
@@ -64,32 +64,32 @@ extern int load_graph (char* filename) {
 
 extern int write_graph(igraph_t *graph, char *attr) {
   FILE *fp;
-  char fn[strlen(FILENAME)+1];
+  char fn[strlen(ug_FILENAME)+1];
   struct stat st = {0};
-  if (stat(OUTPUT, &st) == -1) {
-    mkdir(OUTPUT, 0700);
+  if (stat(ug_OUTPUT, &st) == -1) {
+    mkdir(ug_OUTPUT, 0700);
   }
   char path[150];
   char perc_as_string[3];
-  int perc = (int)PERCENT;
-  strncpy(fn, FILENAME, strlen(FILENAME));
+  int perc = (int)ug_percent;
+  strncpy(fn, ug_FILENAME, strlen(ug_FILENAME));
   strip_ext(fn);
   snprintf(perc_as_string, 3, "%d", perc);
-  strncpy(path, OUTPUT, strlen(OUTPUT)+1);
+  strncpy(path, ug_OUTPUT, strlen(ug_OUTPUT)+1);
   strncat(path, fn, (strlen(fn)+1));
-  if (QUICKRUN == false) {
+  if (ug_quickrun == false) {
     strncat(path, perc_as_string, 3);
     strncat(path, attr, strlen(attr));
   }
-  if (GFORMAT){
+  if (ug_gformat){
     strncat(path, ".gexf", 5);
   } else {
     strncat(path, ".graphml", 8);
   }
-  if (SAVE == true) {
+  if (ug_save == true) {
     printf("Writing output to: %s\n", path);
     fp = fopen(path, "w");
-    if (GFORMAT) {
+    if (ug_gformat) {
       igraph_write_graph_gexf(graph, fp, 1);
     } else {
       igraph_write_graph_graphml(graph, fp, 1);

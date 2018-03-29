@@ -30,9 +30,9 @@
  */
 
 float fix_percentile() {
-  if (PERCENT == 0.0) {return 0.0;}
+  if (ug_percent == 0.0) {return 0.0;}
   float perc;
-  perc = (PERCENT > 99.0 || (PERCENT < 1.0 && PERCENT > 0.99)) ? 0.99 : (PERCENT / 100.0);
+  perc = (ug_percent > 99.0 || (ug_percent < 1.0 && ug_percent > 0.99)) ? 0.99 : (ug_percent / 100.0);
   return perc;
 }
 
@@ -203,7 +203,7 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize, char* att
   SETGAN(&g2, "ASSORTATIVITY", assort);
   SETGAN(&g2, "DENSITY", dens);
   SETGAN(&g2, "RECIPROCITY", recip);
-  if (SAVE == true) {
+  if (ug_save == true) {
     write_graph(&g2, attr);
   }
   push(&asshead, assort, attr);
@@ -250,7 +250,7 @@ int shrink (igraph_t *graph, int cutsize, char* attr) {
 int runFilters (igraph_t *graph, int cutsize) {
   int flag = 0;
   while (flag > -1) {
-    switch (METHODS[flag]) {
+    switch (ug_methods[flag]) {
       case 'a' : shrink(graph, cutsize, "Authority");
         break;
       case 'b' : shrink(graph, cutsize, "Betweenness");
@@ -283,7 +283,7 @@ int runFilters (igraph_t *graph, int cutsize) {
   return 0;
 }
 
-/** Filters an igraph using one or more methods based on global "METHODS", and outputs graphs as derivatives of filename.
+/** Filters an igraph using one or more methods based on global "ug_methods", and outputs graphs as derivatives of filename.
  
   @return 0 unless an error is discovered
  */
@@ -293,7 +293,7 @@ int filter_graph() {
   igraph_vector_init_seq(&idRef, 0, igraph_vcount(&g)-1);
   float percentile;
   int cutsize;
-  if (QUICKRUN == true) {
+  if (ug_quickrun == true) {
     printf("\n\nQuickrun requested.\n\n");
     printf("Quickrun does no filtering, and provides layout information\n");
     printf("based on Degree (nodesize), Walktrap Modularity (color), and\n");
@@ -305,14 +305,14 @@ int filter_graph() {
     return(0);
   }
   /* if (CALC_WEIGHTS == false) {igraph_vector_init(&WEIGHTED, NODESIZE);}*/
-  percentile = (PERCENT > 0.99) ? fix_percentile() : PERCENT;
+  percentile = (ug_percent > 0.99) ? fix_percentile() : ug_percent;
   cutsize = round((double)NODESIZE * percentile);
-  printf("Filtering the graphs by %f will reduce the graph size by %d \n", PERCENT, cutsize);
+  printf("Filtering the graphs by %f will reduce the graph size by %d \n", ug_percent, cutsize);
   printf("This will produce a graph with %d nodes.\n", (NODESIZE - cutsize));
   SETVANV(&g, "idRef", &idRef);
   analysis_all(&g);
   runFilters(&g, cutsize);
-  if (REPORT == true) {
+  if (ug_report == true) {
     write_report(&g);
   }
   igraph_destroy(&g);

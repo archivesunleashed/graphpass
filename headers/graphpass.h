@@ -33,17 +33,17 @@ typedef enum { false, true } bool;
 
 igraph_t g;
 igraph_attribute_table_t att;
-char* FILENAME; /**< The filename from -f flag. */
-char* DIRECTORY; /**< Directory to access FILENAME and put REPORT */
-char* METHODS;  /**< METHODS to filter */
-char* OUTPUT;  /**< Folder to output new graphs */
+const char* ug_FILENAME; /**< The filename from -f flag. */
+const char* ug_DIRECTORY; /**< Directory to access FILENAME */
+char* ug_methods;  /**< METHODS to filter */
+char* ug_OUTPUT;  /**< Folder to output new graphs */
 char* OUTPATH; /**< Path to output folder (DIRECTORY + OUTPUT) */
 igraph_integer_t NODESIZE; /**< Number of Nodes in original graph */
-float PERCENT; /**< Filtering percentage 0.0 by default */
-bool REPORT; /**< Include a report? */
-bool GFORMAT; /**< Graph format - true is "GEXF" false is "GRAPHML" */
-bool QUICKRUN; /**< Lightweight visualization run */
-bool SAVE; /**< If false, does not save graphs at all (for reports) */
+float ug_percent; /**< Filtering percentage 0.0 by default */
+bool ug_report; /**< Include a report? */
+bool ug_gformat; /**< Graph format - true is "GEXF" false is "GRAPHML" */
+bool ug_quickrun; /**< Lightweight visualization run */
+bool ug_save; /**< If false, does not save graphs at all (for reports) */
 bool CALC_WEIGHTS;
 igraph_vector_t WEIGHTED; /**< If greater than 0, conducts weighted analysis */
 

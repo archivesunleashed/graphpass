@@ -15,18 +15,18 @@
 #include "graphpass.h"
 
 void setUp() {
-  QUICKRUN = true;
-  SAVE = false;
-  FILENAME = "cpp2.graphml";
-  OUTPUT = "TEST_OUT_FOLDER/";
-  PERCENT = 0.0;
-  DIRECTORY = "assets/";
-  GFORMAT = false;
+  ug_quickrun = true;
+  ug_save = false;
+  ug_FILENAME = "cpp2.graphml";
+  ug_OUTPUT = "TEST_OUT_FOLDER/";
+  ug_percent = 0.0;
+  ug_DIRECTORY = "assets/";
+  ug_gformat = false;
 }
 
 void TEST_QUICKRUN_NOSAVE() {
   quickrunGraph();
-  SAVE = false;
+  ug_save = false;
   TEST_ASSERT_TRUE(access("TEST_OUTPUT_FOLDER/cpp2.gexf", F_OK) == -1);
   TEST_ASSERT_TRUE(access("TEST_OUTPUT_FOLDER/cpp2.graphml", F_OK) == -1);
 }
@@ -73,16 +73,16 @@ void TEST_QUICKRUN_SIZE() {
 
 
 void TEST_QUICKRUN_GEXF () {
-  SAVE = !SAVE;
-  GFORMAT = true;
+  ug_save = !ug_save;
+  ug_gformat = true;
   quickrunGraph();
   TEST_ASSERT_TRUE(access("../TEST_OUT_FOLDER/cpp2.gexf", F_OK ));
   TEST_ASSERT_TRUE(access("../TEST_OUT_FOLDER/cpp2.gexf", R_OK ));
 }
 
 void TEST_QUICKRUN_GRAPHML() {
-  SAVE = true;
-  GFORMAT = false;
+  ug_save = true;
+  ug_gformat = false;
   quickrunGraph();
   TEST_ASSERT_TRUE(access("../TEST_OUT_FOLDER/cpp2.graphml", F_OK ));
   TEST_ASSERT_TRUE(access("../TEST_OUT_FOLDER/cpp2.graphml", R_OK ));
