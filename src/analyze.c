@@ -207,7 +207,6 @@ int paired_t_stat (igraph_vector_t *v1, igraph_vector_t *v2, igraph_real_t *pv, 
   igraph_real_t pvalue;
   
   for (long int i=0; i<igraph_vector_size(v2); i++) {
-    //printf("diff %f", igraph_vector_e(v1,i) - igraph_vector_e(v2,i));
     VECTOR(diff)[i] = igraph_vector_e(v1,i) - igraph_vector_e(v2,i);
   }
   *pv = t_test_vector(&diff, igraph_vector_size(&diff)-1);
@@ -428,7 +427,6 @@ int produceRank(igraph_vector_t *source, igraph_vector_t *v) {
     } else {
       VECTOR(rank_vals)[i] = i+1;
     }
-    //printf("I : %li, RANKVALS: %f", i, VECTOR(rank_vals)[i]);
   }
   for (long int i=0; i < source_size; i++) {
     for (long int j=0; j < source_size; j++) {

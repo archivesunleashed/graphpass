@@ -46,7 +46,9 @@ extern int load_graph (char* filename) {
   }
   igraph_read_graph_graphml(&g, fp, 0);
   NODESIZE = igraph_vcount(&g);
-  printf("Successfully ingested graph with %li nodes.\n", (long int)NODESIZE);
+  if (ug_verbose) {
+    printf("Successfully ingested graph with %li nodes.\n", (long int)NODESIZE);
+  }
   fclose(fp);
   return (0);
 }
@@ -87,7 +89,9 @@ extern int write_graph(igraph_t *graph, char *attr) {
     strncat(path, ".graphml", 8);
   }
   if (ug_save == true) {
-    printf("Writing output to: %s\n", path);
+    if (ug_verbose == true) {
+      printf("Writing output to: %s\n", path);
+    }
     fp = fopen(path, "w");
     if (ug_gformat) {
       igraph_write_graph_gexf(graph, fp, 1);
@@ -96,7 +100,6 @@ extern int write_graph(igraph_t *graph, char *attr) {
     }
     fclose(fp);
   }
-  
   return 0;
 }
 

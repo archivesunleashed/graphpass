@@ -30,6 +30,7 @@
 #include <getopt.h>
 
 typedef enum { false, true } bool;
+typedef enum { FAIL, WARN, COMM } broadcast;
 
 igraph_t g;
 igraph_attribute_table_t att;
@@ -44,6 +45,7 @@ bool ug_report; /**< Include a report? */
 bool ug_gformat; /**< Graph format - true is "GEXF" false is "GRAPHML" */
 bool ug_quickrun; /**< Lightweight visualization run */
 bool ug_save; /**< If false, does not save graphs at all (for reports) */
+bool ug_verbose; //**< Verbose mode (default off). */
 bool CALC_WEIGHTS;
 igraph_vector_t WEIGHTED; /**< If greater than 0, conducts weighted analysis */
 
@@ -65,7 +67,7 @@ igraph_vector_t WEIGHTED; /**< If greater than 0, conducts weighted analysis */
 #define VIZ_SET_LARGE "viz_large.h"
 #define VIZ_SET_SMALL "vis_small.h"
 
-/* Required External libraries */
+/* Default Settings */
 #define MAX_METHODS 9
 #define ALL_METHODS "abdehiopr"
 #define SIZE_DEFAULT "Degree"
@@ -73,6 +75,7 @@ igraph_vector_t WEIGHTED; /**< If greater than 0, conducts weighted analysis */
 #define COLOR_BASE "WalkTrapModularity"
 #define PAGERANK_DAMPING 0.85 /**< chance random walk will not restart */
 #define LAYOUT_DEFAULT_CHAR 'f'
+#define MAX_NODES 50000 /**< number of nodes in graph before shut down */
 
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 

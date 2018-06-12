@@ -32,6 +32,7 @@
 
 
 #include "igraph.h"
+#include <stdlib.h>
 #include "graphpass.h"
 
 char* FILEPATH; /**< The filepath (ug_DIRECTORY + ug_FILENAME) */
@@ -44,8 +45,8 @@ bool ug_gformat = false;
 bool ug_report = false;
 /** Provide a quickrun with simple sizing, positioning and coloring **/
 bool ug_quickrun = false;
-
-int verbose_flag;
+/** Print out helper messages **/
+bool ug_verbose = false;
 
 int main (int argc, char *argv[]) {
   /* Experiments here 
@@ -57,11 +58,9 @@ int main (int argc, char *argv[]) {
     {
       static struct option long_options[] =
         {
-          /* These options set a flag. */
-          {"verbose", no_argument,       &verbose_flag, 1},
-          {"brief",   no_argument,       &verbose_flag, 0},
           /* These options don’t set a flag.
              We distinguish them by their indices. */
+          {"verbose", no_argument,       0, 'v'},
           {"no-save", no_argument,       0, 'n'},
           {"report",  no_argument,       0, 'r'},
           {"gexf",    no_argument,       0, 'g'},
@@ -76,7 +75,7 @@ int main (int argc, char *argv[]) {
         };
       /* getopt_long stores the option index here. */
       int option_index = 0;
-      c = getopt_long (argc, argv, "nrgqwf:p:m:o:d",
+      c = getopt_long (argc, argv, "vnrgqwf:p:m:o:d",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
@@ -88,6 +87,9 @@ int main (int argc, char *argv[]) {
           /* If this option set a flag, do nothing else now. */
           if (long_options[option_index].flag != 0)
             break;
+        case 'v':
+          ug_verbose = true;
+          break;
         case 'n':
           ug_save = !ug_save;
           break;
@@ -127,12 +129,6 @@ int main (int argc, char *argv[]) {
         }
     }
 
-  /* Instead of reporting ‘--verbose’
-     and ‘--brief’ as they are encountered,
-     we report the final status resulting from them. */
-  if (verbose_flag)
-    puts ("verbose flag is set");
-
   /* Print any remaining command line arguments (not options). */
   if (optind < argc)
     {
@@ -154,12 +150,13 @@ int main (int argc, char *argv[]) {
   strncpy(path, ug_DIRECTORY, strlen(ug_DIRECTORY)+1);
   
   /** start output description **/
-  printf(">>>>>>>  GRAPHPASSING >>>>>>>> \n");
-  printf("DIRECTORY: %s \nSTRLEN PATH: %li \n", ug_DIRECTORY, strlen(path));
-  printf("OUTPUT DIRECTORY: %s\nPERCENTAGE: %f\n", ug_OUTPUT, ug_percent);
-  printf("FILE: %s\nMETHODS STRING: %s\n", ug_FILENAME, ug_methods);
-  printf("QUICKRUN: %i\nREPORT: %i\nSAVE: %i\n", ug_quickrun, ug_report, ug_save);
-  
+  if (ug_verbose == true) {
+    printf(">>>>>>>  GRAPHPASSING >>>>>>>> \n");
+    printf("DIRECTORY: %s \nSTRLEN PATH: %li \n", ug_DIRECTORY, strlen(path));
+    printf("OUTPUT DIRECTORY: %s\nPERCENTAGE: %f\n", ug_OUTPUT, ug_percent);
+    printf("FILE: %s\nMETHODS STRING: %s\n", ug_FILENAME, ug_methods);
+    printf("QUICKRUN: %i\nREPORT: %i\nSAVE: %i\n", ug_quickrun, ug_report, ug_save);
+  }
   /** try to be nice if user leaves out a '/' **/
   if (ug_FILENAME[0] == '/' && ug_DIRECTORY[strlen(ug_DIRECTORY)] == '/' ){
     path[strlen(path)+1] = '\0';  // remove end slash
@@ -174,10 +171,16 @@ int main (int argc, char *argv[]) {
   int filepathsize = sizeOfPath + sizeOfFile;
   FILEPATH = malloc(filepathsize + 1);
   snprintf(FILEPATH, filepathsize, "%s%s", path, ug_FILENAME);
-  printf("Running graphpass on file: %s\n", FILEPATH);
-  
+  if (ug_verbose == true) {
+    printf("Running graphpass on file: %s\n", FILEPATH);
+  }
   load_graph(FILEPATH);
   free(FILEPATH);
+  if (igraph_vcount(&g) > MAX_NODES) {
+    printf ("FAIL >>> Graphpass can only conduct analysis on graphs with fewer than %i nodes.\n", MAX_NODES);
+    printf ("FAIL >>> Exiting...\n");
+    exit(EXIT_FAILURE);
+  }
   
   /** start the filtering based on values and methods **/
   filter_graph();

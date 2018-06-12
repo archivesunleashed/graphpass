@@ -30,11 +30,23 @@
 extern int quickrunGraph() {
   igraph_vector_t size;
   igraph_vector_init(&size, igraph_vcount(&g));
+  if (ug_verbose == true)
+    printf ("Calculating Degree... \n");
   calc_degree(&g, 'd');
+  if (ug_verbose == true)
+    printf ("Calculating Modularity... \n");
   calc_modularity(&g);
+  if (ug_verbose == true)
+    printf ("Assigning Colors... \n");
   colors(&g);
+  if (ug_verbose == true)
+    printf("Assigning Degree values... \n");
   VANV(&g, "Degree", &size);
+  if (ug_verbose == true)
+    printf("Scaling graph with degree values... \n");
   set_size(&g, &size, 100);
+  if (ug_verbose == true)
+    printf("Producing layout details... \n");
   layout_graph(&g, 'f');
   write_graph(&g, "-");
   igraph_vector_destroy(&size);

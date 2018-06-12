@@ -168,7 +168,6 @@ int create_filtered_graph(igraph_t *graph, double cutoff, int cutsize, char* att
   VANV(&g2, "Outdegree", &odeg);
   // print size here.
   produceRank(&size, &rank);
-  printf("finishProduce Rank");
   SETVANV(&g2, "DegreeRank", &rank);
   set_size(&g2, &size, 100);
   centralization(&g2, "Betweenness");
@@ -294,12 +293,14 @@ int filter_graph() {
   float percentile;
   int cutsize;
   if (ug_quickrun == true) {
-    printf("\n\nQuickrun requested.\n\n");
-    printf("Quickrun does no filtering, and provides layout information\n");
-    printf("based on Degree (nodesize), Walktrap Modularity (color), and\n");
-    printf("the Fructerman-Rheingold algorithm to maximize space between\n");
-    printf("nodes.\n\n");
-    printf("Quickrun is quicker, but less informative in terms of output.\n");
+    if (ug_verbose == true) {
+      printf("\n\nQuickrun requested.\n\n");
+      printf("Quickrun does no filtering, and provides layout information\n");
+      printf("based on Degree (nodesize), Walktrap Modularity (color), and\n");
+      printf("the Fructerman-Rheingold algorithm to maximize space between\n");
+      printf("nodes.\n\n");
+      printf("Quickrun is quicker, but less informative in terms of output.\n");
+    }
     quickrunGraph();
     igraph_destroy(&g);
     return(0);
@@ -307,8 +308,10 @@ int filter_graph() {
   /* if (CALC_WEIGHTS == false) {igraph_vector_init(&WEIGHTED, NODESIZE);}*/
   percentile = (ug_percent > 0.99) ? fix_percentile() : ug_percent;
   cutsize = round((double)NODESIZE * percentile);
-  printf("Filtering the graphs by %f will reduce the graph size by %d \n", ug_percent, cutsize);
-  printf("This will produce a graph with %d nodes.\n", (NODESIZE - cutsize));
+  if (ug_verbose == true) {
+    printf("Filtering the graphs by %f will reduce the graph size by %d \n", ug_percent, cutsize);
+    printf("This will produce a graph with %d nodes.\n", (NODESIZE - cutsize));
+  }
   SETVANV(&g, "idRef", &idRef);
   analysis_all(&g);
   runFilters(&g, cutsize);
