@@ -1,6 +1,0 @@
-cmd: 'make install'
-
-targets:
-  extraTargetName:
-      cmd: borgreducer
-      args:
