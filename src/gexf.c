@@ -184,46 +184,6 @@ extern int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   ret=fprintf(outstream, "  </attributes>\x0A");
   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
 
-  /* Do not include graph attvalues for now but can add them later */
-  /*
-   for (i=0; i<igraph_vector_size(&gtypes); i++) {
-   char *name, *name_escaped;
-   if (VECTOR(gtypes)[i] == IGRAPH_ATTRIBUTE_NUMERIC) {
-   igraph_strvector_get(&gnames, i, &name);
-   IGRAPH_CHECK(igraph_i_attribute_get_numeric_graph_attr(graph, name, &numv));
-   if (!isnan(VECTOR(numv)[0])) {
-   IGRAPH_CHECK(igraph_i_xml_escape(name, &name_escaped));
-   ret=fprintf(outstream, "    <data key=\"%s%s\">%g</data>\n",
-   gprefix, name_escaped, VECTOR(numv)[0]);
-   igraph_Free(name_escaped);
-   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-   }
-   } else if (VECTOR(gtypes)[i] == IGRAPH_ATTRIBUTE_STRING) {
-   char *s, *s_escaped;
-   igraph_strvector_get(&gnames, i, &name);
-   IGRAPH_CHECK(igraph_i_xml_escape(name, &name_escaped));
-   ret=fprintf(outstream, "    <data key=\"%s%s\">", gprefix,
-   name_escaped);
-   igraph_Free(name_escaped);
-   IGRAPH_CHECK(igraph_i_attribute_get_string_graph_attr(graph, name, &strv));
-   igraph_strvector_get(&strv, 0, &s);
-   IGRAPH_CHECK(igraph_i_xml_escape(s, &s_escaped));
-   ret=fprintf(outstream, "%s", s_escaped);
-   igraph_Free(s_escaped);
-   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-   ret=fprintf(outstream, "</data>\n");
-   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-   } else if (VECTOR(gtypes)[i] == IGRAPH_ATTRIBUTE_BOOLEAN) {
-   igraph_strvector_get(&gnames, i, &name);
-   IGRAPH_CHECK(igraph_i_attribute_get_bool_graph_attr(graph, name, &boolv));
-   IGRAPH_CHECK(igraph_i_xml_escape(name, &name_escaped));
-   ret=fprintf(outstream, "    <data key=\"%s%s\">%s</data>\n",
-   gprefix, name_escaped, VECTOR(boolv)[0] ? "true" : "false");
-   igraph_Free(name_escaped);
-   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-   }
-   }*/
-
   /* Let's dump the nodes first */
   ret=fprintf(outstream, "  <nodes>\x0A");
   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
@@ -250,13 +210,6 @@ extern int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
     printf ("No label information available on this graph.");
   }
 
-  /*if ( VASV(graph, "label", &label) == 0 ){
-   VASV(graph, "label", &label);
-   } else if (VASV(graph, "name", &label) == 0) {
-   VASV(graph, "name", &label);
-   } else {
-   printf("label was null trying name");
-   }*/
   VANV(graph, "r", &r);
   VANV(graph, "g", &g);
   VANV(graph, "b", &b);
