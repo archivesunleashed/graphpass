@@ -64,7 +64,7 @@ void TEST_QUICKRUN_COLOR() {
 void TEST_QUICKRUN_SIZE() {
   quickrunGraph();
   igraph_vector_t size;
-  igraph_vector_init(&size, 0);
+  igraph_vector_init(&size, 0.0);
   VANV(&g, "size", &size);
   TEST_ASSERT_EQUAL_FLOAT(VECTOR(size)[0], 0.0);
   TEST_ASSERT_EQUAL_FLOAT(VECTOR(size)[10], 0.0);

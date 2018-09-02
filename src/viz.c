@@ -155,16 +155,18 @@ extern int layout_graph(igraph_t *graph, char layout) {
 extern int set_size(igraph_t *graph, igraph_vector_t *v, int max) {
   long int gsize = (long int)igraph_vcount(graph);
   igraph_vector_t v2;
-  igraph_vector_t min;
+  igraph_vector_t logOf;
+  igraph_vector_init(&logOf, gsize);
   double scale;
   igraph_vector_copy(&v2, v);
-  igraph_vector_init(&min, gsize);
-  igraph_vector_fill(&min, igraph_vector_min(&v2));
-  igraph_vector_sub(&v2, &min);
-  scale = log10(gsize / (igraph_vector_max(&v2) - igraph_vector_min(&v2)));
-  igraph_vector_scale(&v2, scale);
-  SETVANV(graph, "size", &v2);
+  for (long int i=0; i<gsize; i++){
+    double val = log(VECTOR(v2)[i] + 1);
+    double minimum = log(igraph_vector_min(&v2) + 1);
+    double maximum = log(igraph_vector_max(&v2) + 1);
+    VECTOR(logOf)[i] = maximum == minimum ? (VECTOR(v2)[i] + 1) : (max * (val - minimum) / (maximum - minimum));
+  }
+  SETVANV(graph, "size", &logOf);
+  igraph_vector_destroy(&logOf);
   igraph_vector_destroy(&v2);
-  igraph_vector_destroy(&min);
   return 0;
 }
