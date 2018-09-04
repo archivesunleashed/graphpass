@@ -2,14 +2,14 @@
 
 ![GraphPass in action](https://user-images.githubusercontent.com/3834704/35356808-87152cf0-011f-11e8-9264-9c411ca16b3e.png)
 
-GraphPass is a helper library to filter networks and provide a default
+GraphPass is a utility to filter networks and provide a default
 visualization output for [Gephi](https://gephi.org/) or [SigmaJS](https://sigmaja.org). It prevents the infamous "borg cube" result when entering large files into Gephi, allowing you to work with ready-made network layouts.
 
 ## Installation
 
 ### Dependencies
 
-This library requires the [C Igraph Library](http://igraph.org/c/) and
+This utility requires the [C Igraph Library](http://igraph.org/c/) and
 a C compiler, such as [gcc](https://gcc.gnu.org/).
 
 #### For Linux (Ubuntu):
