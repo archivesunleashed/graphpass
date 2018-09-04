@@ -1,0 +1,115 @@
+\hypertarget{graphpass_8c}{}\section{src/main/graphpass.c File Reference}
+\label{graphpass_8c}\index{src/main/graphpass.\+c@{src/main/graphpass.\+c}}
+
+
+The main file for Graph\+Pass.  
+
+
+{\ttfamily \#include \char`\"{}igraph.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}graphpass.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{graphpass_8c_a369266c24eacffb87046522897a570d5}\label{graphpass_8c_a369266c24eacffb87046522897a570d5}} 
+\#define {\bfseries \+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}
+\item 
+\mbox{\Hypertarget{graphpass_8c_adf16e31ed83557124b89ff1b06617ded}\label{graphpass_8c_adf16e31ed83557124b89ff1b06617ded}} 
+\#define {\bfseries A\+S\+S\+E\+T\+S\+\_\+\+P\+A\+TH}~\char`\"{}src/resources\char`\"{}
+\item 
+\mbox{\Hypertarget{graphpass_8c_aecfb3b4bfd3aec2348b19677721206e4}\label{graphpass_8c_aecfb3b4bfd3aec2348b19677721206e4}} 
+\#define {\bfseries M\+A\+X\+\_\+\+M\+E\+T\+H\+O\+DS}~9
+\item 
+\mbox{\Hypertarget{graphpass_8c_aaa6b624d8a68cb862fc1699e94f925be}\label{graphpass_8c_aaa6b624d8a68cb862fc1699e94f925be}} 
+\#define {\bfseries M\+A\+X\+\_\+\+F\+I\+L\+E\+S\+I\+ZE}~100
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{graphpass_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{graphpass_8c_a0403a8afff8b1563aab68a60a4bf966b}{F\+I\+L\+E\+P\+A\+TH}
+\item 
+bool \hyperlink{graphpass_8c_a63f3e76122c07595c3d25887259564ae}{ug\+\_\+save} = true
+\item 
+bool \hyperlink{graphpass_8c_a3038c23e190b247b2bf2612afeae8351}{ug\+\_\+gformat} = false
+\item 
+bool \hyperlink{graphpass_8c_aed3b015614ab2df7d5d412a3026ca665}{ug\+\_\+report} = false
+\item 
+bool \hyperlink{graphpass_8c_a3db60dbbbe58b5ba349890b5cc9acbcf}{ug\+\_\+quickrun} = false
+\item 
+bool \hyperlink{graphpass_8c_a188a14c7b503e588436afb5a6753c318}{ug\+\_\+verbose} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The main file for Graph\+Pass. 
+
+Copyright \mbox{[}2018\mbox{]} \mbox{[}Ryan Deschamps\mbox{]}
+
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+\href{http://www.apache.org/licenses/LICENSE-2.0}{\tt http\+://www.\+apache.\+org/licenses/\+L\+I\+C\+E\+N\+S\+E-\/2.\+0}
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License. Graphpass accepts a file, a percentage and a series of characters that represent methods of filtering a network graph, and outputs new graph files with the filtered graphs and optionally, a report showing how those filters affected the graph 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{graphpass_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{graphpass_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{graphpass.\+c@{graphpass.\+c}!main@{main}}
+\index{main@{main}!graphpass.\+c@{graphpass.\+c}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+set default values if not included in flags
+
+setup directory path ug\+\_\+\+D\+I\+R\+E\+C\+T\+O\+RY + ug\+\_\+\+F\+I\+L\+E\+N\+A\+ME
+
+start output description
+
+try to be nice if user leaves out a \textquotesingle{}/\textquotesingle{}
+
+set up F\+I\+L\+E\+P\+A\+TH to access graphml file
+
+start the filtering based on values and methods 
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{graphpass_8c_a0403a8afff8b1563aab68a60a4bf966b}\label{graphpass_8c_a0403a8afff8b1563aab68a60a4bf966b}} 
+\index{graphpass.\+c@{graphpass.\+c}!F\+I\+L\+E\+P\+A\+TH@{F\+I\+L\+E\+P\+A\+TH}}
+\index{F\+I\+L\+E\+P\+A\+TH@{F\+I\+L\+E\+P\+A\+TH}!graphpass.\+c@{graphpass.\+c}}
+\subsubsection{\texorpdfstring{F\+I\+L\+E\+P\+A\+TH}{FILEPATH}}
+{\footnotesize\ttfamily char$\ast$ F\+I\+L\+E\+P\+A\+TH}
+
+The filepath (ug\+\_\+\+D\+I\+R\+E\+C\+T\+O\+RY + ug\+\_\+\+F\+I\+L\+E\+N\+A\+ME) \mbox{\Hypertarget{graphpass_8c_a3038c23e190b247b2bf2612afeae8351}\label{graphpass_8c_a3038c23e190b247b2bf2612afeae8351}} 
+\index{graphpass.\+c@{graphpass.\+c}!ug\+\_\+gformat@{ug\+\_\+gformat}}
+\index{ug\+\_\+gformat@{ug\+\_\+gformat}!graphpass.\+c@{graphpass.\+c}}
+\subsubsection{\texorpdfstring{ug\+\_\+gformat}{ug\_gformat}}
+{\footnotesize\ttfamily bool ug\+\_\+gformat = false}
+
+Graph format true for G\+E\+XF; false for G\+R\+A\+P\+H\+ML \mbox{\Hypertarget{graphpass_8c_a3db60dbbbe58b5ba349890b5cc9acbcf}\label{graphpass_8c_a3db60dbbbe58b5ba349890b5cc9acbcf}} 
+\index{graphpass.\+c@{graphpass.\+c}!ug\+\_\+quickrun@{ug\+\_\+quickrun}}
+\index{ug\+\_\+quickrun@{ug\+\_\+quickrun}!graphpass.\+c@{graphpass.\+c}}
+\subsubsection{\texorpdfstring{ug\+\_\+quickrun}{ug\_quickrun}}
+{\footnotesize\ttfamily bool ug\+\_\+quickrun = false}
+
+Provide a quickrun with simple sizing, positioning and coloring \mbox{\Hypertarget{graphpass_8c_aed3b015614ab2df7d5d412a3026ca665}\label{graphpass_8c_aed3b015614ab2df7d5d412a3026ca665}} 
+\index{graphpass.\+c@{graphpass.\+c}!ug\+\_\+report@{ug\+\_\+report}}
+\index{ug\+\_\+report@{ug\+\_\+report}!graphpass.\+c@{graphpass.\+c}}
+\subsubsection{\texorpdfstring{ug\+\_\+report}{ug\_report}}
+{\footnotesize\ttfamily bool ug\+\_\+report = false}
+
+Produce a report analyzing effect of filtering on graph \mbox{\Hypertarget{graphpass_8c_a63f3e76122c07595c3d25887259564ae}\label{graphpass_8c_a63f3e76122c07595c3d25887259564ae}} 
+\index{graphpass.\+c@{graphpass.\+c}!ug\+\_\+save@{ug\+\_\+save}}
+\index{ug\+\_\+save@{ug\+\_\+save}!graphpass.\+c@{graphpass.\+c}}
+\subsubsection{\texorpdfstring{ug\+\_\+save}{ug\_save}}
+{\footnotesize\ttfamily bool ug\+\_\+save = true}
+
+Whether to save the graph \mbox{\Hypertarget{graphpass_8c_a188a14c7b503e588436afb5a6753c318}\label{graphpass_8c_a188a14c7b503e588436afb5a6753c318}} 
+\index{graphpass.\+c@{graphpass.\+c}!ug\+\_\+verbose@{ug\+\_\+verbose}}
+\index{ug\+\_\+verbose@{ug\+\_\+verbose}!graphpass.\+c@{graphpass.\+c}}
+\subsubsection{\texorpdfstring{ug\+\_\+verbose}{ug\_verbose}}
+{\footnotesize\ttfamily bool ug\+\_\+verbose = false}
+
+Print out helper messages 

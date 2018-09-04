@@ -1,0 +1,103 @@
+.TH "src/main/graphpass.c" 3 "Mon Sep 3 2018" "Version 0.0.2" "GraphPass" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/main/graphpass.c \- The main file for GraphPass\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'igraph\&.h'\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include 'graphpass\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_GNU_SOURCE\fP"
+.br
+.ti -1c
+.RI "#define \fBASSETS_PATH\fP   'src/resources'"
+.br
+.ti -1c
+.RI "#define \fBMAX_METHODS\fP   9"
+.br
+.ti -1c
+.RI "#define \fBMAX_FILESIZE\fP   100"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "char * \fBFILEPATH\fP"
+.br
+.ti -1c
+.RI "bool \fBug_save\fP = true"
+.br
+.ti -1c
+.RI "bool \fBug_gformat\fP = false"
+.br
+.ti -1c
+.RI "bool \fBug_report\fP = false"
+.br
+.ti -1c
+.RI "bool \fBug_quickrun\fP = false"
+.br
+.ti -1c
+.RI "bool \fBug_verbose\fP = false"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The main file for GraphPass\&. 
+
+Copyright [2018] [Ryan Deschamps]
+.PP
+Licensed under the Apache License, Version 2\&.0 (the 'License'); you may not use this file except in compliance with the License\&. You may obtain a copy of the License at
+.PP
+http://www.apache.org/licenses/LICENSE-2.0
+.PP
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied\&. See the License for the specific language governing permissions and limitations under the License\&. Graphpass accepts a file, a percentage and a series of characters that represent methods of filtering a network graph, and outputs new graph files with the filtered graphs and optionally, a report showing how those filters affected the graph 
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char * argv[])"
+set default values if not included in flags
+.PP
+setup directory path ug_DIRECTORY + ug_FILENAME
+.PP
+start output description
+.PP
+try to be nice if user leaves out a '/'
+.PP
+set up FILEPATH to access graphml file
+.PP
+start the filtering based on values and methods 
+.SH "Variable Documentation"
+.PP 
+.SS "char* FILEPATH"
+The filepath (ug_DIRECTORY + ug_FILENAME) 
+.SS "bool ug_gformat = false"
+Graph format true for GEXF; false for GRAPHML 
+.SS "bool ug_quickrun = false"
+Provide a quickrun with simple sizing, positioning and coloring 
+.SS "bool ug_report = false"
+Produce a report analyzing effect of filtering on graph 
+.SS "bool ug_save = true"
+Whether to save the graph 
+.SS "bool ug_verbose = false"
+Print out helper messages 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for GraphPass from the source code\&.

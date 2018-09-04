@@ -9,30 +9,30 @@ endif
 
 CC = gcc
 OUTPUTS = lib_graphpass.o analyze.o filter.o gexf.o io.o quickrun.o reports.o rnd.o viz.o
-HELPER_FILES = src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c
+HELPER_FILES = src/main/analyze.c src/main/filter.c src/main/gexf.c src/main/io.c src/main/quickrun.c src/main/reports.c src/main/rnd.c src/main/viz.c
 IGRAPH_INCLUDE = $(IGRAPH_PATH)include/igraph
 IGRAPH_LIB = $(IGRAPH_PATH)lib
 
 
-TEST_INCLUDE = ./tests/
-TEST_RUNNER_PATH = ./tests/
-UNITY_INCLUDE = ./unity
-INCLUDE = ./headers
+TEST_INCLUDE = ./src/tests/
+TEST_RUNNER_PATH = ./src/tests/
+UNITY_INCLUDE = ./vendor/unity
+INCLUDE = ./src/headers
 DEPS = -I$(INCLUDE) -I$(IGRAPH_INCLUDE) -I$(UNITY_INCLUDE)
 BUILD = build/
 
 all: test install
 
-install: src/graphpass.c
-	gcc src/graphpass.c src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
+install: src/main/graphpass.c
+	gcc src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
 	- ./graphpass -qn
 
-release: src/graphpass.c
-	gcc src/graphpass.c src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
+release: src/main/graphpass.c
+	gcc src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
 	- ./graphpass -qg
 
-debug: ./src/graphpass.c
-	gcc -g src/graphpass.c src/analyze.c src/filter.c src/gexf.c src/io.c src/quickrun.c src/reports.c src/rnd.c src/viz.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
+debug: ./src/main/graphpass.c
+	gcc -g src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
 
 test: qp ana run clean
 

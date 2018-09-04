@@ -62,7 +62,7 @@ Type
 brew info igraph
 ```
 
-and verify that the path displayed there matches the default IGRAPH_PATH value provided in the Makefile. By default this is `/usr/local/Cellar/igraph/0.7.1_6/` for MacOS.
+and verify that the path displayed there matches the default `IGRAPH_PATH` value provided in the Makefile. By default this is `/usr/local/Cellar/igraph/0.7.1_6/` for MacOS.
 
 ### Building
 
@@ -95,11 +95,10 @@ Once compiled use the following command:
 
 The following flags are available:
 
-* `--file {FILENAME}` - sets the default filename.  If not set, graphpass will use
-a default network in /assets.
-* `--dir {DIRECTORY}` - the path to look for {FILENAME} by default this is `assets/`
-* `--output {OUTPUT}` - the directory to send output files such as filtered graphs
-and data reporst.
+* `--file {FILENAME}` - sets the default filename. If not set, `graphpass` will use
+a default network in `src/resources`.
+* `--dir {DIRECTORY}` - the path to look for {FILENAME} by default this is `src/resources/`
+* `--output {OUTPUT}` - the directory to send output files such as filtered graphs and data reports.
 * `--percent {PERCENT}` - a percentage to remove from the file.  By default this is 0.0.
 * `--method {options}` - a string of various methods through which to filter the 
 graph.
@@ -122,7 +121,7 @@ For example:
 ./graphpass --percent 10 --methods b --file links-for-gephi.graphml --output OUT/
 ```
 
-Will remove 10% of the graph using betweenness as a cutting measure and lay the network out. It will find `links-for-gephi.graphml` file in `/assets` and output a new one to `/OUT` (titled `links-for-gephi10Betweenness.graphml`).
+Will remove 10% of the graph using betweenness as a cutting measure and lay the network out. It will find `links-for-gephi.graphml` file in `src/resources` and output a new one to `/OUT` (titled `links-for-gephi10Betweenness.graphml`).
 
 # Optional arguments
 
@@ -143,4 +142,4 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 
 This work is primarily supported by the [Andrew W. Mellon Foundation](https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock). Additional funding for the Toolkit has come from the U.S. National Science Foundation, Columbia University Library's Mellon-funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation's Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors.
 
-The author would also like to thank Drs. Ian Milligan & Jimmy Lin plus Nick Nuest and Samantha Fritz for their kind advice and support.
+The author would also like to thank Drs. Ian Milligan & Jimmy Lin plus Nick Ruest and Samantha Fritz for their kind advice and support.
