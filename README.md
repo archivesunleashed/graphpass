@@ -1,4 +1,8 @@
 # GraphPass
+[![Build Status](https://travis-ci.org/archivesunleashed/graphpass.svg?branch=master)](https://travis-ci.org/archivesunleashed/graphpass)
+[![codecov](https://codecov.io/gh/archivesunleashed/graphpass/branch/master/graph/badge.svg)](https://codecov.io/gh/archivesunleashed/graphpass)
+[![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
+[![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)](./LICENSE)
 
 ![GraphPass in action](https://user-images.githubusercontent.com/3834704/35356808-87152cf0-011f-11e8-9264-9c411ca16b3e.png)
 
@@ -16,7 +20,7 @@ a C compiler, such as [gcc](https://gcc.gnu.org/).
 
 Install the igraph dependencies:
 
-``` 
+```
 sudo apt-get install git gcc libxml2-dev build-essential
 wget http://igraph.org/nightly/get/c/igraph-0.7.1.tar.gz
 tar -xvzf igraph-0.7.1.tar.gz
@@ -36,7 +40,7 @@ gcc -ligraph
 If you get `undefined reference to 'main'` that means Linux is looking for
 graphpass and you are ready to go.
 
-If you get `cannot find -ligraph` then something went wrong with the install.  
+If you get `cannot find -ligraph` then something went wrong with the install.
 
 Check through the logs to see what failed to install.
 
@@ -100,7 +104,7 @@ a default network in `src/resources`.
 * `--dir {DIRECTORY}` - the path to look for {FILENAME} by default this is `src/resources/`
 * `--output {OUTPUT}` - the directory to send output files such as filtered graphs and data reports.
 * `--percent {PERCENT}` - a percentage to remove from the file.  By default this is 0.0.
-* `--method {options}` - a string of various methods through which to filter the 
+* `--method {options}` - a string of various methods through which to filter the
 graph.
 
 These various methods are outlined below:
@@ -127,7 +131,7 @@ Will remove 10% of the graph using betweenness as a cutting measure and lay the 
 
 * `--report` or `-r` : create an output report showing the impact of filtering on graph features.
 * `--no-save` or `-n` : does not save any filtered files (useful if you just want a report).
-* `--quick` or `-q` : provides a "quickrun" for basic 
+* `--quick` or `-q` : provides a "quickrun" for basic
 * `--gexf` or `-g` : output as a .gexf (e.g. for SigmaJS inputs) instead of .graphml.
 
 # Troubleshooting
