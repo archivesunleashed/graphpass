@@ -144,6 +144,6 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 
 # Acknowledgments
 
-This work is primarily supported by the [Andrew W. Mellon Foundation](https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock). Additional funding for the Toolkit has come from the U.S. National Science Foundation, Columbia University Library's Mellon-funded Web Archiving Incentive Award, the Natural Sciences and Engineering Research Council of Canada, the Social Sciences and Humanities Research Council of Canada, and the Ontario Ministry of Research and Innovation's Early Researcher Award program. Any opinions, findings, and conclusions or recommendations expressed are those of the researchers and do not necessarily reflect the views of the sponsors.
+This work is primarily supported by the [Andrew W. Mellon Foundation](https://uwaterloo.ca/arts/news/multidisciplinary-project-will-help-historians-unlock). Additional funding for the utility has come from the Social Sciences and Humanities Research Council of Canada, the Ontario Ministry of Research and Innovation's Early Researcher Award program, and the David R. Cheriton School of Computer Science at the University of Waterloo.
 
 The author would also like to thank Drs. Ian Milligan & Jimmy Lin plus Nick Ruest and Samantha Fritz for their kind advice and support.
