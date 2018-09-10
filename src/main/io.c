@@ -52,8 +52,10 @@ extern int load_graph (char* filename) {
   }
   igraph_read_graph_graphml(&g, fp, 0);
   NODESIZE = igraph_vcount(&g);
+  EDGESIZE = igraph_ecount(&g);
   if (ug_verbose) {
-    printf("Successfully ingested graph with %li nodes.\n", (long int)NODESIZE);
+    printf("Successfully ingested graph with %li nodes and %li edges.\n"
+    , (long int)NODESIZE, (long int)EDGESIZE);
   }
   fclose(fp);
   return (0);
@@ -108,4 +110,3 @@ extern int write_graph(igraph_t *graph, char *attr) {
   }
   return 0;
 }
-

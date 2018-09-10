@@ -58,24 +58,26 @@ int main (int argc, char *argv[]) {
     {
       static struct option long_options[] =
         {
-          /* These options don’t set a flag.
-             We distinguish them by their indices. */
-          {"verbose", no_argument,       0, 'v'},
-          {"no-save", no_argument,       0, 'n'},
-          {"report",  no_argument,       0, 'r'},
+          /* These options have no required argument */
           {"gexf",    no_argument,       0, 'g'},
+          {"no-save", no_argument,       0, 'n'},
+          {"verbose", no_argument,       0, 'v'},
           {"quick",   no_argument,       0, 'q'},
-          {"weighted",no_argument,       0, 'w'},
+          {"report",  no_argument,       0, 'r'},
+
+          /* These options require an argument */
+          {"dir",     required_argument, 0, 'd'},
           {"file",    required_argument, 0, 'f'},
-          {"percent", required_argument, 0, 'p'},
           {"methods", required_argument, 0, 'm'},
           {"output",  required_argument, 0, 'o'},
-          {"dir",     required_argument, 0, 'd'},
+          {"percent", required_argument, 0, 'p'},
+          {"max-nodes", required_argument, 0, 'x'},
+          {"max-edges", required_argument, 0, 'y'},
           {0, 0, 0, 0}
         };
       /* getopt_long stores the option index here. */
       int option_index = 0;
-      c = getopt_long (argc, argv, "vnrgqwf:p:m:o:d",
+      c = getopt_long (argc, argv, "gnvqrd:f:m:o:p:x:y:",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
@@ -121,6 +123,12 @@ int main (int argc, char *argv[]) {
         case 'w':
           CALC_WEIGHTS = !CALC_WEIGHTS;
           break;
+        case 'x':
+          ug_maxnodes = optarg ? (long)strtol(optarg, (char**)NULL, 10) : MAX_NODES;
+          break;
+        case 'y':
+          ug_maxedges = optarg ? (long)strtol(optarg, (char**)NULL, 10) : MAX_EDGES;
+          break;
         case '?':
           /* getopt_long already printed an error message. */
           break;
@@ -139,6 +147,8 @@ int main (int argc, char *argv[]) {
     }
 
   /** set default values if not included in flags **/
+  ug_maxnodes = ug_maxnodes ? ug_maxnodes : MAX_NODES;
+  ug_maxedges = ug_maxedges ? ug_maxedges : MAX_EDGES;
   ug_OUTPUT = ug_OUTPUT ? ug_OUTPUT : "OUT/";
   ug_percent = ug_percent ? ug_percent : 0.00;
   ug_methods = ug_methods ? ug_methods : "d";
@@ -176,8 +186,9 @@ int main (int argc, char *argv[]) {
   }
   load_graph(FILEPATH);
   free(FILEPATH);
-  if (igraph_vcount(&g) > MAX_NODES) {
-    printf ("FAIL >>> Graphpass can only conduct analysis on graphs with fewer than %i nodes.\n", MAX_NODES);
+  if (igraph_vcount(&g) > ug_maxnodes || igraph_ecount(&g) > ug_maxedges){
+    printf ("FAIL >>> Graphpass can only conduct analysis on graphs with \
+fewer than %li nodes and %li edges.\n", ug_maxnodes, ug_maxedges);
     printf ("FAIL >>> Exiting...\n");
     exit(EXIT_FAILURE);
   }
