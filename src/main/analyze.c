@@ -49,12 +49,12 @@ igraph_real_t std_vector(igraph_vector_t *v1) {
   return sqrt(variance_vector(v1));
 }
 
-igraph_real_t stderror_vector(igraph_vector_t *v1) {
+igraph_real_t std_error_vector(igraph_vector_t *v1) {
   return (std_vector(v1) / sqrt(igraph_vector_size(v1)));
 }
 
 igraph_real_t t_stat_vector(igraph_vector_t *v1) {
-  return (mean_vector(v1)/stderror_vector(v1));
+  return (mean_vector(v1)/std_error_vector(v1));
 }
 
 igraph_real_t t_test_vector(igraph_vector_t *v1, igraph_real_t df) {
@@ -531,4 +531,3 @@ int create_graph_csv(char* filepath, int start, int perc) {
   fclose(fs);
   return 0;
 }
-

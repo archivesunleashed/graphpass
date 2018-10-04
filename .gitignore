@@ -10,3 +10,7 @@ OUT
 /tmp/
 *.swp
 .DS_Store
+/TEST_OUT_FOLDER/
+ana
+io
+qp

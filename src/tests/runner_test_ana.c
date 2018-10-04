@@ -66,6 +66,7 @@ void resetTest(void)
 }
 
 int main (void) {
+  ug_TEST = true;
   ug_FILENAME = "cpp2.graphml";
   ug_OUTPUT = "TEST_OUT_FOLDER/";
   ug_percent = 0.0;

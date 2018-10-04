@@ -36,56 +36,73 @@ typedef enum { FAIL, WARN, COMM } broadcast;
 
 igraph_t g;
 igraph_attribute_table_t att;
-const char* ug_FILENAME; /**< The filename from -f flag. */
-const char* ug_DIRECTORY; /**< Directory to access FILENAME */
-char* ug_methods;  /**< METHODS to filter */
-char* ug_OUTPUT;  /**< Folder to output new graphs */
-char* OUTPATH; /**< Path to output folder (DIRECTORY + OUTPUT) */
-igraph_integer_t NODESIZE; /**< Number of Nodes in original graph */
-igraph_integer_t EDGESIZE; /**< Number of Edges in original graph */
-float ug_percent; /**< Filtering percentage 0.0 by default */
-long ug_maxnodes; /**< user-defined max nodes for processing, default MAX_NODES */
-long ug_maxedges; /**< user-defined maxiumum edges for processing default MAX_EDGES */
-bool ug_report; /**< Include a report? */
-bool ug_gformat; /**< Graph format - true is "GEXF" false is "GRAPHML" */
-bool ug_quickrun; /**< Lightweight visualization run */
-bool ug_save; /**< If false, does not save graphs at all (for reports) */
+
+char* ug_OUT; /**< A FILEPATH called using -o flag. */
+char* ug_OUTFILE; /**< A FILENAME for outputting. */
+char* ug_INPUT; /**< A FILEPATH called using -i flag. */
+char* ug_FILENAME; /**< FILENAME extracted from stdin path. */
+char* ug_PATH; /**< Directory path extracted from stdin path. */
+char* ug_methods;  /**< METHODS to filter. */
+char* ug_OUTPATH; /**< Path to output folder. */
+char* ug_OUTPUT; /**< Filename extracted from outpath, if it exists. */
+char* ug_OUTARG; /**< Filepath entered as ARG. */
+char* ug_DIRECTORY; /**< Directory extracted from ug_PATH. */
+bool ug_TEST; /**< Flags a test (ignores some expected FAIL messages). */
+igraph_integer_t NODESIZE; /**< Number of Nodes in original graph. */
+igraph_integer_t EDGESIZE; /**< Number of Edges in original graph. */
+float ug_percent; /**< Filtering percentage 0.0 by default. */
+long ug_maxnodes; /**< user-defined max nodes for processing, default MAX_NODES. */
+long ug_maxedges; /**< user-defined maxiumum edges for processing default MAX_EDGES. */
+bool ug_report; /**< Include a report?. */
+bool ug_gformat; /**< Graph format - true is "GEXF" false is "GRAPHML." */
+bool ug_quickrun; /**< Lightweight visualization run. */
+bool ug_save; /**< If false, does not save graphs at all (for reports). */
 bool ug_verbose; //**< Verbose mode (default off). */
 bool CALC_WEIGHTS;
-igraph_vector_t WEIGHTED; /**< If greater than 0, conducts weighted analysis */
+igraph_vector_t WEIGHTED; /**< If greater than 0, conducts weighted analysis. */
 
-/* Required External libraries */
+/* Required External libraries. */
 
 #define PROGRAM_NAME "GraphPass"
 #define BUG_REPORT "https://www.github.com/archivesunleashed/graphpass/issues"
 #define GIT_REPOSITORY "https://www.github.com/archivesunleashed/graphpass"
 
-/* Color Presets */
+/* Color Presets. */
 
 #define COLOUR_SET_PASTEL "pastel.h"
 #define COLOUR_SET_PRIMARY "primary.h"
 #define COLOUR_SET_DAMPENED "dampened.h"
 
-/* Visualization Presets */
+/* Visualization Presets. */
 
 #define VIZ_SET_SPACIOUS "viz_spacious.h"
 #define VIZ_SET_LARGE "viz_large.h"
 #define VIZ_SET_SMALL "vis_small.h"
 
-/* Default Settings */
+/* Default Settings. */
 #define MAX_METHODS 9
 #define ALL_METHODS "abdehiopr"
 #define SIZE_DEFAULT "Degree"
 #define SIZE_DEFAULT_CHAR 'd'
 #define COLOR_BASE "WalkTrapModularity"
-#define PAGERANK_DAMPING 0.85 /**< chance random walk will not restart */
+#define PAGERANK_DAMPING 0.85 /**< chance random walk will not restart. */
 #define LAYOUT_DEFAULT_CHAR 'f'
-#define MAX_NODES 50000 /**< default number of nodes in graph before shut down */
-#define MAX_EDGES 500000 /**< default number of edges in graph before shut down */
+#define MAX_NODES 50000 /**< default number of nodes in graph before shut down. */
+#define MAX_EDGES 500000 /**< default number of edges in graph before shut down. */
 #define MAX_USER_EDGES 1000000000
 #define MAX_USER_NODES 1000000000
 
+/* For test suite. */
+#define TEST_ARRAY_LENGTH 3 // Update as you add test examples.
+#define TEST_MAX_STRING_SIZE 22
+#define TEST_FILENAME_SIZE 9
+
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
+
+struct Argument {
+  char* val;
+  struct Argument *next;
+};
 
 struct Node {
   char* abbrev;
@@ -94,7 +111,7 @@ struct Node {
 };
 
 /** @struct RankNode
- @brief unimplemented struct for holding the top 20 rankids for the graph.
+ @brief Unimplemented struct for holding the top 20 rankids for the graph.
  */
 struct RankNode {
   int rankids[20];
@@ -120,26 +137,30 @@ struct Node* clustering;
 struct Node* pv;
 struct Node* ts;
 struct RankNode* ranks;
+struct Argument* ug_args;
+int get_directory (char *path, char **result);
+int get_filename (char *path, char **result);
 
 int shuffle(int *array, int n);
-/** adds a new value to a Node **/
+/** Adds a new value to a Node. **/
 int push(struct Node** head_ref, igraph_real_t value, char* attr);
 
-/** adds a new value to a RankNode **/
+/** Adds a new value to a RankNode. **/
 int pushRank (struct RankNode** head_ref, int rankids[20]);
 int igraph_i_xml_escape(char* src, char** dest);
+int pushArg (struct Argument** arg, char *value);
 
 int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
                             igraph_bool_t prefixattr);
 igraph_real_t mean_vector (igraph_vector_t *v1);
 igraph_real_t variance_vector (igraph_vector_t *v1);
 igraph_real_t std_vector(igraph_vector_t *v1);
-igraph_real_t stderror_vector(igraph_vector_t *v1);
+igraph_real_t std_error_vector(igraph_vector_t *v1);
 igraph_real_t t_stat_vector(igraph_vector_t *v1);
 igraph_real_t t_test_vector(igraph_vector_t *v1, igraph_real_t df);
 
 int rankCompare(igraph_t *g1, igraph_t *g2, char* attr, igraph_real_t* result_pv, igraph_real_t* result_ts );
-/** Writes the report **/
+/** Writes the report. **/
 int write_report(igraph_t *graph);
 int colors (igraph_t *graph);
 int layout_graph(igraph_t *graph, char layout);

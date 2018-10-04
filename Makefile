@@ -1,7 +1,8 @@
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-  IGRAPH_PATH = /usr/local/
+  BASE_PATH = /usr/local/
+  IGRAPH_PATH = $(BASE_PATH)
 endif
 ifeq ($(UNAME), Darwin)
   IGRAPH_PATH = /usr/local/Cellar/igraph/0.7.1_6/
@@ -21,20 +22,20 @@ INCLUDE = ./src/headers
 DEPS = -I$(INCLUDE) -I$(IGRAPH_INCLUDE) -I$(UNITY_INCLUDE)
 BUILD = build/
 
-all: test install
+all: clean test install
 
 install: src/main/graphpass.c
-	gcc src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
-	- ./graphpass -qn
+	gcc src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm -o graphpass
+	- ./graphpass -qnv
 
 release: src/main/graphpass.c
 	gcc src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
-	- ./graphpass -qg
+	- ./graphpass -qgnv
 
 debug: ./src/main/graphpass.c
-	gcc -g src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
+	gcc -g -Wall src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass
 
-test: qp ana run clean
+test: qp ana io run clean
 
 qp: $(TEST_INCLUDE)runner_test_qp.c
 	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_qp.c $(DEPS) $(TEST_INCLUDE)quickrun_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -lm -o qp
@@ -42,13 +43,19 @@ qp: $(TEST_INCLUDE)runner_test_qp.c
 ana: $(TEST_INCLUDE)runner_test_ana.c
 	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_ana.c $(DEPS) $(TEST_INCLUDE)analyze_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -lm -o ana
 
+io: $(TEST_INCLUDE)runner_test_io.c
+	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_io.c $(DEPS) $(TEST_INCLUDE)io_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -lm -o io
+
 run:
 	- ./ana
 	./qp
+	./io
 
 .PHONY : clean
 clean:
 	rm -f qp
 	rm -f ana
+	rm -f io
 	rm -rf TEST_OUT_FOLDER
+	rm -rf $(BUILD)
 	rm -f graphpass

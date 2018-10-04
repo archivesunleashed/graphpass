@@ -38,15 +38,15 @@ UnityConcludeTest(); \
 #include "unity_internals.h"
 #include "graphpass.h"
 #include "stdio.h"
+#include "string.h"
 
 extern void setUp(void);
 extern void tearDown(void);
-extern void TEST_QUICKRUN_SIZE(void);
-extern void TEST_QUICKRUN_COLOR(void);
-extern void TEST_QUICKRUN_NOSAVE(void);
-extern void TEST_QUICKRUN_DEGREE(void);
-extern void TEST_QUICKRUN_GEXF(void);
-extern void TEST_QUICKRUN_GRAPHML(void);
+extern void TEST_GET_DIRECTORY(void);
+extern void TEST_GET_FILE(void);
+extern void TEST_STRIP_EXT(void);
+extern void TEST_LOAD_GRAPH(void);
+extern void TEST_WRITE_GRAPH(void);
 
 void resetTest(void);
 void resetTest(void)
@@ -57,14 +57,11 @@ void resetTest(void)
 
 int main (void) {
   ug_TEST = true;
-  load_graph("src/resources/cpp2.graphml");
-  UnityBegin("src/tests/quickrun_test.c");
-  RUN_TEST(TEST_QUICKRUN_NOSAVE, 22);
-  RUN_TEST(TEST_QUICKRUN_DEGREE, 29);
-  RUN_TEST(TEST_QUICKRUN_COLOR, 51);
-  RUN_TEST(TEST_QUICKRUN_SIZE, 40);
-  RUN_TEST(TEST_QUICKRUN_GEXF, 72);
-  RUN_TEST(TEST_QUICKRUN_GRAPHML, 80);
-  igraph_destroy(&g);
+  UnityBegin("src/tests/io_test.c");
+  RUN_TEST(TEST_GET_DIRECTORY, 43);
+  RUN_TEST(TEST_GET_FILE, 55);
+  RUN_TEST(TEST_STRIP_EXT, 68);
+  RUN_TEST(TEST_LOAD_GRAPH, 74);
+  RUN_TEST(TEST_WRITE_GRAPH, 85);
   return (UNITY_END());
 }

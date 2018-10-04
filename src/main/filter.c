@@ -325,7 +325,3 @@ int filter_graph() {
   igraph_vector_destroy(&idRef);
   return 0;
 }
-
-
-
-
