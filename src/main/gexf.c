@@ -127,28 +127,6 @@ extern int igraph_write_graph_gexf(const igraph_t *graph, FILE *outstream,
   ret=fprintf(outstream, "  <graph id=\"G\" defaultedgetype=\"%s\">\x0A", (igraph_is_directed(graph)?"directed":"undirected"));
   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
 
-  /* graph attributes */
-  ret=fprintf(outstream, "  <attributes class=\"graph\">\x0A");
-  if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-  for (i=0; i<igraph_vector_size(&gtypes); i++) {
-    char *name, *name_escaped;
-    igraph_strvector_get(&gnames, i, &name);
-    IGRAPH_CHECK(igraph_i_xml_escape(name, &name_escaped));
-    if (VECTOR(gtypes)[i] == IGRAPH_ATTRIBUTE_STRING) {
-      ret=fprintf(outstream, "  <attribute id=\"%s%s\" title=\"%s\" type=\"string\"/>\x0A", gprefix, name_escaped, name_escaped);
-      if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-    } else if (VECTOR(gtypes)[i] == IGRAPH_ATTRIBUTE_NUMERIC) {
-      ret=fprintf(outstream, "  <attribute id=\"%s%s\" title=\"%s\" type=\"double\"/>\x0A", gprefix, name_escaped, name_escaped);
-      if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-    } else if (VECTOR(gtypes)[i] == IGRAPH_ATTRIBUTE_BOOLEAN) {
-      ret=fprintf(outstream, "  <attribute id=\"%s%s\" attr.title=\"%s\" type=\"boolean\"/>\x0A", gprefix, name_escaped, name_escaped);
-      if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-    }
-    igraph_Free(name_escaped);
-  }
-  ret=fprintf(outstream, "  </attributes>\x0A");
-  if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
-
   /* vertex attributes */
   ret=fprintf(outstream, "  <attributes class=\"node\">\x0A");
   if (ret<0) IGRAPH_ERROR("Write failed", IGRAPH_EFILE);
