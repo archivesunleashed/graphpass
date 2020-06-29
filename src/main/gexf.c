@@ -24,39 +24,6 @@
 
 extern int errno;
 
-/** Escapes invalid xml character (&, <, >, ") in attributes */
-int igraph_i_xml_escape(char* src, char** dest) {
-  long int destlen=0;
-  char *s, *d;
-  for (s=src; *s; s++, destlen++) {
-    if (*s == '&') destlen += 4;
-    else if (*s == '<') destlen += 3;
-    else if (*s == '>') destlen += 3;
-    else if (*s == '"') destlen += 5;
-    else if (*s == '\'') destlen += 5;
-  }
-  *dest=igraph_Calloc(destlen+1, char);
-  if (!*dest) IGRAPH_ERROR("Not enough memory", IGRAPH_ENOMEM);
-  for (s=src, d=*dest; *s; s++, d++) {
-    switch (*s) {
-      case '&':
-        strcpy(d, "&amp;"); d+=4; break;
-      case '<':
-        strcpy(d, "&lt;"); d+=3; break;
-      case '>':
-        strcpy(d, "&gt;"); d+=3; break;
-      case '"':
-        strcpy(d, "&quot;"); d+=5; break;
-      case '\'':
-        strcpy(d, "&apos;"); d+=5; break;
-      default:
-        *d = *s;
-    }
-  }
-  *d=0;
-  return 0;
-}
-
 /** Writes a GEXF file
 
  GEXF provides great support for visualizations and is therefore used by a number

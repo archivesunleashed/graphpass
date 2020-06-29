@@ -35,7 +35,7 @@ release: src/main/graphpass.c
 debug: ./src/main/graphpass.c
 	gcc -g -Wall src/main/*.c $(DEPS) -L$(IGRAPH_LIB) -ligraph -lm  -o graphpass -fprofile-arcs -ftest-coverage
 
-test: qp ana io run clean
+test: qp ana io gexf run clean
 
 qp: $(TEST_INCLUDE)runner_test_qp.c
 	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_qp.c $(DEPS) $(TEST_INCLUDE)quickrun_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -lm -o qp
@@ -46,16 +46,21 @@ ana: $(TEST_INCLUDE)runner_test_ana.c
 io: $(TEST_INCLUDE)runner_test_io.c
 	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_io.c $(DEPS) $(TEST_INCLUDE)io_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -lm -o io
 
+gexf: $(TEST_INCLUDE)runner_test_gexf.c
+	gcc $(UNITY_INCLUDE)/unity.c $(TEST_INCLUDE)runner_test_gexf.c $(DEPS) $(TEST_INCLUDE)gexf_test.c $(HELPER_FILES) -L$(IGRAPH_LIB) -ligraph -lm -o gexf
+
 run:
 	- ./ana
 	./qp
 	./io
+	./gexf
 
 .PHONY : clean
 clean:
 	rm -f qp
 	rm -f ana
 	rm -f io
+	rm -f gexf
 	rm -rf TEST_OUT_FOLDER
 	rm -rf $(BUILD)
 	rm -f graphpass
