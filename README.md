@@ -1,5 +1,4 @@
 # GraphPass
-[![Build Status](https://travis-ci.org/archivesunleashed/graphpass.svg?branch=main)](https://travis-ci.org/archivesunleashed/graphpass)
 [![codecov](https://codecov.io/gh/archivesunleashed/graphpass/branch/main/graph/badge.svg)](https://codecov.io/gh/archivesunleashed/graphpass)
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)](./LICENSE)

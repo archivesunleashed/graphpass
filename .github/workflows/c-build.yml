@@ -1,0 +1,25 @@
+name: GraphPass build
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -qq gcc-7 g++-7
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+          sudo update-alternatives --config gcc
+          cd /tmp && wget http://igraph.org/nightly/get/c/igraph-0.7.1.tar.gz && tar -xvzf igraph-0.7.1.tar.gz && cd igraph-0.7.1 && ./configure && make && sudo make install && sudo ldconfig
+      - name: Build GraphPass, and generate coverage
+        run: |
+          cd /home/runner/work/graphpass/graphpass
+          make
+          gcov *.gcno
+          ./graphpass
+      - name: Upload coverage report to Codecov
+        run: bash <(curl -s https://codecov.io/bash)
